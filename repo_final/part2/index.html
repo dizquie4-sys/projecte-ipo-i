@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Part II · Desenvolupament Curricular · Projecte IPO I (IOC)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: #202735;
+      background: #F4F6FA;
+      margin: 0;
+      padding: 0;
+    }
+    .topbar {
+      background: #1c2536;
+      color: #fff;
+      padding: 10px 16px;
+      font-size: 13.5px;
+      border-bottom: 3px solid #266FDC;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .topbar-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topbar a {
+      color: #d8e6ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .topbar a:hover { color: #ffffff; text-decoration: underline; }
+    .badge-verificate {
+      background: #D1222B;
+      color: #fff !important;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 700 !important;
+    }
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 16px 56px 16px;
+    }
+    .capcalera-ioc {
+      background-color: #266FDC;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 28px 26px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .capcalera-ioc-logo { width: 110px; flex-shrink: 0; }
+    .ioc-logo-text { font-size: 28px; font-weight: 900; letter-spacing: 2px; margin: 0; }
+    .ioc-logo-subtext { font-size: 11px; opacity: 0.9; margin: 4px 0 0 0; line-height: 1.2; }
+    .capcalera-ioc-text h1 { font-size: 26px; font-weight: 700; margin: 0 0 6px 0; color: #fff; }
+    .capcalera-ioc-text p { margin: 0; opacity: 0.92; font-size: 15px; }
+
+    .section-card {
+      background: #ffffff;
+      border: 1px solid #D6DCE8;
+      border-radius: 8px;
+      padding: 26px 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .section-card h2 {
+      color: #3D4D74;
+      font-size: 22px;
+      margin: 0 0 14px 0;
+      border-bottom: 2px solid #ECF2FF;
+      padding-bottom: 8px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 14.5px;
+      margin: 14px 0;
+    }
+    table thead th {
+      background: #ECF2FF;
+      color: #202735;
+      font-weight: 700;
+      padding: 9px 10px;
+      border: 1px solid #C1C8D8;
+      text-align: left;
+    }
+    table tbody td {
+      padding: 8px 10px;
+      border: 1px solid #C1C8D8;
+      vertical-align: top;
+    }
+    .eac-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .eac-card {
+      background: #ffffff;
+      border: 1px solid #C1C8D8;
+      border-top: 5px solid #266FDC;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .eac-tag {
+      display: inline-block;
+      background: #ECF2FF;
+      color: #266FDC;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .eac-card h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      color: #3D4D74;
+    }
+    .eac-card p {
+      font-size: 14px;
+      color: #4A5568;
+      margin: 0 0 14px 0;
+      line-height: 1.5;
+    }
+    .eac-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .eac-btn {
+      display: block;
+      text-align: center;
+      padding: 8px 10px;
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      background: #ECF2FF;
+      color: #266FDC;
+      border: 1px solid #C8DAFC;
+    }
+    .eac-btn:hover { background: #266FDC; color: #ffffff; }
+    .eac-btn.primary { background: #266FDC; color: #ffffff; border-color: #266FDC; }
+    .eac-btn.primary:hover { background: #076DF0; }
+
+    .tools-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .tool-box {
+      background: #F8FAFE;
+      border: 1px solid #D6E2FA;
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .tool-box h3 { margin: 0 0 8px 0; font-size: 18px; }
+    .tool-box p { font-size: 14px; margin: 0 0 14px 0; color: #4A5568; }
+    .btn-action {
+      display: inline-block;
+      padding: 9px 16px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #ffffff;
+    }
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: #667085;
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid #D6DCE8;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Navegació principal">
+  <div class="topbar-inner">
+    <a href="../index.html" style="color:#fff; font-weight:700;">🏛️ Projecte IPO I · IOC</a>
+    <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+      <a href="../part1/index.html">📘 Part I · Marc Pedagògic</a>
+      <a href="index.html" style="color:#fff; text-decoration:underline;">🛠️ Part II · Desenvolupament Curricular</a>
+      <a href="recursos/corrector.html" style="color:#a7f3d0;">🧮 Corrector JSON</a>
+      <a href="verificate.html" class="badge-verificate">🔍 VERIFICA.TE</a>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+
+  <header class="capcalera-ioc">
+    <div class="capcalera-ioc-logo">
+      <p class="ioc-logo-text">IOC</p>
+      <p class="ioc-logo-subtext">Institut Obert de Catalunya</p>
+    </div>
+    <div class="capcalera-ioc-text">
+      <h1>Part II · Desenvolupament Curricular i Seqüència d'EAC</h1>
+      <p>Mòdul 1709 · Itinerari Personal per a l'Ocupabilitat I · CFGM Instal·lacions Elèctriques i Automàtiques (25 hores)</p>
+    </div>
+  </header>
+
+  <!-- TAULA RESUM DE DISTRIBUCIÓ HORÀRIA I RAs -->
+  <section class="section-card">
+    <h2>1. Mapa curricular i distribució horària (25 hores)</h2>
+    <p>El desenvolupament curricular concreta <strong>25 hores lectives</strong> (25,25 % del total de 99 hores del mòdul) articulades al voltant del fil conductor del sector elèctric (baixa tensió, fotovoltaica, vehicle elèctric i domòtica), cobrint 4 dels 5 Resultats d'Aprenentatge oficials (Decret 143/2023 i RD 659/2023):</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Activitat</th>
+          <th>Títol del fil conductor</th>
+          <th>RAs treballats</th>
+          <th>Hores</th>
+          <th>Proporció horària desplegada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>EAC 1</strong></td>
+          <td>El sector, l'oferta i la meva identitat</td>
+          <td>RA1, RA4, RA5</td>
+          <td>9 h</td>
+          <td>36 %</td>
+        </tr>
+        <tr>
+          <td><strong>EAC 2</strong></td>
+          <td>Investigació d'accidents + Avaluació de riscos</td>
+          <td>RA2</td>
+          <td>8 h</td>
+          <td>32 %</td>
+        </tr>
+        <tr>
+          <td><strong>EAC 3</strong></td>
+          <td>De l'oferta al conveni · Anàlisi de les condicions laborals</td>
+          <td>RA3</td>
+          <td>8 h</td>
+          <td>32 %</td>
+        </tr>
+        <tr>
+          <td colspan="3" style="text-align:right; font-weight:700;">Total desplegat al projecte</td>
+          <td><strong>25 h</strong></td>
+          <td><strong>100 %</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- LES 3 EAC COMPLETES -->
+  <section class="section-card">
+    <h2>2. Seqüència d'Activitats d'Avaluació Contínua (EAC 1 – EAC 3)</h2>
+    <p>Cada EAC desplega els <strong>quatre nivells de bastida pedagògica</strong> dissenyats per al Campus Moodle de l'IOC (Guia didàctica, Activitat Principal interactiva amb exportació JSON, Debat d'aula i Qüestionari d'autoavaluació de 30 preguntes):</p>
+
+    <div class="eac-grid">
+      <!-- EAC 1 -->
+      <article class="eac-card">
+        <div>
+          <span class="eac-tag">EAC 1 · RA1, RA4 i RA5 · 9 hores</span>
+          <h3>El sector, l'oferta i la meva identitat</h3>
+          <p>Anàlisi del mercat elèctric a Catalunya, diagnòstic DAFO, objectius SMART, EPA/PLE, marca personal a LinkedIn/CV digital i ús ètic de la IA.</p>
+        </div>
+        <div class="eac-links">
+          <a href="eac1/guia.html" class="eac-btn">📖 Guia EAC 1</a>
+          <a href="eac1/activitat.html" class="eac-btn primary">📄 Activitat JSON</a>
+          <a href="eac1/debat.html" class="eac-btn">💬 Debat</a>
+          <a href="eac1/questionari.html" class="eac-btn">📝 Test (30)</a>
+        </div>
+      </article>
+
+      <!-- EAC 2 -->
+      <article class="eac-card">
+        <div>
+          <span class="eac-tag">EAC 2 · RA2 · 8 hores</span>
+          <h3>Investigació d'accidents i avaluació de riscos</h3>
+          <p>Anàlisi causal d'accidents elèctrics amb arbre de causes, matriu d'avaluació de riscos (INSST), protecció col·lectiva vs. EPIs, LPRL i cultura preventiva.</p>
+        </div>
+        <div class="eac-links">
+          <a href="eac2/guia.html" class="eac-btn">📖 Guia EAC 2</a>
+          <a href="eac2/activitat.html" class="eac-btn primary">📄 Activitat JSON</a>
+          <a href="eac2/debat.html" class="eac-btn">💬 Debat</a>
+          <a href="eac2/questionari.html" class="eac-btn">📝 Test (30)</a>
+        </div>
+      </article>
+
+      <!-- EAC 3 -->
+      <article class="eac-card">
+        <div>
+          <span class="eac-tag">EAC 3 · RA3 · 8 hores</span>
+          <h3>De l'oferta al conveni · Condicions laborals</h3>
+          <p>Anàlisi de contractes, interpretació de nòmines (brut, net, bases), conveni del metall/elèctric, drets laborals i auditoria/refutació jurídica d'errors de la IA.</p>
+        </div>
+        <div class="eac-links">
+          <a href="eac3/guia.html" class="eac-btn">📖 Guia EAC 3</a>
+          <a href="eac3/activitat.html" class="eac-btn primary">📄 Activitat JSON</a>
+          <a href="eac3/debat.html" class="eac-btn">💬 Debat</a>
+          <a href="eac3/questionari.html" class="eac-btn">📝 Test (30)</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- RECURSOS TRANSVERSALS I EINA DOCENT -->
+  <section class="section-card">
+    <h2>3. Recursos transversals i eines de coordinació docent</h2>
+    <div class="tools-row">
+      <div class="tool-box" style="border-left: 5px solid #D1222B;">
+        <h3 style="color:#D1222B;">🔍 Campanya VERIFICA.TE</h3>
+        <p>Presentació interactiva accessible (7 diapositives, navegació per teclat/tàctil) que entrena l'alumnat en el protocol crític de 8 passos aplicat a ofertes laborals i IA.</p>
+        <a href="verificate.html" class="btn-action" style="background:#D1222B;">Obrir VERIFICA.TE →</a>
+      </div>
+
+      <div class="tool-box" style="border-left: 5px solid #16803d;">
+        <h3 style="color:#16803d;">🧮 Corrector Unificat JSON · IPO I</h3>
+        <p>Eina docent per a l'equip de professorat col·laborador: processa en lot els JSON de l'EAC 1, 2 i 3, creua qualificacions de Moodle amb emparellament difús, genera informes PDF/Moodle i consolida l'AC.</p>
+        <a href="recursos/corrector.html" class="btn-action" style="background:#16803d;">Obrir Corrector JSON →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    Institut Obert de Catalunya (IOC) · Projecte IPO I · CFGM Instal·lacions Elèctriques i Automàtiques · Curs 2026-2027
+  </footer>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qüestionari d'Autoavaluació · EAC 1 (RA1 + RA4 + RA5)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       SISTEMA DE DISSENY IOC — CSS COMPLET
+       ============================================================ */
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 24px;
+      color: #202735;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px 48px 16px;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Lato', Arial, sans-serif;
+      color: #3D4D74;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    h1 { font-size: 36px; }
+    h2 { font-size: 30px; }
+    h3 { font-size: 24px; }
+    h4 { font-size: 19px; }
+    h5 { font-size: 17px; }
+
+    p { margin: 8px 0; }
+
+    a {
+      color: #266FDC;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+    a:hover { color: #076DF0; }
+
+    ul, ol { margin: 8px 0; padding-left: 22px; }
+    li { margin: 4px 0; }
+
+    .ioc-spacer {
+      display: block;
+      height: 1.5em;
+      margin: 0;
+    }
+
+    /* ---------- Components semàntics ---------- */
+
+    .text-destacat {
+      background: #ECF2FF;
+      border-left: 4px solid #266FDC;
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 4px;
+      color: #202735;
+    }
+
+    .recorda {
+      background: #EAF9FF;
+      border-left: 4px solid #32A6D1;
+      padding: 16px 20px 16px 56px;
+      margin: 16px 0;
+      border-radius: 4px;
+      position: relative;
+    }
+    .recorda::before {
+      content: "📌";
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      font-size: 20px;
+    }
+
+    .atencio {
+      background: #FEF6ED;
+      border-left: 4px solid #F88923;
+      padding: 16px 20px 16px 56px;
+      margin: 16px 0;
+      border-radius: 4px;
+      position: relative;
+    }
+    .atencio::before {
+      content: "⚠";
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      font-size: 22px;
+      color: #F88923;
+      font-weight: bold;
+    }
+
+    .context-procedimental {
+      background: #EAEFFA;
+      border-left: 4px solid #3D4D74;
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+
+    .retol-inline {
+      display: inline-block;
+      background: #266FDC;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin: 0 4px;
+    }
+
+    /* ---------- Botons ---------- */
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      margin-right: 8px;
+      margin-top: 8px;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background-color: #266FDC;
+      color: #ffffff;
+    }
+    .btn-primary:hover { background-color: #076DF0; }
+    .btn-secondary {
+      background-color: #777777;
+      color: #ffffff;
+    }
+    .btn-secondary:hover { background-color: #555555; }
+    .btn-danger {
+      background-color: #F85449;
+      color: #ffffff;
+    }
+    .btn-danger:hover { background-color: #d43a30; }
+
+    /* ---------- Capçalera IOC ---------- */
+
+    .capcalera-ioc {
+      background-color: #266FDC;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 28px 24px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .capcalera-ioc-logo {
+      width: 120px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      line-height: 1.1;
+    }
+    .ioc-logo-text {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+    .ioc-logo-subtext {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.9;
+      margin: 4px 0 0 0;
+      line-height: 1.2;
+    }
+    .capcalera-ioc-text {
+      flex: 1;
+      min-width: 250px;
+    }
+    .capcalera-ioc-text h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 6px 0;
+      line-height: 1.25;
+    }
+    .capcalera-ioc-text h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      opacity: 0.95;
+      margin: 0 0 4px 0;
+      line-height: 1.3;
+      border: none;
+      padding: 0;
+    }
+    .capcalera-ioc-text .subtitol {
+      font-size: 15px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.9;
+      margin: 0 0 10px 0;
+      line-height: 1.3;
+    }
+    .capcalera-ioc-codi {
+      font-size: 14px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.85;
+      margin: 0;
+      font-style: italic;
+    }
+
+    /* ---------- Preguntes ---------- */
+
+    .pregunta {
+      background: #ffffff;
+      border: 1px solid #C1C8D8;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      transition: border-color 0.2s;
+    }
+    .pregunta.correcte { border-color: #1CC460; background: #F0FFF4; }
+    .pregunta.incorrecte { border-color: #F85449; background: #FFF5F5; }
+
+    .pregunta-text {
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #202735;
+    }
+
+    .opcions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .opcio {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .opcio:hover {
+      background: #ECF2FF;
+    }
+    .opcio input[type="radio"] {
+      margin-top: 3px;
+      cursor: pointer;
+    }
+    .opcio label {
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      display: none;
+    }
+    .feedback.ok { background: #D4EDDA; color: #155724; display: block; }
+    .feedback.ko { background: #F8D7DA; color: #721C24; display: block; }
+
+    /* ---------- Resultats ---------- */
+
+    .resultats {
+      display: none;
+      background: #ECF2FF;
+      border: 2px solid #266FDC;
+      border-radius: 8px;
+      padding: 24px;
+      margin: 24px 0;
+      text-align: center;
+    }
+    .resultats h2 { color: #266FDC; margin-bottom: 12px; }
+    .nota-final {
+      font-size: 48px;
+      font-weight: 700;
+      color: #3D4D74;
+      margin: 12px 0;
+    }
+    .nota-sobre {
+      font-size: 24px;
+      font-weight: 400;
+      color: #555;
+    }
+    .missatge-resultat {
+      font-size: 16px;
+      margin-top: 12px;
+    }
+
+    /* ---------- Responsive ---------- */
+
+    @media (max-width: 600px) {
+      .page { padding: 16px 12px 32px 12px; }
+      h2 { font-size: 24px; }
+      h3 { font-size: 20px; }
+      .capcalera-ioc {
+        padding: 20px 16px;
+        gap: 16px;
+        flex-direction: column;
+        text-align: center;
+      }
+      .capcalera-ioc-logo { width: auto; align-items: center; }
+      .ioc-logo-text { font-size: 24px; }
+      .ioc-logo-subtext { font-size: 10px; }
+      .capcalera-ioc-text h1 { font-size: 20px; }
+      .capcalera-ioc-text h2 { font-size: 15px; }
+      .capcalera-ioc-text .subtitol { font-size: 13px; }
+      .capcalera-ioc-codi { font-size: 12px; }
+    }
+
+    /* ---------- Impressió / PDF ---------- */
+    @page { margin: 15mm; }
+    @media print {
+      body > .page { display: block !important; }
+      .btn, .resultats, .feedback, .botons-accio { display: none !important; }
+      .pregunta { page-break-inside: avoid; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1c2536; color:#fff; padding:10px 16px; font-family:'Lato',Arial,sans-serif; font-size:13.5px; border-bottom:3px solid #266FDC; position:sticky; top:0; z-index:999;">
+  <div style="max-width:720px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+    <a href="../../index.html" style="color:#fff; text-decoration:none; font-weight:700;">🏛️ Inici</a>
+    <div style="display:flex; gap:11px; flex-wrap:wrap; align-items:center;">
+      <a href="../../part1/index.html" style="color:#d8e6ff; text-decoration:none;">📘 Part I</a>
+      <a href="../index.html" style="color:#d8e6ff; text-decoration:none;">🛠️ Part II</a>
+      <a href="guia.html" style="color:#d8e6ff; text-decoration:none;">📖 Guia</a>
+      <a href="activitat.html" style="color:#d8e6ff; text-decoration:none;">📄 Activitat</a>
+      <a href="debat.html" style="color:#d8e6ff; text-decoration:none;">💬 Debat</a>
+      <a href="questionari.html" style="color:#d8e6ff; text-decoration:none;">📝 Test</a>
+      <a href="../verificate.html" style="background:#D1222B; color:#fff; padding:3px 9px; border-radius:4px; text-decoration:none; font-weight:700;">🔍 VERIFICA.TE</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- NAVEGACIÓ RÀPIDA EAC 1 -->
+  <nav aria-label="Navegació EAC 1" style="background:#F4F7FC; border:1px solid #C1C8D8; border-radius:6px; padding:10px 14px; margin-bottom:20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between; font-size:13.5px;">
+    <div>
+      <a href="../../index.html" style="text-decoration:none; font-weight:700; color:#3D4D74;">🏠 Inici Projecte</a>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:10px;">
+      <a href="guia.html" style="text-decoration:none; font-weight:600; color:#266FDC;">📖 Guia</a>
+      <a href="questionari.html" style="text-decoration:none; font-weight:600; color:#266FDC;">📝 Qüestionari</a>
+      <a href="activitat.html" style="text-decoration:none; font-weight:600; color:#266FDC;">📄 Activitat (JSON)</a>
+      <a href="debat.html" style="text-decoration:none; font-weight:600; color:#266FDC;">💬 Debat</a>
+    </div>
+  </nav>
+
+  <!-- CAPÇALERA IOC -->
+  <header class="capcalera-ioc">
+    <div class="capcalera-ioc-logo">
+      <p class="ioc-logo-text">IOC</p>
+      <p class="ioc-logo-subtext">Institut Obert de Catalunya</p>
+    </div>
+    <div class="capcalera-ioc-text">
+      <h1>Qüestionari d'Autoavaluació</h1>
+      <h2>EAC 1 · El sector, l'oferta i la meva identitat professional</h2>
+      <p class="subtitol">RA1 + RA4 + RA5 · IPO I · CFGM Instal·lacions Elèctriques</p>
+      <p class="capcalera-ioc-codi">Activitat d'autoavaluació · 30 preguntes · Nota sobre 10</p>
+    </div>
+  </header>
+
+  <!-- INTRODUCCIÓ -->
+  <div class="text-destacat">
+    <strong>Com funciona aquest qüestionari?</strong>
+    <ul>
+      <li>Hi ha <strong>30 preguntes</strong> tipus test (A, B, C, D) amb una sola resposta correcta.</li>
+      <li>Cada pregunta val <strong>1 punt</strong> (total: 30 punts).</li>
+      <li>La nota final es calcula sobre 10 (dividint el total per 3).</li>
+      <li>En acabar, veuràs la teva puntuació i un <strong>feedback</strong> per a cada pregunta.</li>
+      <li>Pots <strong>reiniciar</strong> el qüestionari tantes vegades com vulguis.</li>
+    </ul>
+  </div>
+
+  <div class="recorda">
+    <strong>Recorda:</strong> Aquest qüestionari és una eina d'autoavaluació. No substitueix l'activitat principal de l'EAC 1, sinó que et serveix per comprovar si has assolit els conceptes clau dels RA1, RA4 i RA5.
+  </div>
+
+  <!-- FORMULARI -->
+  <form id="questionari-form">
+
+    <!-- ============================================ -->
+    <!-- BLOC 1: RA1 (10 preguntes) -->
+    <!-- ============================================ -->
+    <h3>Bloc 1 · Sector productiu i perfil professional (RA1)</h3>
+
+    <!-- P1 -->
+    <div class="pregunta" id="p1-container">
+      <div class="pregunta-text">1. Què és el sector productiu?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p1" value="a" id="p1a"><label for="p1a">a) El conjunt d'empreses que comparteixen una mateixa seu fiscal.</label></div>
+        <div class="opcio"><input type="radio" name="p1" value="b" id="p1b"><label for="p1b">b) Cadascuna de les parts en què es divideix l'economia segons l'activitat productiva.</label></div>
+        <div class="opcio"><input type="radio" name="p1" value="c" id="p1c"><label for="p1c">c) El conjunt de treballadors d'una mateixa família professional.</label></div>
+        <div class="opcio"><input type="radio" name="p1" value="d" id="p1d"><label for="p1d">d) L'organització interna d'una empresa.</label></div>
+      </div>
+      <div class="feedback" id="p1-feedback"></div>
+    </div>
+
+    <!-- P2 -->
+    <div class="pregunta" id="p2-container">
+      <div class="pregunta-text">2. A quin sector productiu pertany l'activitat d'instal·lació elèctrica?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p2" value="a" id="p2a"><label for="p2a">a) Sector primari.</label></div>
+        <div class="opcio"><input type="radio" name="p2" value="b" id="p2b"><label for="p2b">b) Sector secundari.</label></div>
+        <div class="opcio"><input type="radio" name="p2" value="c" id="p2c"><label for="p2c">c) Sector terciari.</label></div>
+        <div class="opcio"><input type="radio" name="p2" value="d" id="p2d"><label for="p2d">d) Sector quaternari.</label></div>
+      </div>
+      <div class="feedback" id="p2-feedback"></div>
+    </div>
+
+    <!-- P3 -->
+    <div class="pregunta" id="p3-container">
+      <div class="pregunta-text">3. Quina és la principal diferència entre treballar per compte d'altri al sector privat i accedir a la funció pública?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p3" value="a" id="p3a"><label for="p3a">a) Al sector privat no cal contracte, a la funció pública sí.</label></div>
+        <div class="opcio"><input type="radio" name="p3" value="b" id="p3b"><label for="p3b">b) A la funció pública s'hi accedeix mitjançant oposició o concurs publicat en un butlletí oficial.</label></div>
+        <div class="opcio"><input type="radio" name="p3" value="c" id="p3c"><label for="p3c">c) A la funció pública no existeix la figura del funcionari interí.</label></div>
+        <div class="opcio"><input type="radio" name="p3" value="d" id="p3d"><label for="p3d">d) Al sector privat només es pot treballar a jornada completa.</label></div>
+      </div>
+      <div class="feedback" id="p3-feedback"></div>
+    </div>
+
+    <!-- P4 -->
+    <div class="pregunta" id="p4-container">
+      <div class="pregunta-text">4. Què és l'autoocupació?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p4" value="a" id="p4a"><label for="p4a">a) Treballar per a una empresa estrangera.</label></div>
+        <div class="opcio"><input type="radio" name="p4" value="b" id="p4b"><label for="p4b">b) Treballar per compte propi, com a autònom o creant la pròpia empresa.</label></div>
+        <div class="opcio"><input type="radio" name="p4" value="c" id="p4c"><label for="p4c">c) Treballar a l'Administració pública.</label></div>
+        <div class="opcio"><input type="radio" name="p4" value="d" id="p4d"><label for="p4d">d) Treballar en una ETT.</label></div>
+      </div>
+      <div class="feedback" id="p4-feedback"></div>
+    </div>
+
+    <!-- P5 -->
+    <div class="pregunta" id="p5-container">
+      <div class="pregunta-text">5. Quin d'aquests és un portal d'ocupació especialitzat?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p5" value="a" id="p5a"><label for="p5a">a) YouTube.</label></div>
+        <div class="opcio"><input type="radio" name="p5" value="b" id="p5b"><label for="p5b">b) Infojobs.</label></div>
+        <div class="opcio"><input type="radio" name="p5" value="c" id="p5c"><label for="p5c">c) Wikipedia.</label></div>
+        <div class="opcio"><input type="radio" name="p5" value="d" id="p5d"><label for="p5d">d) Google Maps.</label></div>
+      </div>
+      <div class="feedback" id="p5-feedback"></div>
+    </div>
+
+    <!-- P6 -->
+    <div class="pregunta" id="p6-container">
+      <div class="pregunta-text">6. Què és el perfil professional d'un títol?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p6" value="a" id="p6a"><label for="p6a">a) El conjunt de competències professionals identificables en el sistema productiu i reconegudes pel mercat laboral.</label></div>
+        <div class="opcio"><input type="radio" name="p6" value="b" id="p6b"><label for="p6b">b) La llista de mòduls que ha de cursar l'alumnat.</label></div>
+        <div class="opcio"><input type="radio" name="p6" value="c" id="p6c"><label for="p6c">c) El sou mitjà del sector.</label></div>
+        <div class="opcio"><input type="radio" name="p6" value="d" id="p6d"><label for="p6d">d) El nombre d'empreses que contracten en un sector.</label></div>
+      </div>
+      <div class="feedback" id="p6-feedback"></div>
+    </div>
+
+    <!-- P7 -->
+    <div class="pregunta" id="p7-container">
+      <div class="pregunta-text">7. Segons el diccionari de Mapalaboral, quina competència transversal es defineix com la capacitat de buscar i aplicar respostes àgils davant de situacions canviants?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p7" value="a" id="p7a"><label for="p7a">a) Comunicació.</label></div>
+        <div class="opcio"><input type="radio" name="p7" value="b" id="p7b"><label for="p7b">b) Adaptabilitat.</label></div>
+        <div class="opcio"><input type="radio" name="p7" value="c" id="p7c"><label for="p7c">c) Organització.</label></div>
+        <div class="opcio"><input type="radio" name="p7" value="d" id="p7d"><label for="p7d">d) Identificació.</label></div>
+      </div>
+      <div class="feedback" id="p7-feedback"></div>
+    </div>
+
+    <!-- P8 -->
+    <div class="pregunta" id="p8-container">
+      <div class="pregunta-text">8. Quina de les següents és una competència clau d'assoliment segons Barcelona Activa?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p8" value="a" id="p8a"><label for="p8a">a) Lideratge.</label></div>
+        <div class="opcio"><input type="radio" name="p8" value="b" id="p8b"><label for="p8b">b) Autoconfiança.</label></div>
+        <div class="opcio"><input type="radio" name="p8" value="c" id="p8c"><label for="p8c">c) Iniciativa.</label></div>
+        <div class="opcio"><input type="radio" name="p8" value="d" id="p8d"><label for="p8d">d) Empatia.</label></div>
+      </div>
+      <div class="feedback" id="p8-feedback"></div>
+    </div>
+
+    <!-- P9 -->
+    <div class="pregunta" id="p9-container">
+      <div class="pregunta-text">9. Què és el SOC?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p9" value="a" id="p9a"><label for="p9a">a) Servei d'Ocupació de Catalunya.</label></div>
+        <div class="opcio"><input type="radio" name="p9" value="b" id="p9b"><label for="p9b">b) Sindicat Obrer Català.</label></div>
+        <div class="opcio"><input type="radio" name="p9" value="c" id="p9c"><label for="p9c">c) Societat de Consultors.</label></div>
+        <div class="opcio"><input type="radio" name="p9" value="d" id="p9d"><label for="p9d">d) Sistema d'Orientació Curricular.</label></div>
+      </div>
+      <div class="feedback" id="p9-feedback"></div>
+    </div>
+
+    <!-- P10 -->
+    <div class="pregunta" id="p10-container">
+      <div class="pregunta-text">10. Què és el CIDO?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p10" value="a" id="p10a"><label for="p10a">a) Un cercador d'informació i documentació oficials per accedir a convocatòries públiques.</label></div>
+        <div class="opcio"><input type="radio" name="p10" value="b" id="p10b"><label for="p10b">b) Un sindicat de l'Administració.</label></div>
+        <div class="opcio"><input type="radio" name="p10" value="c" id="p10c"><label for="p10c">c) Una empresa de treball temporal.</label></div>
+        <div class="opcio"><input type="radio" name="p10" value="d" id="p10d"><label for="p10d">d) Un curs de formació per a funcionaris.</label></div>
+      </div>
+      <div class="feedback" id="p10-feedback"></div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- BLOC 2: RA4 (10 preguntes) -->
+    <!-- ============================================ -->
+    <h3>Bloc 2 · Autoorientació i projecte professional (RA4)</h3>
+
+    <!-- P11 -->
+    <div class="pregunta" id="p11-container">
+      <div class="pregunta-text">11. Què és un DAFO personal?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p11" value="a" id="p11a"><label for="p11a">a) Una eina per analitzar debilitats, amenaces, fortaleses i oportunitats.</label></div>
+        <div class="opcio"><input type="radio" name="p11" value="b" id="p11b"><label for="p11b">b) Un currículum europeu.</label></div>
+        <div class="opcio"><input type="radio" name="p11" value="c" id="p11c"><label for="p11c">c) Un test d'orientació professional.</label></div>
+        <div class="opcio"><input type="radio" name="p11" value="d" id="p11d"><label for="p11d">d) Un informe de vida laboral.</label></div>
+      </div>
+      <div class="feedback" id="p11-feedback"></div>
+    </div>
+
+    <!-- P12 -->
+    <div class="pregunta" id="p12-container">
+      <div class="pregunta-text">12. Què són les fortaleses en un DAFO?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p12" value="a" id="p12a"><label for="p12a">a) Factors externs positius.</label></div>
+        <div class="opcio"><input type="radio" name="p12" value="b" id="p12b"><label for="p12b">b) Aspectes interns a millorar.</label></div>
+        <div class="opcio"><input type="radio" name="p12" value="c" id="p12c"><label for="p12c">c) Aspectes interns positius.</label></div>
+        <div class="opcio"><input type="radio" name="p12" value="d" id="p12d"><label for="p12d">d) Factors externs negatius.</label></div>
+      </div>
+      <div class="feedback" id="p12-feedback"></div>
+    </div>
+
+    <!-- P13 -->
+    <div class="pregunta" id="p13-container">
+      <div class="pregunta-text">13. Què és un objectiu SMART?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p13" value="a" id="p13a"><label for="p13a">a) Un objectiu genèric i sense termini.</label></div>
+        <div class="opcio"><input type="radio" name="p13" value="b" id="p13b"><label for="p13b">b) Un objectiu específic, mesurable, assolible, rellevant i temporal.</label></div>
+        <div class="opcio"><input type="radio" name="p13" value="c" id="p13c"><label for="p13c">c) Un objectiu que només es pot assolir amb diners.</label></div>
+        <div class="opcio"><input type="radio" name="p13" value="d" id="p13d"><label for="p13d">d) Un objectiu que estableix l'empresa per al treballador.</label></div>
+      </div>
+      <div class="feedback" id="p13-feedback"></div>
+    </div>
+
+    <!-- P14 -->
+    <div class="pregunta" id="p14-container">
+      <div class="pregunta-text">14. Què és el pla d'acció dins del projecte professional?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p14" value="a" id="p14a"><label for="p14a">a) Un document que recull les passes i accions necessàries per assolir els objectius professionals.</label></div>
+        <div class="opcio"><input type="radio" name="p14" value="b" id="p14b"><label for="p14b">b) La llista de cursos que ofereix l'IOC.</label></div>
+        <div class="opcio"><input type="radio" name="p14" value="c" id="p14c"><label for="p14c">c) El calendari de vacances de l'empresa.</label></div>
+        <div class="opcio"><input type="radio" name="p14" value="d" id="p14d"><label for="p14d">d) El contracte de treball.</label></div>
+      </div>
+      <div class="feedback" id="p14-feedback"></div>
+    </div>
+
+    <!-- P15 -->
+    <div class="pregunta" id="p15-container">
+      <div class="pregunta-text">15. Què és el biograma dins del procés d'autoconeixement?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p15" value="a" id="p15a"><label for="p15a">a) Una representació gràfica de les fites vitals d'una persona.</label></div>
+        <div class="opcio"><input type="radio" name="p15" value="b" id="p15b"><label for="p15b">b) Un test de personalitat.</label></div>
+        <div class="opcio"><input type="radio" name="p15" value="c" id="p15c"><label for="p15c">c) Un currículum per competències.</label></div>
+        <div class="opcio"><input type="radio" name="p15" value="d" id="p15d"><label for="p15d">d) Una entrevista de feina.</label></div>
+      </div>
+      <div class="feedback" id="p15-feedback"></div>
+    </div>
+
+    <!-- P16 -->
+    <div class="pregunta" id="p16-container">
+      <div class="pregunta-text">16. Què és l'autoestima segons el test de Rosenberg?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p16" value="a" id="p16a"><label for="p16a">a) La valoració subjectiva que cada persona fa sobre si mateixa.</label></div>
+        <div class="opcio"><input type="radio" name="p16" value="b" id="p16b"><label for="p16b">b) El nivell de formació acadèmica.</label></div>
+        <div class="opcio"><input type="radio" name="p16" value="c" id="p16c"><label for="p16c">c) La capacitat de guanyar diners.</label></div>
+        <div class="opcio"><input type="radio" name="p16" value="d" id="p16d"><label for="p16d">d) El nombre d'amics que té una persona.</label></div>
+      </div>
+      <div class="feedback" id="p16-feedback"></div>
+    </div>
+
+    <!-- P17 -->
+    <div class="pregunta" id="p17-container">
+      <div class="pregunta-text">17. Què és un balanç competencial?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p17" value="a" id="p17a"><label for="p17a">a) Un inventari de les competències adquirides per una persona al llarg de la seva vida.</label></div>
+        <div class="opcio"><input type="radio" name="p17" value="b" id="p17b"><label for="p17b">b) El saldo del compte bancari.</label></div>
+        <div class="opcio"><input type="radio" name="p17" value="c" id="p17c"><label for="p17c">c) La nota mitjana del expedient acadèmic.</label></div>
+        <div class="opcio"><input type="radio" name="p17" value="d" id="p17d"><label for="p17d">d) El nombre de cursos realitzats.</label></div>
+      </div>
+      <div class="feedback" id="p17-feedback"></div>
+    </div>
+
+    <!-- P18 -->
+    <div class="pregunta" id="p18-container">
+      <div class="pregunta-text">18. Segons la metodologia de l'ikigai, quins quatre elements cal equilibrar?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p18" value="a" id="p18a"><label for="p18a">a) El que t'agrada, el que saps fer bé, el que el món necessita i el que et poden pagar.</label></div>
+        <div class="opcio"><input type="radio" name="p18" value="b" id="p18b"><label for="p18b">b) Els estudis, la feina, la família i l'oci.</label></div>
+        <div class="opcio"><input type="radio" name="p18" value="c" id="p18c"><label for="p18c">c) Els diners, el poder, la fama i el reconeixement.</label></div>
+        <div class="opcio"><input type="radio" name="p18" value="d" id="p18d"><label for="p18d">d) El cap, el cor, les mans i els peus.</label></div>
+      </div>
+      <div class="feedback" id="p18-feedback"></div>
+    </div>
+
+    <!-- P19 -->
+    <div class="pregunta" id="p19-container">
+      <div class="pregunta-text">19. En l'eneagrama, quin tipus de personalitat es caracteritza per ser meticulós, responsable i amb un fort sentit ètic?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p19" value="a" id="p19a"><label for="p19a">a) El pacificador.</label></div>
+        <div class="opcio"><input type="radio" name="p19" value="b" id="p19b"><label for="p19b">b) El perfeccionista.</label></div>
+        <div class="opcio"><input type="radio" name="p19" value="c" id="p19c"><label for="p19c">c) L'entusiasta.</label></div>
+        <div class="opcio"><input type="radio" name="p19" value="d" id="p19d"><label for="p19d">d) L'investigador.</label></div>
+      </div>
+      <div class="feedback" id="p19-feedback"></div>
+    </div>
+
+    <!-- P20 -->
+    <div class="pregunta" id="p20-container">
+      <div class="pregunta-text">20. Què és el feedback extern dins del procés d'autoconeixement?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p20" value="a" id="p20a"><label for="p20a">a) La informació que rebem de persones del nostre entorn sobre les nostres aptituds i comportaments.</label></div>
+        <div class="opcio"><input type="radio" name="p20" value="b" id="p20b"><label for="p20b">b) Un correu electrònic de l'empresa.</label></div>
+        <div class="opcio"><input type="radio" name="p20" value="c" id="p20c"><label for="p20c">c) Una nota d'un examen.</label></div>
+        <div class="opcio"><input type="radio" name="p20" value="d" id="p20d"><label for="p20d">d) Un comentari a les xarxes socials.</label></div>
+      </div>
+      <div class="feedback" id="p20-feedback"></div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- BLOC 3: RA5 (10 preguntes) -->
+    <!-- ============================================ -->
+    <h3>Bloc 3 · Identitat digital i entorn personal d'aprenentatge (RA5)</h3>
+
+    <!-- P21 -->
+    <div class="pregunta" id="p21-container">
+      <div class="pregunta-text">21. Què és la identitat digital?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p21" value="a" id="p21a"><label for="p21a">a) El conjunt d'informació i dades existents sobre una persona a l'entorn digital.</label></div>
+        <div class="opcio"><input type="radio" name="p21" value="b" id="p21b"><label for="p21b">b) El DNI electrònic.</label></div>
+        <div class="opcio"><input type="radio" name="p21" value="c" id="p21c"><label for="p21c">c) La contrasenya del correu electrònic.</label></div>
+        <div class="opcio"><input type="radio" name="p21" value="d" id="p21d"><label for="p21d">d) El nom d'usuari de la xarxa social.</label></div>
+      </div>
+      <div class="feedback" id="p21-feedback"></div>
+    </div>
+
+    <!-- P22 -->
+    <div class="pregunta" id="p22-container">
+      <div class="pregunta-text">22. Què és la marca personal?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p22" value="a" id="p22a"><label for="p22a">a) La imatge que una persona projecta conscientment com a professional.</label></div>
+        <div class="opcio"><input type="radio" name="p22" value="b" id="p22b"><label for="p22b">b) El logotip de l'empresa.</label></div>
+        <div class="opcio"><input type="radio" name="p22" value="c" id="p22c"><label for="p22c">c) La signatura del contracte de treball.</label></div>
+        <div class="opcio"><input type="radio" name="p22" value="d" id="p22d"><label for="p22d">d) El carnet de conduir.</label></div>
+      </div>
+      <div class="feedback" id="p22-feedback"></div>
+    </div>
+
+    <!-- P23 -->
+    <div class="pregunta" id="p23-container">
+      <div class="pregunta-text">23. Què és l'EPA (Entorn Personal d'Aprenentatge)?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p23" value="a" id="p23a"><label for="p23a">a) El conjunt d'eines, fonts d'informació, connexions i activitats que cada persona utilitza per aprendre.</label></div>
+        <div class="opcio"><input type="radio" name="p23" value="b" id="p23b"><label for="p23b">b) Un espai físic de la biblioteca.</label></div>
+        <div class="opcio"><input type="radio" name="p23" value="c" id="p23c"><label for="p23c">c) Un curs de formació reglada.</label></div>
+        <div class="opcio"><input type="radio" name="p23" value="d" id="p23d"><label for="p23d">d) Un examen de l'IOC.</label></div>
+      </div>
+      <div class="feedback" id="p23-feedback"></div>
+    </div>
+
+    <!-- P24 -->
+    <div class="pregunta" id="p24-container">
+      <div class="pregunta-text">24. Quins són els tres elements d'un EPA?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p24" value="a" id="p24a"><label for="p24a">a) On trobar la informació, com gestionar-la i on relacionar-me.</label></div>
+        <div class="opcio"><input type="radio" name="p24" value="b" id="p24b"><label for="p24b">b) Estudiar, treballar i descansar.</label></div>
+        <div class="opcio"><input type="radio" name="p24" value="c" id="p24c"><label for="p24c">c) Llibres, apunts i exàmens.</label></div>
+        <div class="opcio"><input type="radio" name="p24" value="d" id="p24d"><label for="p24d">d) Professor, alumne i aula.</label></div>
+      </div>
+      <div class="feedback" id="p24-feedback"></div>
+    </div>
+
+    <!-- P25 -->
+    <div class="pregunta" id="p25-container">
+      <div class="pregunta-text">25. Què és la infoxicació?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p25" value="a" id="p25a"><label for="p25a">a) L'excés d'informació que provoca incapacitat per comprendre-la i assimilar-la.</label></div>
+        <div class="opcio"><input type="radio" name="p25" value="b" id="p25b"><label for="p25b">b) Una malaltia provocada per l'ús del mòbil.</label></div>
+        <div class="opcio"><input type="radio" name="p25" value="c" id="p25c"><label for="p25c">c) Un virus informàtic.</label></div>
+        <div class="opcio"><input type="radio" name="p25" value="d" id="p25d"><label for="p25d">d) Una xarxa social.</label></div>
+      </div>
+      <div class="feedback" id="p25-feedback"></div>
+    </div>
+
+    <!-- P26 -->
+    <div class="pregunta" id="p26-container">
+      <div class="pregunta-text">26. Quina d'aquestes eines és útil per gestionar la informació dins d'un EPA?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p26" value="a" id="p26a"><label for="p26a">a) Feedly (lector de RSS).</label></div>
+        <div class="opcio"><input type="radio" name="p26" value="b" id="p26b"><label for="p26b">b) Google Maps.</label></div>
+        <div class="opcio"><input type="radio" name="p26" value="c" id="p26c"><label for="p26c">c) WhatsApp.</label></div>
+        <div class="opcio"><input type="radio" name="p26" value="d" id="p26d"><label for="p26d">d) Spotify.</label></div>
+      </div>
+      <div class="feedback" id="p26-feedback"></div>
+    </div>
+
+    <!-- P27 -->
+    <div class="pregunta" id="p27-container">
+      <div class="pregunta-text">27. Què és l'ocupabilitat segons l'OIT?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p27" value="a" id="p27a"><label for="p27a">a) L'aptitud de la persona per trobar i conservar un treball, progressar-hi i adaptar-se al canvi.</label></div>
+        <div class="opcio"><input type="radio" name="p27" value="b" id="p27b"><label for="p27b">b) El sou que es cobra per hora.</label></div>
+        <div class="opcio"><input type="radio" name="p27" value="c" id="p27c"><label for="p27c">c) El nombre d'empreses que hi ha en un sector.</label></div>
+        <div class="opcio"><input type="radio" name="p27" value="d" id="p27d"><label for="p27d">d) La quantitat de títols acadèmics que té una persona.</label></div>
+      </div>
+      <div class="feedback" id="p27-feedback"></div>
+    </div>
+
+    <!-- P28 -->
+    <div class="pregunta" id="p28-container">
+      <div class="pregunta-text">28. Què és LinkedIn?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p28" value="a" id="p28a"><label for="p28a">a) Una xarxa social professional per connectar amb empreses i professionals.</label></div>
+        <div class="opcio"><input type="radio" name="p28" value="b" id="p28b"><label for="p28b">b) Un portal de notícies.</label></div>
+        <div class="opcio"><input type="radio" name="p28" value="c" id="p28c"><label for="p28c">c) Un joc en línia.</label></div>
+        <div class="opcio"><input type="radio" name="p28" value="d" id="p28d"><label for="p28d">d) Una plataforma de música.</label></div>
+      </div>
+      <div class="feedback" id="p28-feedback"></div>
+    </div>
+
+    <!-- P29 -->
+    <div class="pregunta" id="p29-container">
+      <div class="pregunta-text">29. Quin d'aquests aspectes NO forma part de la marca personal?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p29" value="a" id="p29a"><label for="p29a">a) La identitat.</label></div>
+        <div class="opcio"><input type="radio" name="p29" value="b" id="p29b"><label for="p29b">b) La imatge.</label></div>
+        <div class="opcio"><input type="radio" name="p29" value="c" id="p29c"><label for="p29c">c) La reputació.</label></div>
+        <div class="opcio"><input type="radio" name="p29" value="d" id="p29d"><label for="p29d">d) El salari.</label></div>
+      </div>
+      <div class="feedback" id="p29-feedback"></div>
+    </div>
+
+    <!-- P30 -->
+    <div class="pregunta" id="p30-container">
+      <div class="pregunta-text">30. Què és el currículum per competències?</div>
+      <div class="opcions">
+        <div class="opcio"><input type="radio" name="p30" value="a" id="p30a"><label for="p30a">a) Un format de currículum que destaca habilitats, capacitats i competències.</label></div>
+        <div class="opcio"><input type="radio" name="p30" value="b" id="p30b"><label for="p30b">b) Un currículum que només inclou estudis reglats.</label></div>
+        <div class="opcio"><input type="radio" name="p30" value="c" id="p30c"><label for="p30c">c) Un currículum en paper.</label></div>
+        <div class="opcio"><input type="radio" name="p30" value="d" id="p30d"><label for="p30d">d) Un currículum que només inclou experiència laboral.</label></div>
+      </div>
+      <div class="feedback" id="p30-feedback"></div>
+    </div>
+
+  </form>
+
+  <!-- BOTONS D'ACCIÓ -->
+  <div class="botons-accio" style="text-align:center; margin: 24px 0;">
+    <button type="button" class="btn btn-primary" id="btn-corregir">✅ Comprovar respostes</button>
+    <button type="button" class="btn btn-secondary" id="btn-reiniciar">↻ Reiniciar</button>
+  </div>
+
+  <!-- RESULTATS -->
+  <div class="resultats" id="resultats">
+    <h2>📊 Resultat de l'autoavaluació</h2>
+    <div class="nota-final" id="nota-final">0</div>
+    <div class="nota-sobre">sobre 10</div>
+    <div class="missatge-resultat" id="missatge-resultat"></div>
+    <div style="margin-top: 16px; font-size: 14px; color: #555;">
+      (Puntuació total: <span id="punts-total">0</span> sobre 30 punts)
+    </div>
+  </div>
+
+  <!-- PEU -->
+  <div style="margin-top: 40px; padding-top: 16px; border-top: 1px solid #C1C8D8; font-size: 13px; color: #777; text-align: center;">
+    Institut Obert de Catalunya · IPO I · CFGM Instal·lacions Elèctriques i Automàtiques · Curs 2026-2027
+  </div>
+
+</div>
+
+<script>
+  // ============================================
+  // RESPOSTES CORRECTES
+  // ============================================
+  const respostesCorrectes = {
+    p1: 'b', p2: 'b', p3: 'b', p4: 'b', p5: 'b',
+    p6: 'a', p7: 'b', p8: 'c', p9: 'a', p10: 'a',
+    p11: 'a', p12: 'c', p13: 'b', p14: 'a', p15: 'a',
+    p16: 'a', p17: 'a', p18: 'a', p19: 'b', p20: 'a',
+    p21: 'a', p22: 'a', p23: 'a', p24: 'a', p25: 'a',
+    p26: 'a', p27: 'a', p28: 'a', p29: 'd', p30: 'a'
+  };
+
+  // ============================================
+  // FEEDBACK PER A CADA PREGUNTA
+  // ============================================
+  const feedbackPreguntes = {
+    p1: "El sector productiu és cadascuna de les parts en què es divideix l'economia segons l'activitat productiva (primari, secundari, terciari, quaternari, quinquenari).",
+    p2: "La instal·lació elèctrica pertany al sector secundari, ja que transforma matèries primeres en béns de consum o infraestructures.",
+    p3: "A la funció pública s'hi accedeix mitjançant oposició o concurs publicat en un butlletí oficial, mentre que al sector privat la contractació és lliure.",
+    p4: "L'autoocupació és treballar per compte propi, com a autònom o creant la pròpia empresa.",
+    p5: "Infojobs és un portal d'ocupació especialitzat en ofertes de feina.",
+    p6: "El perfil professional és el conjunt de competències professionals identificables en el sistema productiu i reconegudes pel mercat laboral.",
+    p7: "Segons Mapalaboral, l'adaptabilitat és la capacitat de buscar i aplicar respostes àgils davant de situacions canviants.",
+    p8: "Segons Barcelona Activa, la iniciativa és una competència clau d'assoliment (identificar un problema i actuar-hi).",
+    p9: "El SOC és el Servei d'Ocupació de Catalunya.",
+    p10: "El CIDO és un cercador d'informació i documentació oficials per accedir a convocatòries públiques.",
+    p11: "El DAFO és una eina per analitzar debilitats, amenaces, fortaleses i oportunitats.",
+    p12: "Les fortaleses són aspectes interns positius (allò que se't dona bé).",
+    p13: "Un objectiu SMART és específic, mesurable, assolible, rellevant i temporal.",
+    p14: "El pla d'acció és un document que recull les passes i accions necessàries per assolir els objectius professionals.",
+    p15: "El biograma és una representació gràfica de les fites vitals d'una persona.",
+    p16: "Segons Rosenberg, l'autoestima és la valoració subjectiva que cada persona fa sobre si mateixa.",
+    p17: "El balanç competencial és un inventari de les competències adquirides al llarg de la vida.",
+    p18: "L'ikigai equilibra el que t'agrada, el que saps fer bé, el que el món necessita i el que et poden pagar.",
+    p19: "El perfeccionista (o reformador) es caracteritza per ser meticulós, responsable i amb un fort sentit ètic.",
+    p20: "El feedback extern és la informació que rebem de persones del nostre entorn sobre les nostres aptituds i comportaments.",
+    p21: "La identitat digital és el conjunt d'informació i dades existents sobre una persona a l'entorn digital.",
+    p22: "La marca personal és la imatge que una persona projecta conscientment com a professional.",
+    p23: "L'EPA és el conjunt d'eines, fonts d'informació, connexions i activitats que cada persona utilitza per aprendre.",
+    p24: "Els tres elements d'un EPA són: on trobar la informació, com gestionar-la i on relacionar-me.",
+    p25: "La infoxicació és l'excés d'informació que provoca incapacitat per comprendre-la i assimilar-la.",
+    p26: "Feedly és un lector de RSS útil per gestionar la informació dins d'un EPA.",
+    p27: "Segons l'OIT, l'ocupabilitat és l'aptitud per trobar i conservar un treball, progressar-hi i adaptar-se al canvi.",
+    p28: "LinkedIn és una xarxa social professional per connectar amb empreses i professionals.",
+    p29: "El salari NO forma part de la marca personal (sí que ho són la identitat, la imatge i la reputació).",
+    p30: "El currículum per competències destaca habilitats, capacitats i competències."
+  };
+
+  // ============================================
+  // FUNCIÓ PER CORREGIR
+  // ============================================
+  document.getElementById('btn-corregir').addEventListener('click', function() {
+    let punts = 0;
+    let respostes = {};
+
+    // Recollir respostes
+    for (let i = 1; i <= 30; i++) {
+      const seleccionada = document.querySelector(`input[name="p${i}"]:checked`);
+      respostes[`p${i}`] = seleccionada ? seleccionada.value : null;
+    }
+
+    // Comprovar i mostrar feedback
+    for (let i = 1; i <= 30; i++) {
+      const container = document.getElementById(`p${i}-container`);
+      const feedbackDiv = document.getElementById(`p${i}-feedback`);
+      const resposta = respostes[`p${i}`];
+      const correcta = respostesCorrectes[`p${i}`];
+
+      container.classList.remove('correcte', 'incorrecte');
+      feedbackDiv.classList.remove('ok', 'ko');
+
+      if (resposta === correcta) {
+        punts++;
+        container.classList.add('correcte');
+        feedbackDiv.textContent = `✅ Correcte! ${feedbackPreguntes[`p${i}`]}`;
+        feedbackDiv.classList.add('ok');
+      } else if (resposta === null) {
+        container.classList.add('incorrecte');
+        feedbackDiv.textContent = `❌ No has respost. La resposta correcta és la ${correcta.toUpperCase()}. ${feedbackPreguntes[`p${i}`]}`;
+        feedbackDiv.classList.add('ko');
+      } else {
+        container.classList.add('incorrecte');
+        feedbackDiv.textContent = `❌ Incorrecte. La resposta correcta és la ${correcta.toUpperCase()}. ${feedbackPreguntes[`p${i}`]}`;
+        feedbackDiv.classList.add('ko');
+      }
+    }
+
+    // Mostrar resultats
+    const nota = (punts / 3).toFixed(1);
+    document.getElementById('punts-total').textContent = punts;
+    document.getElementById('nota-final').textContent = nota;
+
+    const missatge = document.getElementById('missatge-resultat');
+    if (nota >= 9) {
+      missatge.innerHTML = '🎉 <strong>Excel·lent!</strong> Has assolit els conceptes clau de l\'EAC 1.';
+    } else if (nota >= 7) {
+      missatge.innerHTML = '👏 <strong>Molt bé!</strong> Tens una bona base, però revisa els errors per acabar de consolidar.';
+    } else if (nota >= 5) {
+      missatge.innerHTML = '📚 <strong>Assolit.</strong> Repassa els conceptes on has fallat per millorar.';
+    } else {
+      missatge.innerHTML = '💪 <strong>Cal repassar.</strong> Torna a llegir els materials de les unitats 1, 4 i 5 i torna-ho a intentar.';
+    }
+
+    document.getElementById('resultats').style.display = 'block';
+    document.getElementById('resultats').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // ============================================
+  // FUNCIÓ PER REINICIAR
+  // ============================================
+  document.getElementById('btn-reiniciar').addEventListener('click', function() {
+    if (!confirm('Segur que vols reiniciar el qüestionari? Esborraràs totes les respostes.')) return;
+
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.pregunta').forEach(p => p.classList.remove('correcte', 'incorrecte'));
+    document.querySelectorAll('.feedback').forEach(f => {
+      f.classList.remove('ok', 'ko');
+      f.textContent = '';
+    });
+    document.getElementById('resultats').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projecte IPO I · IOC · Diego Izquierdo Perán</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #202735;
+      background: #F4F6FA;
+      margin: 0;
+      padding: 0;
+    }
+    .topbar {
+      background: #1c2536;
+      color: #fff;
+      padding: 10px 16px;
+      font-size: 13.5px;
+      border-bottom: 3px solid #266FDC;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .topbar-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topbar a {
+      color: #d8e6ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .topbar a:hover { color: #ffffff; text-decoration: underline; }
+    .badge-verificate {
+      background: #D1222B;
+      color: #fff !important;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 700 !important;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 16px 56px 16px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #1E5BB8 0%, #266FDC 100%);
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 36px 32px;
+      margin-bottom: 28px;
+      box-shadow: 0 6px 20px rgba(38, 111, 220, 0.18);
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: 30px;
+      font-weight: 900;
+      margin: 0 0 10px 0;
+      line-height: 1.2;
+      color: #ffffff;
+    }
+    .hero p.subtitle {
+      font-size: 17px;
+      margin: 0 0 18px 0;
+      opacity: 0.95;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 14px;
+      border-top: 1px solid rgba(255,255,255,0.25);
+      padding-top: 14px;
+    }
+    .quote-box {
+      background: #ffffff;
+      border-left: 5px solid #266FDC;
+      padding: 16px 22px;
+      border-radius: 6px;
+      margin-bottom: 28px;
+      font-style: italic;
+      color: #3D4D74;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #D6DCE8;
+      border-radius: 8px;
+      padding: 26px 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .card h2 {
+      color: #3D4D74;
+      font-size: 23px;
+      margin: 0 0 14px 0;
+      border-bottom: 2px solid #ECF2FF;
+      padding-bottom: 8px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 18px 0;
+    }
+    .pillar {
+      background: #F8FAFE;
+      border: 1px solid #D6E2FA;
+      border-top: 4px solid #266FDC;
+      border-radius: 6px;
+      padding: 16px 18px;
+    }
+    .pillar h3 {
+      margin: 0 0 8px 0;
+      font-size: 17px;
+      color: #266FDC;
+    }
+    .pillar p {
+      margin: 0;
+      font-size: 14.5px;
+      line-height: 1.5;
+    }
+    .nav-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .nav-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #ffffff;
+      border: 1px solid #C1C8D8;
+      border-radius: 8px;
+      padding: 20px;
+      text-decoration: none;
+      color: #202735;
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    }
+    .nav-card:hover {
+      transform: translateY(-2px);
+      border-color: #266FDC;
+      box-shadow: 0 6px 16px rgba(38,111,220,0.12);
+    }
+    .nav-card h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      color: #266FDC;
+    }
+    .nav-card p {
+      margin: 0 0 14px 0;
+      font-size: 14px;
+      color: #4A5568;
+      line-height: 1.45;
+    }
+    .nav-card span.cta {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #266FDC;
+    }
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: #667085;
+      margin-top: 36px;
+      padding-top: 16px;
+      border-top: 1px solid #D6DCE8;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Navegació principal">
+  <div class="topbar-inner">
+    <a href="index.html" style="color:#fff; font-weight:700;">🏛️ Projecte IPO I · IOC</a>
+    <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+      <a href="part1/index.html">📘 Part I · Marc Pedagògic</a>
+      <a href="part2/index.html">🛠️ Part II · Desenvolupament Curricular</a>
+      <a href="part2/verificate.html" class="badge-verificate">🔍 VERIFICA.TE</a>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+
+  <header class="hero">
+    <div class="hero-tag">Resolució EDF/3997/2026 · Especialitat 505 (FOL) · Institut Obert de Catalunya</div>
+    <h1>«Identitat digital, anàlisi crítica i prevenció: un fil conductor per a l'ocupabilitat en el sector elèctric»</h1>
+    <p class="subtitle">Projecte de desenvolupament dels continguts del lloc · Mòdul Professional: <strong>Itinerari Personal per a l'Ocupabilitat I (IPO I)</strong> · CFGM d'Instal·lacions Elèctriques i Automàtiques</p>
+    <div class="hero-meta">
+      <span>👤 <strong>Autor:</strong> Diego Izquierdo Perán</span>
+      <span>📅 <strong>Curs:</strong> 2026-2027</span>
+      <span>🏫 <strong>Centre:</strong> Institut Obert de Catalunya (IOC)</span>
+    </div>
+  </header>
+
+  <div class="quote-box">
+    «L'educació no és omplir un poal, sinó encendre un foc.» — <strong>William Butler Yeats</strong>
+  </div>
+
+  <!-- PRESENTACIÓ EXECUTIVA AL TRIBUNAL -->
+  <section class="card">
+    <h2>Carta de presentació al tribunal</h2>
+    <p>Benvolguts membres del tribunal,</p>
+    <p>Em dirigeixo a vostès com a <strong>Diego Izquierdo Perán</strong>, funcionari de carrera del cos de professors d'ensenyament secundari (especialitat 505 – Formació i Orientació Laboral), amb més de vint-i-cinc anys d'experiència docent i una trajectòria prèvia en tasques de docència, coordinació pedagògica, tutories, estada a l'empresa (FCT) i atenció NESE al mateix <strong>Institut Obert de Catalunya (IOC)</strong>. Aquest recorregut em permet aportar una visió integral del model educatiu a distància i de les necessitats formatives i laborals de l'alumnat adult de Formació Professional.</p>
+    <p>El projecte que sotmeto a la seva consideració —juntament amb aquest ecosistema digital interactiu que en desplega l'Annex 4— neix amb una vocació clarament transferible i immediata a l'aula virtual de l'IOC. La proposta transforma el mòdul d'<strong>Itinerari Personal per a l'Ocupabilitat I</strong> en una experiència d'aprenentatge aplicat, situada en el context real del <strong>CFGM d'Instal·lacions Elèctriques i Automàtiques</strong>.</p>
+    <p>Al llarg de les tres Activitats d'Avaluació Contínua, l'estudiant deixa de ser un receptor passiu de continguts per convertir-se en un tècnic en formació que pren decisions fonamentades:</p>
+    <ul style="margin: 8px 0 14px 20px; line-height: 1.65;">
+      <li>A l'<strong>EAC 1</strong>, diagnostica el mercat elèctric català i construeix la seva identitat i marca professional.</li>
+      <li>A l'<strong>EAC 2</strong>, investiga accidents en baixa tensió i dissenya mesures de prevenció realistes i ajustades a la normativa.</li>
+      <li>A l'<strong>EAC 3</strong>, analitza contractes, nòmines i convenis col·lectius per defensar els seus drets laborals amb criteri propi.</li>
+    </ul>
+    <p>Com a eix transversal d'innovació, el projecte incorpora l'alfabetització crítica en intel·ligència artificial mitjançant la campanya <strong>VERIFICA.TE</strong> i un protocol sistemàtic de contrast documental, complementat per un <strong>Corrector Unificat JSON</strong> dissenyat per agilitzar i harmonitzar l'avaluació de l'equip docent.</p>
+
+    <div class="grid-3">
+      <div class="pillar">
+        <h3>1. Solvència acadèmica i digital</h3>
+        <p>Doctor en Lògica i Filosofia de la Ciència (USAL, 2021), Llicenciat en Psicologia (UOC, 2009) i Competència Digital Docent B2 (2026). Aquesta base permet dissenyar bastides rigoroses i integrar la IA de manera crítica mitjançant el protocol propi <strong>VERIFICA.TE</strong>.</p>
+      </div>
+      <div class="pillar">
+        <h3>2. Inclusió nativa (DUA i NESE)</h3>
+        <p>La formació com a Mestre d'Educació Especial i l'experiència en coordinació NESE a l'IOC es tradueixen en materials web accessibles (WCAG 2.1 AA), lectura assistida, autoguardat local i itineraris flexibles sense barreres.</p>
+      </div>
+      <div class="pillar">
+        <h3>3. Ecosistema llest per a l'aula</h3>
+        <p>Totes les activitats estan implementades en HTML5 interactiu amb exportació estructurada en <strong>JSON</strong>, qüestionaris autocorrectius de 30 ítems i eines compartides de calibració per a l'equip docent.</p>
+      </div>
+    </div>
+
+    <p>Resto a la seva disposició per defensar i aprofundir qualsevol aspecte d'aquesta proposta pedagògica.</p>
+    <p style="margin-bottom:0;">Atentament,<br><strong>Diego Izquierdo Perán</strong><br>Cos de Professors d'Ensenyament Secundari (Especialitat 505 – FOL)</p>
+  </section>
+
+  <!-- MAPA DE NAVEGACIÓ -->
+  <section class="card">
+    <h2>🧭 Exploració de l'ecosistema web del projecte</h2>
+    <p>Seleccioneu qualsevol dels blocs següents per accedir directament als continguts i recursos interactius:</p>
+
+    <div class="nav-cards">
+      <a href="part1/index.html" class="nav-card">
+        <div>
+          <h3>📘 Part I · Marc Pedagògic</h3>
+          <p>Contextualització IOC, PEC, PGA 26-27, fonaments constructivistes (ZDP), avaluació (40% AC + 60% PAF), DUA/NESE i coordinació docent.</p>
+        </div>
+        <span class="cta">Accedir a la Part I →</span>
+      </a>
+
+      <a href="part2/index.html" class="nav-card">
+        <div>
+          <h3>🛠️ Part II · Desenvolupament Curricular</h3>
+          <p>Concreció del CFGM d'Instal·lacions Elèctriques (25 h), les 3 EAC completes (guia, activitat JSON, test i debat) i ponderació.</p>
+        </div>
+        <span class="cta">Accedir a la Part II →</span>
+      </a>
+
+      <a href="part2/verificate.html" class="nav-card" style="border-top: 4px solid #D1222B;">
+        <div>
+          <h3 style="color:#D1222B;">🔍 Campanya VERIFICA.TE</h3>
+          <p>Presentació interactiva sobre alfabetització crítica i ús ètic de la IA en 8 passos, integrada a totes les activitats del mòdul.</p>
+        </div>
+        <span class="cta" style="color:#D1222B;">Obrir VERIFICA.TE →</span>
+      </a>
+
+      <a href="part2/eac3/activitat.html" class="nav-card" style="border-top: 4px solid #1CC460;">
+        <div>
+          <h3 style="color:#16803d;">⚡ Mostra interactiva (EAC 3)</h3>
+          <p>Prova directa d'un formulari d'activitat amb autoguardat, exportació a JSON i auditoria crítica d'IA sobre drets laborals.</p>
+        </div>
+        <span class="cta" style="color:#16803d;">Provar EAC 3 →</span>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    Institut Obert de Catalunya (IOC) · Departament d'Educació i Formació Professional · Curs 2026-2027
+  </footer>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VERIFICA.TE - Campanya per a una ciutadania digital responsable</title>
+<style>
+/* Estils generals accessibles */
+:root {
+--color-generalitat: #D1222B; /* Vermell Generalitat */
+--color-generalitat-clar: #E64A4A;
+--color-accent: #FFC72C; /* Groc Generalitat */
+--color-fons: #f8f9fa;
+--color-text: #212529;
+--color-text-suau: #6c757d;
+--font-principal: 'Segoe UI', Arial, sans-serif;
+--font-titol: 'Calibri', 'Segoe UI', sans-serif;
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: var(--font-principal);
+background: linear-gradient(135deg, #f5f5f5 0%, #e9ecef 100%);
+color: var(--color-text);
+line-height: 1.6;
+height: 100vh;
+overflow: hidden;
+position: relative;
+}
+
+/* Contenidor principal */
+.presentacio-container {
+width: 100%;
+height: 100vh;
+display: flex;
+flex-direction: column;
+position: relative;
+}
+
+/* Capçalera fixa amb navegació */
+header {
+background-color: white;
+padding: 12px 20px;
+border-bottom: 3px solid var(--color-generalitat);
+display: flex;
+justify-content: space-between;
+align-items: center;
+box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+z-index: 100;
+}
+
+.logo-container {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+.logo-area {
+height: 40px;
+width: auto;
+}
+
+.logo-text {
+font-size: 1.1rem;
+color: var(--color-generalitat);
+font-weight: 600;
+border-left: 2px solid #eee;
+padding-left: 15px;
+}
+
+.navegacio-container {
+display: flex;
+align-items: center;
+gap: 20px;
+}
+
+.contador-diapositives {
+font-size: 0.95rem;
+color: var(--color-text-suau);
+font-weight: 500;
+}
+
+.indicadors-accessibilitat {
+display: flex;
+gap: 10px;
+}
+
+.icon-accessibilitat {
+background: #e9ecef;
+border-radius: 50%;
+width: 36px;
+height: 36px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.2rem;
+color: var(--color-generalitat);
+}
+
+/* Contingut de les diapositives */
+.diapositives-container {
+flex: 1;
+overflow-y: auto;
+position: relative;
+padding: 10px 0;
+}
+
+.diapositiva {
+min-height: 100%;
+padding: 30px 20px 80px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+opacity: 0;
+transform: translateX(50px);
+transition: opacity 0.5s ease, transform 0.5s ease;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+display: none;
+}
+
+.diapositiva.activa {
+opacity: 1;
+transform: translateX(0);
+display: flex;
+position: relative;
+}
+
+.contingut-diapositiva {
+max-width: 1000px;
+width: 90%;
+background: white;
+border-radius: 16px;
+padding: 40px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+border-top: 6px solid var(--color-generalitat);
+margin: 20px auto;
+}
+
+/* Estils per a títols i text */
+h1, h2, h3 {
+font-family: var(--font-titol);
+line-height: 1.3;
+margin-bottom: 1.2rem;
+}
+
+h1 {
+font-size: 3rem;
+color: var(--color-generalitat);
+text-align: center;
+margin-bottom: 0.5rem;
+}
+
+.subtitol {
+font-size: 1.8rem;
+color: var(--color-text);
+text-align: center;
+margin-bottom: 1.5rem;
+font-weight: 400;
+}
+
+h2 {
+font-size: 2.2rem;
+color: var(--color-generalitat);
+margin-bottom: 1.5rem;
+}
+
+h3 {
+font-size: 1.5rem;
+color: var(--color-text);
+margin-bottom: 1rem;
+}
+
+p {
+font-size: 1.15rem;
+margin-bottom: 1.2rem;
+color: var(--color-text);
+}
+
+.eslogan {
+font-size: 1.4rem;
+font-style: italic;
+color: var(--color-generalitat-clar);
+text-align: center;
+margin: 1.5rem 0;
+padding: 1rem;
+border-left: 4px solid var(--color-accent);
+background-color: #FFF9E6;
+}
+
+/* Llistes i acròstic */
+.llista-acrostic {
+list-style: none;
+margin: 2rem 0;
+max-height: 500px;
+overflow-y: auto;
+padding-right: 10px;
+}
+
+.llista-acrostic li {
+margin-bottom: 1.8rem;
+padding-left: 3rem;
+position: relative;
+font-size: 1.1rem;
+}
+
+.llista-acrostic li:before {
+content: attr(data-lletra);
+position: absolute;
+left: 0;
+top: -5px;
+background-color: var(--color-generalitat);
+color: white;
+width: 36px;
+height: 36px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+font-size: 1.2rem;
+}
+
+.explicacio-acrostic {
+display: block;
+font-weight: 600;
+color: var(--color-generalitat);
+margin-bottom: 5px;
+}
+
+.detall-acrostic {
+color: var(--color-text-suau);
+font-size: 1rem;
+}
+
+/* Columnes per al cas pràctic */
+.dues-columnes {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 30px;
+margin: 2rem 0;
+max-height: 500px;
+overflow-y: auto;
+padding-right: 10px;
+}
+
+.columna {
+background: #f8f9fa;
+padding: 25px;
+border-radius: 12px;
+border: 2px solid #e9ecef;
+min-height: 350px;
+}
+
+.columna h3 {
+color: var(--color-generalitat);
+border-bottom: 2px solid var(--color-accent);
+padding-bottom: 10px;
+margin-bottom: 15px;
+}
+
+/* Llista d'eines - MODIFICADA: 2 files de 2 elements */
+.eines-llista {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 25px;
+margin: 2rem 0;
+}
+
+.eina-item {
+background: white;
+padding: 25px;
+border-radius: 12px;
+border-left: 5px solid var(--color-accent);
+box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+min-height: 180px;
+display: flex;
+flex-direction: column;
+}
+
+.eina-nom {
+font-weight: 700;
+color: var(--color-generalitat);
+margin-bottom: 10px;
+font-size: 1.2rem;
+}
+
+.eina-enllac {
+display: inline-block;
+margin-top: auto;
+padding-top: 12px;
+color: var(--color-generalitat);
+text-decoration: none;
+font-weight: 600;
+font-size: 0.95rem;
+border-top: 1px solid #eee;
+}
+
+.eina-enllac:hover {
+text-decoration: underline;
+}
+
+/* Botons de navegació - POSICIONATS A BAIX EXTERNS */
+.botons-navegacio {
+position: fixed;
+bottom: 30px;
+left: 0;
+width: 100%;
+display: flex;
+justify-content: space-between;
+padding: 0 30px;
+z-index: 50;
+pointer-events: none;
+}
+
+.boto-navegacio {
+background-color: var(--color-generalitat);
+color: white;
+border: none;
+padding: 14px 28px;
+border-radius: 50px;
+font-size: 1.1rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 10px;
+box-shadow: 0 4px 12px rgba(209, 34, 43, 0.3);
+pointer-events: auto;
+min-width: 150px;
+justify-content: center;
+}
+
+.boto-navegacio:hover, .boto-navegacio:focus {
+background-color: #b01e25;
+transform: translateY(-2px);
+box-shadow: 0 6px 16px rgba(209, 34, 43, 0.4);
+outline: 3px solid rgba(255, 199, 44, 0.5);
+}
+
+.boto-secundari {
+background-color: white;
+color: var(--color-generalitat);
+border: 2px solid var(--color-generalitat);
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.boto-secundari:hover, .boto-secundari:focus {
+background-color: #f8f9fa;
+color: #b01e25;
+}
+
+/* Botó d'inici nou */
+.boto-inici {
+background-color: #2c3e50;
+color: white;
+margin: 0 auto;
+display: block;
+}
+
+.boto-inici:hover, .boto-inici:focus {
+background-color: #1a252f;
+}
+
+/* Barra de progrés */
+.barra-progres {
+width: 100%;
+height: 6px;
+background-color: #e9ecef;
+position: fixed;
+bottom: 0;
+left: 0;
+z-index: 40;
+}
+
+.progres-omplert {
+height: 100%;
+background-color: var(--color-generalitat);
+width: 14.28%;
+transition: transform 0.5s ease;
+}
+
+/* Enllaços a recursos */
+.enllaços-recursos {
+display: flex;
+flex-direction: column;
+gap: 15px;
+margin: 25px 0;
+}
+
+.enllac-recurs {
+display: flex;
+align-items: center;
+gap: 15px;
+padding: 15px;
+background: #f8f9fa;
+border-radius: 8px;
+text-decoration: none;
+color: var(--color-text);
+border: 2px solid transparent;
+transition: all 0.3s ease;
+cursor: pointer;
+}
+
+.enllac-recurs:hover, .enllac-recurs:focus {
+background: #e9ecef;
+border-color: var(--color-generalitat);
+transform: translateY(-2px);
+text-decoration: none;
+outline: none;
+}
+
+.icon-enllac {
+font-size: 2rem;
+color: var(--color-generalitat);
+}
+
+/* Modal per als recursos */
+.modal-recursos {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.8);
+z-index: 1000;
+justify-content: center;
+align-items: center;
+}
+
+.modal-contingut {
+background: white;
+border-radius: 12px;
+padding: 30px;
+max-width: 800px;
+width: 90%;
+max-height: 80vh;
+overflow-y: auto;
+}
+
+/* Missatge per a lectors de pantalla */
+.sr-only {
+position: absolute;
+width: 1px;
+height: 1px;
+padding: 0;
+margin: -1px;
+overflow: hidden;
+clip: rect(0, 0, 0, 0);
+white-space: nowrap;
+border: 0;
+}
+
+/* Adaptació per a mòbils */
+@media (max-width: 768px) {
+.contingut-diapositiva {
+width: 95%;
+padding: 25px;
+}
+
+h1 {
+font-size: 2.2rem;
+}
+
+.subtitol {
+font-size: 1.4rem;
+}
+
+h2 {
+font-size: 1.8rem;
+}
+
+.dues-columnes {
+grid-template-columns: 1fr;
+max-height: none;
+overflow-y: visible;
+}
+
+.eines-llista {
+grid-template-columns: 1fr;
+}
+
+.boto-navegacio {
+padding: 12px 20px;
+font-size: 1rem;
+min-width: 120px;
+}
+
+.botons-navegacio {
+padding: 0 15px;
+bottom: 20px;
+}
+
+header {
+flex-direction: column;
+gap: 10px;
+padding: 15px;
+}
+
+.logo-text {
+border-left: none;
+border-top: 2px solid #eee;
+padding-left: 0;
+padding-top: 10px;
+text-align: center;
+}
+
+.llista-acrostic {
+max-height: 400px;
+}
+
+.columna {
+min-height: auto;
+}
+
+.modal-contingut {
+width: 95%;
+padding: 20px;
+}
+
+.eina-item {
+min-height: auto;
+padding: 20px;
+}
+}
+
+/* Estils per a scrollbar personalitzada */
+.llista-acrostic::-webkit-scrollbar,
+.dues-columnes::-webkit-scrollbar {
+width: 8px;
+}
+
+.llista-acrostic::-webkit-scrollbar-track,
+.dues-columnes::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 4px;
+}
+
+.llista-acrostic::-webkit-scrollbar-thumb,
+.dues-columnes::-webkit-scrollbar-thumb {
+background: var(--color-generalitat);
+border-radius: 4px;
+}
+
+.llista-acrostic::-webkit-scrollbar-thumb:hover,
+.dues-columnes::-webkit-scrollbar-thumb:hover {
+background: #b01e25;
+}
+
+/* Estil per al nom del professor */
+.nom-professor {
+text-align: center;
+margin-top: 1rem;
+color: var(--color-text-suau);
+font-size: 1.1rem;
+font-weight: 500;
+}
+</style>
+</head>
+<body>
+<div style="background:#1c2536; color:#fff; padding:6px 18px; font-family:'Segoe UI',Arial,sans-serif; font-size:13px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+  <a href="../index.html" style="color:#fff; text-decoration:none; font-weight:700;">🏛️ Projecte IPO I · IOC</a>
+  <div style="display:flex; gap:14px;">
+    <a href="../part1/index.html" style="color:#d8e6ff; text-decoration:none;">📘 Part I</a>
+    <a href="index.html" style="color:#d8e6ff; text-decoration:none;">🛠️ Part II (EAC 1 · 2 · 3)</a>
+    <a href="recursos/corrector.html" style="color:#a7f3d0; text-decoration:none;">🧮 Corrector JSON</a>
+  </div>
+</div>
+<div class="presentacio-container" role="application" aria-label="Presentació VERIFICA.TE">
+
+<div style="background:#1c2536; color:#fff; padding:6px 20px; font-family:'Segoe UI',Arial,sans-serif; font-size:13px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+  <a href="../index.html" style="color:#fff; text-decoration:none; font-weight:700;">🏠 Inici Projecte IPO I</a>
+  <div style="display:flex; gap:14px; flex-wrap:wrap;">
+    <a href="eac1/guia.html" style="color:#d8e6ff; text-decoration:none;">EAC 1</a>
+    <a href="eac2/guia.html" style="color:#d8e6ff; text-decoration:none;">EAC 2</a>
+    <a href="eac3/guia.html" style="color:#d8e6ff; text-decoration:none;">EAC 3</a>
+  </div>
+</div>
+
+<!-- Capçalera amb navegació -->
+<header role="banner">
+<div class="logo-container">
+<!-- Logo de FOL - IPO I -->
+<div class="logo-area" role="img" aria-label="Àrea de Formació i Orientació Laboral">
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+<rect width="120" height="40" fill="#D1222B" rx="6"></rect>
+<text x="60" y="22" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">FOL – IPO I</text>
+</svg>
+</div>
+<div class="logo-text">Campanya per a una ciutadania digital responsable</div>
+</div>
+
+<div class="navegacio-container">
+<div class="contador-diapositives">
+<span id="diapositiva-actual">1</span> / 7
+</div>
+<div class="indicadors-accessibilitat">
+<div class="icon-accessibilitat" role="img" aria-label="Presentació accessible" title="Presentació accessible">
+♿
+</div>
+</div>
+</div>
+</header>
+
+<!-- Contenidor de diapositives -->
+<main class="diapositives-container" id="diapositives-container" role="main">
+<!-- Diapositiva 1 -->
+<section class="diapositiva activa" id="diapo1" role="region" aria-label="Diapositiva 1 de 7: Portada">
+<div class="contingut-diapositiva">
+<h1>VERIFICA.TE</h1>
+<div class="subtitol">El teu pensament crític és la millor eina digital</div>
+
+<div class="eslogan" role="note">
+"No et quedis amb l'oferta. No et quedis amb el titular."
+</div>
+
+<div style="text-align: center; margin-top: 2rem;">
+<p>Campanya per a una ciutadania digital responsable</p>
+<div class="nom-professor">
+Professor Diego Izquierdo Perán
+</div>
+</div>
+</div>
+</section>
+
+<!-- Diapositiva 2 -->
+<section class="diapositiva" id="diapo2" role="region" aria-label="Diapositiva 2 de 7: Per què VERIFICA.TE?">
+<div class="contingut-diapositiva">
+<h2>¿Per què VERIFICA.TE?</h2>
+
+<div style="margin: 2rem 0; font-size: 1.3rem; line-height: 1.8;">
+<blockquote style="border-left: 4px solid var(--color-accent); padding-left: 20px; margin: 2rem 0;">
+"Si no firmaries <strong>un contracte de treball</strong> sense llegir-lo i contrastar-ho amb el conveni...
+<br><br>
+...¿per què et creus <strong>qualsevol missatge, oferta o notícia</strong> que veus a la xarxa?"
+</blockquote>
+</div>
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin: 2rem 0;">
+<div style="text-align: center;">
+<div style="font-size: 3rem; color: var(--color-generalitat);">📄</div>
+<p><strong>Contracte laboral</strong></p>
+</div>
+<div style="font-size: 2rem; color: var(--color-text-suau);">↔️</div>
+<div style="text-align: center;">
+<div style="font-size: 3rem; color: var(--color-generalitat);">📱</div>
+<p><strong>Contingut digital</strong></p>
+</div>
+</div>
+
+<p style="text-align: center; font-weight: 600; color: var(--color-generalitat);">
+La mateixa habilitat professional, diferents contexts.
+</p>
+
+<div style="text-align: center; margin-top: 2rem; padding: 1rem; background: #f0f7ff; border-radius: 8px;">
+<p><strong>Tu ja tens l'entrenament per analitzar. Aplica-ho a tot.</strong></p>
+</div>
+</div>
+</section>
+
+<!-- Diapositiva 3 -->
+<section class="diapositiva" id="diapo3" role="region" aria-label="Diapositiva 3 de 7: El mètode VERIFICA">
+<div class="contingut-diapositiva">
+<h2>El Mètode <span style="color: var(--color-generalitat);">VERIFICA</span></h2>
+<p style="margin-bottom: 2rem; font-size: 1.2rem; color: var(--color-text-suau);">
+Cada lletra, una acció crítica. Desplaça't cap avall per veure totes les accions.
+</p>
+
+<ul class="llista-acrostic" role="list">
+<li data-lletra="V" role="listitem">
+<span class="explicacio-acrostic">Ves a la FONT</span>
+<span class="detall-acrostic">¿Qui ho diu? És fiable? Té autoritat? Comprova l'origen de la informació.</span>
+</li>
+<li data-lletra="E" role="listitem">
+<span class="explicacio-acrostic">Examina les EVIDÈNCIES</span>
+<span class="detall-acrostic">Hi ha dades, enllaços, cites? O només opinió? Demana proves concretes.</span>
+</li>
+<li data-lletra="R" role="listitem">
+<span class="explicacio-acrostic">Rastreja la DATA</span>
+<span class="detall-acrostic">¿És actual? Una llei antiga pot estar derogada. El context temporal importa.</span>
+</li>
+<li data-lletra="I" role="listitem">
+<span class="explicacio-acrostic">Investiga la INTENCIÓ</span>
+<span class="detall-acrostic">¿Vol vendre, convèncer, manipular o simplement informar? Analitza el propòsit.</span>
+</li>
+<li data-lletra="F" role="listitem">
+<span class="explicacio-acrostic">Fes CROSS-CHECK</span>
+<span class="detall-acrostic">Consulta altres fonts. Una sola no és suficient. Contrasta informacions.</span>
+</li>
+<li data-lletra="I" role="listitem">
+<span class="explicacio-acrostic">Identifica els TEUS BIAIXOS</span>
+<span class="detall-acrostic">¿T'ho creus perquè coincideix amb el que ja pensaves? Reconèix els teus prejudicis.</span>
+</li>
+<li data-lletra="C" role="listitem">
+<span class="explicacio-acrostic">Contrasta amb el teu CONEIXEMENT</span>
+<span class="detall-acrostic">¿Què saps del tema? ¿Té sentit? Aprofita el teu saber previ.</span>
+</li>
+<li data-lletra="A" role="listitem">
+<span class="explicacio-acrostic">Actua amb RESPONSABILITAT</span>
+<span class="detall-acrostic">No comparteixis, "likes" ni amplifiquis sense abans <strong>verificar</strong>. Sé un agent crític.</span>
+</li>
+</ul>
+
+<div style="margin-top: 2rem; padding: 1.5rem; background: #fff3cd; border-radius: 8px; border-left: 4px solid var(--color-accent);">
+<p style="font-weight: 600; color: #856404; margin: 0;">
+Aquest procés et pot salvar d'un frau laboral... o d'una notícia falsa.
+</p>
+</div>
+</div>
+</section>
+
+<!-- Diapositiva 4 -->
+<section class="diapositiva" id="diapo4" role="region" aria-label="Diapositiva 4 de 7: Cas pràctic FOL">
+<div class="contingut-diapositiva">
+<h2><span style="color: var(--color-generalitat);">VERIFICA.TE</span> en acció</h2>
+<p style="margin-bottom: 2rem; text-align: center; font-size: 1.2rem;">
+Dos escenaris, una mateixa habilitat. Desplaça't cap avall per veure tots els detalls.
+</p>
+
+<div class="dues-columnes">
+<!-- Columna 1: Context laboral -->
+<div class="columna" role="region" aria-label="Context laboral">
+<div style="text-align: center; font-size: 2.5rem; color: var(--color-generalitat); margin-bottom: 15px;">💼</div>
+<h3>OFERTA DE TREBALL</h3>
+<p style="font-style: italic; color: var(--color-text-suau); margin-bottom: 1.5rem;">
+"Sou un 15% superior al conveni col·lectiu."
+</p>
+
+<h4 style="margin-top: 1.5rem; color: var(--color-generalitat); font-size: 1.2rem;">
+¿Com actua un professional?
+</h4>
+<ul style="margin-left: 1.5rem; margin-top: 1rem; font-size: 1.05rem;">
+<li style="margin-bottom: 0.8rem;">Busca el <strong>conveni del sector</strong> (font oficial)</li>
+<li style="margin-bottom: 0.8rem;">Compara les <strong>tables salarials</strong> (evidència)</li>
+<li style="margin-bottom: 0.8rem;">Comprova si l'oferta és <strong>actual</strong> (data)</li>
+<li>Pensa: ¿per què ofereixen més? (intenció)</li>
+</ul>
+</div>
+
+<!-- Columna 2: Context digital -->
+<div class="columna" role="region" aria-label="Context digital">
+<div style="text-align: center; font-size: 2.5rem; color: var(--color-generalitat); margin-bottom: 15px;">📰</div>
+<h3>NOTÍCIA A XARXES</h3>
+<p style="font-style: italic; color: var(--color-text-suau); margin-bottom: 1.5rem;">
+"El Govern baixa els impostos per als joves."
+</p>
+
+<h4 style="margin-top: 1.5rem; color: var(--color-generalitat); font-size: 1.2rem;">
+¿Com actua un ciutadà crític?
+</h4>
+<ul style="margin-left: 1.5rem; margin-top: 1rem; font-size: 1.05rem;">
+<li style="margin-bottom: 0.8rem;">Busca el <strong>butlletí oficial</strong> (font oficial)</li>
+<li style="margin-bottom: 0.8rem;">Llegeix la <strong>proposta de llei</strong> (evidència)</li>
+<li style="margin-bottom: 0.8rem;">Comprova la <strong>data de vigència</strong> (data)</li>
+<li>Pensa: ¿qui ho publica i per què? (intenció)</li>
+</ul>
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 2.5rem; padding: 1.5rem; background: linear-gradient(to right, #f8f9fa, #e9ecef); border-radius: 10px; border: 2px dashed var(--color-generalitat);">
+<p style="font-size: 1.5rem; font-weight: 700; color: var(--color-generalitat); line-height: 1.4;">
+El mateix múscul crític.<br>Diferents escenaris.
+</p>
+</div>
+</div>
+</section>
+
+<!-- Diapositiva 5 -->
+<section class="diapositiva" id="diapo5" role="region" aria-label="Diapositiva 5 de 7: Eines per a verificar">
+<div class="contingut-diapositiva">
+<h2>No estàs sol/a: ajuda't d'aquestes eines</h2>
+<p style="margin-bottom: 2rem; color: var(--color-text-suau);">
+Recursos gratuïts per a verificar informació digital:
+</p>
+
+<div class="eines-llista">
+<!-- Fila 1 -->
+<!-- Eina 1 -->
+<div class="eina-item" role="listitem">
+<div style="font-size: 2rem; color: var(--color-generalitat); margin-bottom: 10px;">🔍</div>
+<div class="eina-nom">Google Imatges (Cerca inversa)</div>
+<p style="font-size: 0.95rem; color: var(--color-text-suau); margin: 0 0 15px 0;">
+Per saber d'on ve una imatge i si ha estat manipulada.
+</p>
+<a href="https://images.google.com" target="_blank" class="eina-enllac" aria-label="Obrir Google Imatges en una nova finestra">
+images.google.com →
+</a>
+</div>
+
+<!-- Eina 2 -->
+<div class="eina-item" role="listitem">
+<div style="font-size: 2rem; color: var(--color-generalitat); margin-bottom: 10px;">🎥</div>
+<div class="eina-nom">InVID Verification Plugin</div>
+<p style="font-size: 0.95rem; color: var(--color-text-suau); margin: 0 0 15px 0;">
+Eina per analitzar vídeos i verificar la seva autenticitat.
+</p>
+<a href="https://www.invid-project.eu" target="_blank" class="eina-enllac" aria-label="Obrir InVID Project en una nova finestra">
+invid-project.eu →
+</a>
+</div>
+
+<!-- Fila 2 -->
+<!-- Eina 3 -->
+<div class="eina-item" role="listitem">
+<div style="font-size: 2rem; color: var(--color-generalitat); margin-bottom: 10px;">📰</div>
+<div class="eina-nom">Maldita.es / Verificat.cat</div>
+<p style="font-size: 0.95rem; color: var(--color-text-suau); margin: 0 0 15px 0;">
+Webs de verificació de notícies i desinformació.
+</p>
+<div>
+<a href="https://maldita.es" target="_blank" class="eina-enllac" aria-label="Obrir Maldita.es en una nova finestra" style="margin-right: 15px;">
+maldita.es →
+</a>
+<a href="https://www.verificat.cat" target="_blank" class="eina-enllac" aria-label="Obrir Verificat.cat en una nova finestra">
+verificat.cat →
+</a>
+</div>
+</div>
+
+<!-- Eina 4 -->
+<div class="eina-item" role="listitem">
+<div style="font-size: 2rem; color: var(--color-generalitat); margin-bottom: 10px;">🌐</div>
+<div class="eina-nom">Newtral.es / Whois Lookup</div>
+<p style="font-size: 0.95rem; color: var(--color-text-suau); margin: 0 0 15px 0;">
+Verificació de notícies i informació sobre webs.
+</p>
+<div>
+<a href="https://www.newtral.es" target="_blank" class="eina-enllac" aria-label="Obrir Newtral.es en una nova finestra" style="margin-right: 15px;">
+newtral.es →
+</a>
+<a href="https://whois.domaintools.com" target="_blank" class="eina-enllac" aria-label="Obrir Whois Lookup en una nova finestra">
+whois.domaintools.com →
+</a>
+</div>
+</div>
+</div>
+
+<div style="margin-top: 2.5rem; padding: 1.5rem; background: #e7f6e7; border-radius: 8px;">
+<div style="display: flex; align-items: flex-start; gap: 15px;">
+<div style="font-size: 2rem; color: #0d5813; flex-shrink: 0;">⚠️</div>
+<div>
+<p style="font-weight: 600; color: #0d5813; margin-bottom: 5px;">Recordatori important</p>
+<p style="margin: 0 0 10px 0; font-size: 1.1rem;">
+<strong>La millor eina sempre serà la teva curiositat i el teu sentit comú.</strong>
+</p>
+<p style="margin: 0; font-style: italic; color: #0d5813;">
+Cap tecnologia substitueix el pensament crític humà.
+</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Diapositiva 6 -->
+<section class="diapositiva" id="diapo6" role="region" aria-label="Diapositiva 6 de 7: El teu compromís">
+<div class="contingut-diapositiva">
+<h2>El teu compromís</h2>
+<p style="font-size: 1.3rem; margin-bottom: 2rem; text-align: center; color: var(--color-text-suau);">
+Com a futur professional i ciutadà digital responsable
+</p>
+
+<div style="max-width: 700px; margin: 0 auto 2rem;">
+<div style="background: #f0f7ff; padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+<p style="font-size: 1.2rem; margin-bottom: 1.5rem; line-height: 1.6;">
+Abans de <strong>compartir</strong>, <strong>confiar</strong> o <strong>actuar</strong> davant qualsevol contingut digital, em comprometo a fer una <span style="color: var(--color-generalitat); font-weight: 700;">pausa i preguntar-me</span>:
+</p>
+
+<ul style="margin-left: 1.5rem; font-size: 1.1rem; line-height: 1.8;">
+<li style="margin-bottom: 1rem;">¿Tinc totes les dades o em falta alguna peça clau?</li>
+<li style="margin-bottom: 1rem;">¿He verificat la font o m'estic fiant només del missatger?</li>
+<li style="margin-bottom: 1rem;">¿Què voldria aconseguir qui ho ha publicat?</li>
+<li>¿Estic deixant que els meus prejudicis influïs en la meva valoració?</li>
+</ul>
+</div>
+
+<div style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, var(--color-generalitat), var(--color-generalitat-clar)); color: white; border-radius: 12px;">
+<p style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem;">
+Sigues part de la solució.
+</p>
+<p style="font-size: 1.3rem; opacity: 0.9;">
+Construïm una xarxa més fiable, veritable i humana.
+</p>
+</div>
+</div>
+
+<div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #eee;">
+<p style="font-size: 2rem; color: var(--color-generalitat); font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 1px;">
+#VerificaTe
+</p>
+<div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+<span style="background: #e9ecef; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 500;">#CiutadaniaDigitalFOL</span>
+<span style="background: #e9ecef; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 500;">#PensamentCrític</span>
+<span style="background: #e9ecef; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 500;">#FOLDigital</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Diapositiva 7 -->
+<section class="diapositiva" id="diapo7" role="region" aria-label="Diapositiva 7 de 7: Crèdits i recursos">
+<div class="contingut-diapositiva">
+<div style="text-align: center;">
+<h2 style="color: var(--color-generalitat); margin-bottom: 1rem;">Gràcies per pensar críticament</h2>
+
+<div style="margin: 2rem 0;">
+<p style="font-size: 1.2rem; margin-bottom: 2rem; line-height: 1.6;">
+Aquesta campanya és un recurs del <strong>Departament de Formació i Orientació Laboral</strong><br>
+per a la promoció de la ciutadania digital responsable.
+</p>
+
+<!-- Àrea FOL -->
+<div style="margin: 2rem auto; max-width: 300px;">
+<div style="background: #D1222B; color: white; padding: 1.5rem; border-radius: 8px; text-align: center;">
+<div style="font-weight: bold; font-size: 1.5rem; margin-bottom: 5px;">FOL – IPO I</div>
+<div style="font-size: 0.9rem;">Departament d'Educació</div>
+</div>
+</div>
+</div>
+
+<div style="background: #f8f9fa; padding: 2rem; border-radius: 10px; margin: 2rem 0;">
+<h3 style="color: var(--color-text); margin-bottom: 1.5rem;">Recursos del projecte</h3>
+
+<div class="enllaços-recursos">
+<a class="enllac-recurs" onclick="mostrarRecurs('modul2')" role="button" tabindex="0" aria-label="Accedir al recurs sobre identitat digital professional">
+<div class="icon-enllac">👤</div>
+<div>
+<div style="font-weight: 700; color: var(--color-generalitat);">Recurs: Identitat Digital Professional</div>
+<div style="font-size: 0.9rem; color: var(--color-text-suau);">"Construeix el teu camí" - Recurs accessible</div>
+</div>
+</a>
+
+<a class="enllac-recurs" onclick="mostrarRecurs('modul3')" role="button" tabindex="0" aria-label="Accedir al recurs sobre anàlisi laboral">
+<div class="icon-enllac">⚖️</div>
+<div>
+<div style="font-weight: 700; color: var(--color-generalitat);">Recurs: Anàlisi Laboral</div>
+<div style="font-size: 0.9rem; color: var(--color-text-suau);">"De l'oferta al conveni" - Activitat accessible</div>
+</div>
+</a>
+</div>
+
+<!-- NOTA: Frase del CDD ELIMINADA -->
+</div>
+
+<div style="margin-top: 2rem; padding: 1.5rem; background: #e7f6e7; border-radius: 8px; display: inline-block; max-width: 500px;">
+<p style="font-weight: 600; color: #0d5813; margin: 0; line-height: 1.5;">
+Dubtes o necessites ajuda per verificar alguna cosa?<br>
+Parla amb el teu professor/a de FOL.
+</p>
+</div>
+
+<!-- Botó per tornar a l'inici -->
+<button class="boto-navegacio boto-inici" id="boto-inici" style="margin-top: 2rem;">
+<span>🏠</span> Tornar a l'inici
+</button>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Barra de progrés -->
+<div class="barra-progres" role="progressbar" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" aria-label="Progrés de la presentació">
+<div class="progres-omplert" id="progres-omplert" style="transform: translateX(0%);"></div>
+</div>
+
+<!-- Botons de navegació - POSICIONATS A BAIX EXTERNS -->
+<div class="botons-navegacio">
+<button class="boto-navegacio boto-secundari" id="boto-anterior" aria-label="Diapositiva anterior">
+<span>←</span> Anterior
+</button>
+<button class="boto-navegacio" id="boto-seguent" aria-label="Diapositiva següent">
+Següent <span>→</span>
+</button>
+</div>
+
+<!-- Modal per als recursos -->
+<div id="modal-recursos" class="modal-recursos" role="dialog" aria-labelledby="modal-titol" aria-modal="true">
+<div class="modal-contingut">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<h3 id="modal-titol" style="color: var(--color-generalitat); margin: 0;"></h3>
+<button onclick="tancarModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--color-text-suau);" aria-label="Tancar finestra">×</button>
+</div>
+<div id="modal-contingut"></div>
+<div style="text-align: center; margin-top: 25px;">
+<button onclick="tancarModal()" class="boto-navegacio" style="margin: 0 auto;">
+Tancar
+</button>
+</div>
+</div>
+</div>
+
+<!-- Missatge per a lectors de pantalla -->
+<div id="missatge-sr" class="sr-only" aria-live="polite" aria-atomic="true">
+Presentació VERIFICA.TE carregada. Diapositiva 1 de 7: Portada.
+</div>
+</div>
+
+<script>
+// Codi JavaScript per a la navegació
+document.addEventListener('DOMContentLoaded', function() {
+const diapositives = document.querySelectorAll('.diapositiva');
+const botoAnterior = document.getElementById('boto-anterior');
+const botoSeguent = document.getElementById('boto-seguent');
+const botoInici = document.getElementById('boto-inici');
+const diapositivaActualSpan = document.getElementById('diapositiva-actual');
+const progresOmplert = document.getElementById('progres-omplert');
+const missatgeSr = document.getElementById('missatge-sr');
+
+let diapositivaActual = 0;
+const totalDiapositives = diapositives.length;
+
+// Funció per actualitzar la visualització
+function actualitzarDiapositiva() {
+// Amagar totes les diapositives
+diapositives.forEach(diapo => {
+diapo.classList.remove('activa');
+diapo.setAttribute('aria-hidden', 'true');
+});
+
+// Mostrar la diapositiva actual
+diapositives[diapositivaActual].classList.add('activa');
+diapositives[diapositivaActual].setAttribute('aria-hidden', 'false');
+
+// Desplaçar-se al principi de la diapositiva
+diapositives[diapositivaActual].scrollTop = 0;
+
+// Actualitzar el comptador
+diapositivaActualSpan.textContent = diapositivaActual + 1;
+
+// Actualitzar la barra de progrés
+const percentatge = (diapositivaActual / (totalDiapositives - 1)) * 100;
+progresOmplert.style.transform = `translateX(${percentatge}%)`;
+progresOmplert.parentElement.setAttribute('aria-valuenow', diapositivaActual + 1);
+
+// Actualitzar missatge per a lectors de pantalla
+const titols = [
+'Portada: VERIFICA.TE',
+'Per què VERIFICA.TE?',
+'El mètode VERIFICA',
+'Cas pràctic FOL',
+'Eines per a verificar',
+'El teu compromís',
+'Crèdits i recursos'
+];
+missatgeSr.textContent = `Diapositiva ${diapositivaActual + 1} de ${totalDiapositives}: ${titols[diapositivaActual]}`;
+
+// Actualitzar estat dels botons
+botoAnterior.disabled = diapositivaActual === 0;
+botoSeguent.disabled = diapositivaActual === totalDiapositives - 1;
+botoSeguent.textContent = diapositivaActual === totalDiapositives - 1 ? 'Final' : 'Següent →';
+
+// Enfocar el títol de la diapositiva per a accessibilitat
+setTimeout(() => {
+const titol = diapositives[diapositivaActual].querySelector('h1, h2');
+if (titol) {
+titol.setAttribute('tabindex', '-1');
+titol.focus();
+}
+}, 100);
+}
+
+// Funció per anar a la diapositiva següent
+function següentDiapositiva() {
+if (diapositivaActual < totalDiapositives - 1) {
+diapositivaActual++;
+actualitzarDiapositiva();
+}
+}
+
+// Funció per anar a la diapositiva anterior
+function anteriorDiapositiva() {
+if (diapositivaActual > 0) {
+diapositivaActual--;
+actualitzarDiapositiva();
+}
+}
+
+// Funció per tornar a l'inici
+function tornarInici() {
+diapositivaActual = 0;
+actualitzarDiapositiva();
+}
+
+// Configurar esdeveniments dels botons
+botoAnterior.addEventListener('click', anteriorDiapositiva);
+botoSeguent.addEventListener('click', següentDiapositiva);
+if (botoInici) {
+botoInici.addEventListener('click', tornarInici);
+}
+
+// Configurar navegació per teclat
+document.addEventListener('keydown', function(e) {
+// Ignorar si estem en un camp de text o similar
+if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+return;
+}
+
+// Si el modal està obert, només permetre tancar-lo amb ESC
+if (document.getElementById('modal-recursos').style.display === 'flex') {
+if (e.key === 'Escape') {
+tancarModal();
+e.preventDefault();
+}
+return;
+}
+
+switch(e.key) {
+case 'ArrowRight':
+case ' ':
+case 'Enter':
+if (!e.target.closest('.enllac-recurs') && !e.target.closest('.eina-enllac')) {
+següentDiapositiva();
+e.preventDefault();
+}
+break;
+case 'ArrowLeft':
+anteriorDiapositiva();
+e.preventDefault();
+break;
+case 'Home':
+tornarInici();
+e.preventDefault();
+break;
+case 'End':
+diapositivaActual = totalDiapositives - 1;
+actualitzarDiapositiva();
+e.preventDefault();
+break;
+case 'Escape':
+// Tancar modal si està obert
+if (document.getElementById('modal-recursos').style.display === 'flex') {
+tancarModal();
+e.preventDefault();
+}
+break;
+}
+});
+
+// Configurar navegació per tocs
+let tocIniciX = 0;
+let tocIniciY = 0;
+
+document.addEventListener('touchstart', function(e) {
+tocIniciX = e.touches[0].clientX;
+tocIniciY = e.touches[0].clientY;
+});
+
+document.addEventListener('touchend', function(e) {
+const tocFiX = e.changedTouches[0].clientX;
+const tocFiY = e.changedTouches[0].clientY;
+const diferenciaX = tocIniciX - tocFiX;
+const diferenciaY = tocIniciY - tocFiY;
+
+// Només processar si el desplaçament és principalment horitzontal
+if (Math.abs(diferenciaX) > Math.abs(diferenciaY) * 2) {
+// Lliscar cap a la dreta (anterior)
+if (diferenciaX > 50) {
+anteriorDiapositiva();
+}
+// Lliscar cap a l'esquerra (següent)
+else if (diferenciaX < -50) {
+següentDiapositiva();
+}
+}
+});
+
+// Configurar els enllaços dels recursos
+document.querySelectorAll('.enllac-recurs').forEach(enllac => {
+enllac.addEventListener('click', function(e) {
+const onclickAttr = this.getAttribute('onclick');
+if (onclickAttr) {
+const match = onclickAttr.match(/'(\w+)'/);
+if (match && match[1]) {
+mostrarRecurs(match[1]);
+}
+}
+e.preventDefault();
+});
+
+enllac.addEventListener('keydown', function(e) {
+if (e.key === 'Enter' || e.key === ' ') {
+const onclickAttr = this.getAttribute('onclick');
+if (onclickAttr) {
+const match = onclickAttr.match(/'(\w+)'/);
+if (match && match[1]) {
+mostrarRecurs(match[1]);
+}
+}
+e.preventDefault();
+}
+});
+});
+
+// Inicialitzar presentació
+actualitzarDiapositiva();
+
+// Assegurar que els botons tenen l'estat correcte inicial
+botoAnterior.disabled = true;
+});
+
+// Funció per mostrar els recursos dels mòduls (NETEJADA)
+function mostrarRecurs(modul) {
+const modal = document.getElementById('modal-recursos');
+const titol = document.getElementById('modal-titol');
+const contingut = document.getElementById('modal-contingut');
+
+if (modul === 'modul2') {
+titol.textContent = 'Identitat Digital Professional';
+contingut.innerHTML = `
+<div style="background: #f0f7ff; padding: 25px; border-radius: 8px; border-left: 5px solid var(--color-generalitat);">
+<h4 style="color: var(--color-generalitat); margin-top: 0;">"Construeix el teu camí"</h4>
+<p><strong>Objectiu:</strong> Guiar l'alumnat en la creació d'una identitat digital professional coherent i segura.</p>
+
+<h5 style="margin-top: 20px;">Continguts principals:</h5>
+<ul style="margin-left: 20px;">
+<li>Autodiagnòstic de la presència digital actual</li>
+<li>Estratègies per a la neteja digital</li>
+<li>Creació de contingut professional rellevant</li>
+<li>Gestió de la privacitat i seguretat</li>
+<li>Connexió entre identitat digital i cerca de feina</li>
+</ul>
+
+<div style="margin-top: 25px; padding: 15px; background: #e8f5e9; border-radius: 6px;">
+<p style="margin: 0; font-weight: 600; color: #0d5813;">
+<span style="font-size: 1.2rem;">♿</span> Aquest recurs inclou versions accessibles:
+</p>
+<ul style="margin: 10px 0 0 20px;">
+<li>Versió en PDF amb text seleccionable</li>
+<li>Versió àudio per a alumnat amb dislèxia</li>
+<li>Contrast alt verificat (WCAG AA)</li>
+<li>Estructura semàntica per a lectors de pantalla</li>
+</ul>
+</div>
+
+</div>
+`;
+} else if (modul === 'modul3') {
+titol.textContent = 'Anàlisi Laboral';
+contingut.innerHTML = `
+<div style="background: #fff3cd; padding: 25px; border-radius: 8px; border-left: 5px solid var(--color-accent);">
+<h4 style="color: var(--color-generalitat); margin-top: 0;">"De l'oferta al conveni"</h4>
+<p><strong>Objectiu:</strong> Analitzar ofertes de treball reals contrastant-les amb la legislació laboral vigent.</p>
+
+<h5 style="margin-top: 20px;">Activitat principal:</h5>
+<ul style="margin-left: 20px;">
+<li>Anàlisi individual de condicions laborals clau</li>
+<li>Treball col·laboratiu amb taules de contrast</li>
+<li>Comparació sistemàtica oferta vs. conveni col·lectiu</li>
+<li>Identificació de pràctiques abusives o fraudulentes</li>
+<li>Redacció de conclusions i recomanacions</li>
+</ul>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px;">
+<div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #ddd;">
+<p style="font-weight: 600; margin-top: 0;">Competències digitals</p>
+<ul style="margin: 10px 0 0 15px; font-size: 0.9rem;">
+<li>Ús de Canva Docs col·laboratiu</li>
+<li>Gestor de referències digitals</li>
+<li>Consulta de bases de dades legislatives</li>
+<li>Comunicació digital en equip</li>
+</ul>
+</div>
+<div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #ddd;">
+<p style="font-weight: 600; margin-top: 0;">Accessibilitat</p>
+<ul style="margin: 10px 0 0 15px; font-size: 0.9rem;">
+<li>Conveni en versió OCR (text seleccionable)</li>
+<li>Plantilles d'alt contrast</li>
+<li>Instruccions multimodals (text+àudio)</li>
+<li>Rúbrica d'avaluació accessible</li>
+</ul>
+</div>
+</div>
+
+</div>
+`;
+}
+
+modal.style.display = 'flex';
+modal.setAttribute('aria-hidden', 'false');
+// Enfocar el botó de tancar per a accessibilitat
+setTimeout(() => {
+modal.querySelector('button').focus();
+}, 100);
+}
+
+function tancarModal() {
+const modal = document.getElementById('modal-recursos');
+modal.style.display = 'none';
+modal.setAttribute('aria-hidden', 'true');
+// Retornar l'enfocament a la presentació
+const elementActiu = document.querySelector('.diapositiva.activa h2, .diapositiva.activa h1');
+if (elementActiu) {
+elementActiu.focus();
+}
+}
+
+// Tancar modal fent clic fora del contingut
+document.getElementById('modal-recursos').addEventListener('click', function(e) {
+if (e.target === this) {
+tancarModal();
+}
+});
+</script>
+</body>
+</html>

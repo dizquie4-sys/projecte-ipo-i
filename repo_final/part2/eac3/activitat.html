@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activitat Principal · EAC 3 (RA3)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       SISTEMA DE DISSENY IOC — CSS COMPLET
+       ============================================================ */
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 24px;
+      color: #202735;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px 48px 16px;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Lato', Arial, sans-serif;
+      color: #3D4D74;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    h1 { font-size: 36px; }
+    h2 { font-size: 30px; }
+    h3 { font-size: 24px; }
+    h4 { font-size: 19px; }
+    h5 { font-size: 17px; }
+
+    p { margin: 8px 0; }
+
+    a {
+      color: #266FDC;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+    a:hover { color: #076DF0; }
+
+    ul, ol { margin: 8px 0; padding-left: 22px; }
+    li { margin: 4px 0; }
+
+    .ioc-spacer {
+      display: block;
+      height: 1.5em;
+      margin: 0;
+    }
+
+    /* ---------- Components semàntics ---------- */
+
+    .text-destacat {
+      background: #ECF2FF;
+      border-left: 4px solid #266FDC;
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 4px;
+      color: #202735;
+    }
+
+    .recorda {
+      background: #EAF9FF;
+      border-left: 4px solid #32A6D1;
+      padding: 16px 20px 16px 56px;
+      margin: 16px 0;
+      border-radius: 4px;
+      position: relative;
+    }
+    .recorda::before {
+      content: "📌";
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      font-size: 20px;
+    }
+
+    .atencio {
+      background: #FEF6ED;
+      border-left: 4px solid #F88923;
+      padding: 16px 20px 16px 56px;
+      margin: 16px 0;
+      border-radius: 4px;
+      position: relative;
+    }
+    .atencio::before {
+      content: "⚠";
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      font-size: 22px;
+      color: #F88923;
+      font-weight: bold;
+    }
+
+    .context-procedimental {
+      background: #EAEFFA;
+      border-left: 4px solid #3D4D74;
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+
+    .retol-inline {
+      display: inline-block;
+      background: #266FDC;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin: 0 4px;
+    }
+
+    /* ---------- Camps de formulari ---------- */
+
+    input[type="text"],
+    input[type="url"],
+    textarea {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.4;
+      border: 1px solid #C1C8D8;
+      border-radius: 4px;
+      padding: 8px 10px;
+      width: 100%;
+      background-color: #ffffff;
+      color: #202735;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus,
+    input[type="url"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #266FDC;
+      box-shadow: 0 0 0 2px rgba(38, 111, 220, 0.15);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+      overflow: hidden;
+      transition: min-height 0.2s ease;
+    }
+    .ioc-help {
+      font-size: 13px;
+      color: #555;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* ---------- Botons ---------- */
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      margin-right: 8px;
+      margin-top: 8px;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background-color: #266FDC;
+      color: #ffffff;
+    }
+    .btn-primary:hover { background-color: #076DF0; }
+    .btn-secondary {
+      background-color: #777777;
+      color: #ffffff;
+    }
+    .btn-secondary:hover { background-color: #555555; }
+    .btn-danger {
+      background-color: #F85449;
+      color: #ffffff;
+    }
+    .btn-danger:hover { background-color: #d43a30; }
+
+    /* ---------- Capçalera IOC ---------- */
+
+    .capcalera-ioc {
+      background-color: #266FDC;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 28px 24px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .capcalera-ioc-logo {
+      width: 120px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      line-height: 1.1;
+    }
+    .ioc-logo-text {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+    .ioc-logo-subtext {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.9;
+      margin: 4px 0 0 0;
+      line-height: 1.2;
+    }
+    .capcalera-ioc-text {
+      flex: 1;
+      min-width: 250px;
+    }
+    .capcalera-ioc-text h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 6px 0;
+      line-height: 1.25;
+    }
+    .capcalera-ioc-text h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      opacity: 0.95;
+      margin: 0 0 4px 0;
+      line-height: 1.3;
+      border: none;
+      padding: 0;
+    }
+    .capcalera-ioc-text .subtitol {
+      font-size: 15px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.9;
+      margin: 0 0 10px 0;
+      line-height: 1.3;
+    }
+    .capcalera-ioc-codi {
+      font-size: 14px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.85;
+      margin: 0;
+      font-style: italic;
+    }
+
+    /* ---------- Requadre multipropòsit ---------- */
+
+    .requadre-multiproposit {
+      background: #EAEFFA;
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+    .requadre-multiproposit.groc { background: #FEF6ED; }
+    .requadre-multiproposit.blau { background: #ECF2FF; }
+
+    /* ---------- Responsive ---------- */
+
+    @media (max-width: 600px) {
+      .page { padding: 16px 12px 32px 12px; }
+      h2 { font-size: 24px; }
+      h3 { font-size: 20px; }
+      .capcalera-ioc {
+        padding: 20px 16px;
+        gap: 16px;
+        flex-direction: column;
+        text-align: center;
+      }
+      .capcalera-ioc-logo { width: auto; align-items: center; }
+      .ioc-logo-text { font-size: 24px; }
+      .ioc-logo-subtext { font-size: 10px; }
+      .capcalera-ioc-text h1 { font-size: 20px; }
+      .capcalera-ioc-text h2 { font-size: 15px; }
+      .capcalera-ioc-text .subtitol { font-size: 13px; }
+      .capcalera-ioc-codi { font-size: 12px; }
+    }
+
+    /* ---------- Impressió / PDF ---------- */
+    @page { margin: 15mm; }
+    @media print {
+      body > .page { display: block !important; }
+      .btn, .botons-exportacio { display: none !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<nav style="background:#1c2536; color:#fff; padding:10px 16px; font-family:'Lato',Arial,sans-serif; font-size:13.5px; border-bottom:3px solid #266FDC; position:sticky; top:0; z-index:999;">
+  <div style="max-width:720px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+    <a href="../../index.html" style="color:#fff; text-decoration:none; font-weight:700;">🏛️ Inici</a>
+    <div style="display:flex; gap:11px; flex-wrap:wrap; align-items:center;">
+      <a href="../../part1/index.html" style="color:#d8e6ff; text-decoration:none;">📘 Part I</a>
+      <a href="../index.html" style="color:#d8e6ff; text-decoration:none;">🛠️ Part II</a>
+      <a href="guia.html" style="color:#d8e6ff; text-decoration:none;">📖 Guia</a>
+      <a href="activitat.html" style="color:#d8e6ff; text-decoration:none;">📄 Activitat</a>
+      <a href="debat.html" style="color:#d8e6ff; text-decoration:none;">💬 Debat</a>
+      <a href="questionari.html" style="color:#d8e6ff; text-decoration:none;">📝 Test</a>
+      <a href="../verificate.html" style="background:#D1222B; color:#fff; padding:3px 9px; border-radius:4px; text-decoration:none; font-weight:700;">🔍 VERIFICA.TE</a>
+    </div>
+  </div>
+</nav>
+
+
+<div class="page">
+
+  <!-- CAPÇALERA IOC -->
+  <header class="capcalera-ioc">
+    <div class="capcalera-ioc-logo">
+      <p class="ioc-logo-text">IOC</p>
+      <p class="ioc-logo-subtext">Institut Obert de Catalunya</p>
+    </div>
+    <div class="capcalera-ioc-text">
+      <h1>Activitat Principal · EAC 3</h1>
+      <h2>De l'oferta al conveni · Anàlisi de les condicions laborals</h2>
+      <p class="subtitol">RA3 · IPO I · CFGM Instal·lacions Elèctriques</p>
+      <p class="capcalera-ioc-codi">Activitat d'avaluació contínua · Lliurament en format JSON</p>
+    </div>
+  </header>
+
+  <!-- INTRODUCCIÓ -->
+  <div class="text-destacat">
+    <strong>Què has de fer en aquesta activitat?</strong>
+    <p>Aquesta és l'activitat principal de l'EAC 3. Has de respondre <strong>10 preguntes obertes</strong> (3 sobre l'oferta i el contracte, 3 sobre la nòmina i el salari, 3 sobre el conveni i els drets laborals, i 1 sobre l'ús de la IA). En acabar, has de <strong>generar un fitxer JSON</strong> amb les teves respostes i pujar-lo a Moodle.</p>
+  </div>
+
+  <div class="recorda">
+    <strong>Recorda:</strong> Pots utilitzar la IA com a suport, però el contingut final ha de ser personal i elaborat per tu. A la pregunta P10 hauràs d'explicar com l'has utilitzada (si escau).
+  </div>
+
+  <!-- ============================================ -->
+  <!-- DADES DE L'ESTUDIANT -->
+  <!-- ============================================ -->
+  <h2>📋 Dades de l'estudiant</h2>
+  <div class="requadre-multiproposit blau">
+    <p><strong>Nom i cognoms</strong> <span style="color:#F85449;">*</span></p>
+    <p><input type="text" id="nom" placeholder="Exemple: Maria Garcia" aria-required="true"></p>
+    <p><strong>Grup</strong> <span style="color:#F85449;">*</span></p>
+    <p><input type="text" id="grup" placeholder="Exemple: Grup A" aria-required="true"></p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- BLOC 1: OFERTA I CONTRACTE -->
+  <!-- ============================================ -->
+  <h2>🔍 Bloc 1 · L'oferta i el contracte (RA3)</h2>
+
+  <p><strong>P1. Tria una oferta de feina real (o inventada) del sector elèctric. Analitza-la: quin tipus de contracte ofereix (indefinit, temporal, per obra, etc.)? Quina jornada? Quines funcions?</strong> <span style="color:#F85449;">*</span></p>
+  <textarea id="p1" rows="4" placeholder="Oferta triada: ...&#10;Tipus de contracte: ...&#10;Jornada: ...&#10;Funcions: ..."></textarea>
+  <p class="ioc-help">Màxim 2000 caràcters.</p>
+
+  <p><strong>P2. Quins són els elements obligatoris que ha de contenir un contracte de treball segons l'Estatut dels Treballadors?</strong> <span style="color:#F85449;">*</span></p>
+  <textarea id="p2" rows="4" placeholder="Elements: identificació de les parts, data d'inici, jornada, salari, etc."></textarea>
+  <p class="ioc-help">Màxim 2000 caràcters.</p>
+
+  <p><strong>P3. Quines diferències principals hi ha entre un contracte indefinit i un contracte temporal? Quines conseqüències té per al treballador?</strong> <span style="color:#F85449;">*</span></p>
+  <textarea id="p3" rows="4" placeholder="Contracte indefinit: ...&#10;Contracte temporal: ...&#10;Conseqüències: ..."></textarea>
+  <p class="ioc-help">Màxim 2000 caràcters.</p>
+
+  <!-- ============================================ -->
+  <!-- BLOC 2: NÒMINA I SALARI -->
+  <!-- ============================================ -->
+  <h2>💰 Bloc 2 · La nòmina i el salari (RA3)</h2>
+
+  <p><strong>P4. Quines són les parts principals d'una nòmina? Explica breument què és cada una (capçalera, devengaments, deduccions, bases de cotització).</strong> <span style="color:#F85449;">*</span></p>
+  <textarea id="p4" rows="4" placeholder="Capçalera: ...&#10;Devengaments: ...&#10;Deduccions: ...&#10;Bases de cotització: ..."></textarea>
+  <p class="ioc-help">Màxim 2000 caràcters.</p>
+
+  <p><strong>P5. Quina diferència hi ha entre salari brut i salari net? Quines deduccions es fan normalment del salari brut per arribar al net?</strong> <span style="color:#F85449;">*</span></p>
+  <textarea id="p5" rows="4" placeholder="Salari brut: ...&#10;Salari net: ...&#10;Deduccions: ..."></textarea>
+  <p class="ioc-help">Màxim 2000 caràcters.</p>
+
+  <p><strong>P6. Què és el Salari Mínim Interprofessional (SMI)? Creus que és suficient per viure a Catalunya? Argumenta la teva resposta.</strong> <span style="color:#F85449;">*</span></p>
+  <textarea id="p6" rows="4" placeholder="SMI: ...&#10;Opinió argumentada: ..."></textarea>
+  <p class="ioc-help">Màxim 2000 caràcters.</p>
+
+  <!-- ============================================ -->
+  <!-- BLOC 3: CONVENI I DRETS LABORALS -->
+  <!-- ============================================ -->
+  <h2>📋 Bloc 3 · El conveni i els drets laborals (RA3)</h2>
+
+  <p><strong>P7. Què és un conveni col·lectiu? Com afecta les condicions laborals dels treballadors del sector elèctric?</strong> <span style="color:#F85449;">*</span></p>
+  <textarea id="p7" rows="4" placeholder="Definició: ...&#10;Afectació al sector: ..."></textarea>
+  <p class="ioc-help">Màxim 2000 caràcters.</p>
+
+  <p><strong>P8. Quants dies de vacances i quants de festius tens dret a gaudir a l'any segons la legislació vigent? Què passa si no els gaudeixes?</strong> <span style="color:#F85449;">*</span></p>
+  <textarea id="p8" rows="4" placeholder="Vacances: ...&#10;Festius: ...&#10;Què passa si no es gaudeixen: ..."></textarea>
+  <p class="ioc-help">Màxim 2000 caràcters.</p>
+
+  <p><strong>P9. Al debat de l'aula hem parlat de la precarietat laboral. Creus que el sector elèctric és un sector precari? Argumenta la teva resposta i proposa una mesura per millorar les condicions laborals.</strong> <span style="color:#F85449;">*</span></p>
+  <textarea id="p9" rows="4" placeholder="Opinió argumentada: ...&#10;Mesura proposada: ..."></textarea>
+  <p class="ioc-help">Màxim 2000 caràcters.</p>
+
+  <!-- ============================================ -->
+  <!-- BLOC 4: IA -->
+  <!-- ============================================ -->
+  <h2>🤖 Bloc 4 · Ús de la intel·ligència artificial</h2>
+
+  <p><strong>P10. Auditoria crítica de la IA (<a href="../verificate.html" target="_blank">mètode VERIFICA.TE</a>):</strong></p>
+  <ol style="margin-top:4px; margin-bottom:10px;">
+    <li><strong>Auditoria jurídica d'un error de la IA (obligatori):</strong> Demana a una IA generativa que redacti una clàusula o resposta abusiva/errònia sobre un contracte laboral del sector elèctric (p. ex., renúncia a vacances, hores extres obligatòries no remunerades o període de prova il·legal) i <strong>refuta-la jurídicament</strong> citant l'article corresponent de l'Estatut dels Treballadors.</li>
+    <li><strong>Transparència d'ús:</strong> Indica quines eines d'IA has fet servir a la resta de l'activitat, com n'has verificat les dades i quina ha estat la teva aportació personal.</li>
+  </ol>
+  <textarea id="p10" rows="6" placeholder="1. Prompt enviat a la IA i resposta errònia obtinguda: ...&#10;Refutació jurídica (Estatut dels Treballadors): ...&#10;2. Altres usos de la IA a l'activitat i verificació (VERIFICA.TE): ..."></textarea>
+  <p class="ioc-help">Màxim 2000 caràcters. Aplica els 8 passos del protocol VERIFICA.TE.</p>
+
+  <div class="atencio">
+    <strong>Advertiment sobre l'ús de la IA</strong>
+    <p>Pots utilitzar IA generativa per ajudar-te a fer l'activitat, però el contingut final ha de ser personal i elaborat per tu. El copiar i enganxar directament respostes generades per IA, sense revisió ni aportació pròpia, pot ser considerat plagi o mal ús i pot comportar penalització en l'avaluació.</p>
+    <p>Recorda que a la pregunta P10 has d'explicar com has utilitzat la IA.</p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- EXPORTACIÓ -->
+  <!-- ============================================ -->
+  <h2>📤 Exportació de les respostes</h2>
+
+  <div class="recorda">
+    <strong>Instruccions de lliurament</strong>
+    <ol>
+      <li>Omple totes les preguntes (P1 a P10) i les dades d'identificació.</li>
+      <li>Prem el botó <span class="retol-inline">Exportar JSON</span> per generar el fitxer amb les teves respostes.</li>
+      <li>El fitxer es desarà a la carpeta <strong>Descàrregues</strong> amb el nom <code>EAC3_cognom_nom.json</code>.</li>
+      <li>Puja aquest fitxer JSON a la tasca corresponent del campus IOC.</li>
+    </ol>
+  </div>
+
+  <div class="botons-exportacio" style="text-align:center; margin: 24px 0;">
+    <button type="button" class="btn btn-primary" id="btn-exportar">📊 Exportar JSON</button>
+    <button type="button" class="btn btn-danger" id="btn-esborrar">🗑️ Esborrar tot</button>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- PEU -->
+  <!-- ============================================ -->
+  <div style="margin-top: 40px; padding-top: 16px; border-top: 1px solid #C1C8D8; font-size: 13px; color: #777; text-align: center;">
+    Institut Obert de Catalunya · IPO I · CFGM Instal·lacions Elèctriques i Automàtiques · Curs 2026-2027
+  </div>
+
+</div>
+
+<script>
+  // ============================================
+  // GUARDAT AUTOMÀTIC AMB LOCALSTORAGE (PREFIX eac3_)
+  // ============================================
+  const PREFIX = 'eac3_';
+  const camps = ['nom', 'grup', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10'];
+
+  // Carregar dades guardades
+  function carregarDades() {
+    camps.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const valor = localStorage.getItem(PREFIX + id);
+      if (valor !== null) el.value = valor;
+    });
+    // Auto-resize per a les textareas
+    camps.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.tagName === 'TEXTAREA') autoResize(el);
+    });
+  }
+
+  // Guardar dades
+  function guardarDades() {
+    camps.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) localStorage.setItem(PREFIX + id, el.value);
+    });
+  }
+
+  // Auto-resize de les textareas
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = (el.scrollHeight + 2) + 'px';
+  }
+
+  // Configurar events
+  camps.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      guardarDades();
+      if (el.tagName === 'TEXTAREA') autoResize(el);
+    });
+  });
+
+  // Carregar en iniciar
+  window.addEventListener('load', carregarDades);
+
+  // ============================================
+  // VALIDACIÓ I EXPORTACIÓ
+  // ============================================
+  function validar() {
+    const obligatoris = ['nom', 'grup', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10'];
+    const falten = [];
+    obligatoris.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) falten.push(id);
+    });
+    if (falten.length > 0) {
+      alert('Has de completar tots els camps obligatoris (*). Falten: ' + falten.join(', '));
+      return false;
+    }
+    return true;
+  }
+
+  function obtenirDades() {
+    const dades = {};
+    camps.forEach(id => {
+      const el = document.getElementById(id);
+      dades[id] = el ? el.value : '';
+    });
+    dades.data_exportacio = new Date().toISOString();
+    return dades;
+  }
+
+  function obtenirNomFitxer() {
+    const nom = document.getElementById('nom').value.trim().replace(/\s+/g, '_') || 'estudiant';
+    return `EAC3_${nom}.json`;
+  }
+
+  document.getElementById('btn-exportar').addEventListener('click', function() {
+    if (!validar()) return;
+
+    const dades = obtenirDades();
+    const jsonStr = JSON.stringify(dades, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = obtenirNomFitxer();
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    alert('✅ Fitxer JSON generat correctament. El trobaràs a la carpeta de Descàrregues.');
+  });
+
+  // ============================================
+  // ESBORRAR TOT
+  // ============================================
+  document.getElementById('btn-esborrar').addEventListener('click', function() {
+    if (!confirm('Segur que vols esborrar totes les respostes? Aquesta acció no es pot desfer.')) return;
+
+    camps.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+      localStorage.removeItem(PREFIX + id);
+    });
+
+    // Reset auto-resize
+    camps.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.tagName === 'TEXTAREA') {
+        el.style.height = 'auto';
+        el.style.height = (el.scrollHeight + 2) + 'px';
+      }
+    });
+
+    alert('🗑️ Totes les respostes s\'han esborrat.');
+  });
+</script>
+
+</body>
+</html>

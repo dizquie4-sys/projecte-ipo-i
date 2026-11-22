@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debat EAC 1 · El sector elèctric: oportunitat o bombolla?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       SISTEMA DE DISSENY IOC — CSS COMPLET
+       ============================================================ */
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 24px;
+      color: #202735;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px 48px 16px;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Lato', Arial, sans-serif;
+      color: #3D4D74;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    h1 { font-size: 36px; }
+    h2 { font-size: 30px; }
+    h3 { font-size: 24px; }
+    h4 { font-size: 19px; }
+    h5 { font-size: 17px; }
+
+    p { margin: 8px 0; }
+
+    a {
+      color: #266FDC;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+    a:hover { color: #076DF0; }
+
+    ul, ol { margin: 8px 0; padding-left: 22px; }
+    li { margin: 4px 0; }
+
+    .ioc-spacer {
+      display: block;
+      height: 1.5em;
+      margin: 0;
+    }
+
+    /* ---------- Components semàntics ---------- */
+
+    .text-destacat {
+      background: #ECF2FF;
+      border-left: 4px solid #266FDC;
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 4px;
+      color: #202735;
+    }
+
+    .recorda {
+      background: #EAF9FF;
+      border-left: 4px solid #32A6D1;
+      padding: 16px 20px 16px 56px;
+      margin: 16px 0;
+      border-radius: 4px;
+      position: relative;
+    }
+    .recorda::before {
+      content: "📌";
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      font-size: 20px;
+    }
+
+    .atencio {
+      background: #FEF6ED;
+      border-left: 4px solid #F88923;
+      padding: 16px 20px 16px 56px;
+      margin: 16px 0;
+      border-radius: 4px;
+      position: relative;
+    }
+    .atencio::before {
+      content: "⚠";
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      font-size: 22px;
+      color: #F88923;
+      font-weight: bold;
+    }
+
+    .context-procedimental {
+      background: #EAEFFA;
+      border-left: 4px solid #3D4D74;
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+
+    .retol-inline {
+      display: inline-block;
+      background: #266FDC;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin: 0 4px;
+    }
+
+    /* ---------- Capçalera IOC ---------- */
+
+    .capcalera-ioc {
+      background-color: #266FDC;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 28px 24px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .capcalera-ioc-logo {
+      width: 120px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      line-height: 1.1;
+    }
+    .ioc-logo-text {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+    .ioc-logo-subtext {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.9;
+      margin: 4px 0 0 0;
+      line-height: 1.2;
+    }
+    .capcalera-ioc-text {
+      flex: 1;
+      min-width: 250px;
+    }
+    .capcalera-ioc-text h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 6px 0;
+      line-height: 1.25;
+    }
+    .capcalera-ioc-text h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      opacity: 0.95;
+      margin: 0 0 4px 0;
+      line-height: 1.3;
+      border: none;
+      padding: 0;
+    }
+    .capcalera-ioc-text .subtitol {
+      font-size: 15px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.9;
+      margin: 0 0 10px 0;
+      line-height: 1.3;
+    }
+    .capcalera-ioc-codi {
+      font-size: 14px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.85;
+      margin: 0;
+      font-style: italic;
+    }
+
+    /* ---------- Responsive ---------- */
+
+    @media (max-width: 600px) {
+      .page { padding: 16px 12px 32px 12px; }
+      h2 { font-size: 24px; }
+      h3 { font-size: 20px; }
+      .capcalera-ioc {
+        padding: 20px 16px;
+        gap: 16px;
+        flex-direction: column;
+        text-align: center;
+      }
+      .capcalera-ioc-logo { width: auto; align-items: center; }
+      .ioc-logo-text { font-size: 24px; }
+      .ioc-logo-subtext { font-size: 10px; }
+      .capcalera-ioc-text h1 { font-size: 20px; }
+      .capcalera-ioc-text h2 { font-size: 15px; }
+      .capcalera-ioc-text .subtitol { font-size: 13px; }
+      .capcalera-ioc-codi { font-size: 12px; }
+    }
+
+    /* ---------- Impressió / PDF ---------- */
+    @page { margin: 15mm; }
+    @media print {
+      body > .page { display: block !important; }
+      .btn { display: none !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<nav style="background:#1c2536; color:#fff; padding:10px 16px; font-family:'Lato',Arial,sans-serif; font-size:13.5px; border-bottom:3px solid #266FDC; position:sticky; top:0; z-index:999;">
+  <div style="max-width:720px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+    <a href="../../index.html" style="color:#fff; text-decoration:none; font-weight:700;">🏛️ Inici</a>
+    <div style="display:flex; gap:11px; flex-wrap:wrap; align-items:center;">
+      <a href="../../part1/index.html" style="color:#d8e6ff; text-decoration:none;">📘 Part I</a>
+      <a href="../index.html" style="color:#d8e6ff; text-decoration:none;">🛠️ Part II</a>
+      <a href="guia.html" style="color:#d8e6ff; text-decoration:none;">📖 Guia</a>
+      <a href="activitat.html" style="color:#d8e6ff; text-decoration:none;">📄 Activitat</a>
+      <a href="debat.html" style="color:#d8e6ff; text-decoration:none;">💬 Debat</a>
+      <a href="questionari.html" style="color:#d8e6ff; text-decoration:none;">📝 Test</a>
+      <a href="../verificate.html" style="background:#D1222B; color:#fff; padding:3px 9px; border-radius:4px; text-decoration:none; font-weight:700;">🔍 VERIFICA.TE</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- NAVEGACIÓ RÀPIDA EAC 1 -->
+  <nav aria-label="Navegació EAC 1" style="background:#F4F7FC; border:1px solid #C1C8D8; border-radius:6px; padding:10px 14px; margin-bottom:20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between; font-size:13.5px;">
+    <div>
+      <a href="../../index.html" style="text-decoration:none; font-weight:700; color:#3D4D74;">🏠 Inici Projecte</a>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:10px;">
+      <a href="guia.html" style="text-decoration:none; font-weight:600; color:#266FDC;">📖 Guia</a>
+      <a href="questionari.html" style="text-decoration:none; font-weight:600; color:#266FDC;">📝 Qüestionari</a>
+      <a href="activitat.html" style="text-decoration:none; font-weight:600; color:#266FDC;">📄 Activitat (JSON)</a>
+      <a href="debat.html" style="text-decoration:none; font-weight:600; color:#266FDC;">💬 Debat</a>
+    </div>
+  </nav>
+
+  <!-- CAPÇALERA IOC -->
+  <header class="capcalera-ioc">
+    <div class="capcalera-ioc-logo">
+      <p class="ioc-logo-text">IOC</p>
+      <p class="ioc-logo-subtext">Institut Obert de Catalunya</p>
+    </div>
+    <div class="capcalera-ioc-text">
+      <h1>Debat · EAC 1</h1>
+      <h2>El sector elèctric: oportunitat o bombolla? I tu, quina marca vols deixar?</h2>
+      <p class="subtitol">RA1 + RA4 + RA5 · IPO I · CFGM Instal·lacions Elèctriques</p>
+      <p class="capcalera-ioc-codi">Activitat voluntària de dinamització · Es té en compte per a l'avaluació global</p>
+    </div>
+  </header>
+
+  <!-- INTRODUCCIÓ -->
+  <p>Hola a tothom,</p>
+
+  <p>Us proposo un debat obert al voltant d'un tema que ens afecta directament com a futurs professionals del sector elèctric: <strong>les oportunitats reals de futur</strong> i <strong>com construir la nostra marca personal</strong> en un mercat cada cop més competitiu.</p>
+
+  <div class="recorda">
+    <strong>Aquest debat no és obligatori</strong>, però es tindrà en compte a l'hora d'avaluar l'EAC 1 en el seu conjunt. La vostra participació hi suma. Es valorarà la qualitat de les aportacions, la capacitat d'argumentar i el respecte en les respostes.
+  </div>
+
+  <!-- TEMA DE DEBAT -->
+  <h2>Tema de debat</h2>
+
+  <p>A la Unitat 1 hem vist que el sector elèctric està en plena transformació: l'augment de la demanda d'energies renovables, la digitalització de les instal·lacions, la domòtica, els vehicles elèctrics... Però també hem vist que hi ha reptes: la competència, la precarietat en alguns llocs, la necessitat de formació contínua...</p>
+
+  <p>La pregunta és:</p>
+
+  <div class="context-procedimental">
+    <p><strong>Creus que el sector elèctric és una oportunitat real de futur o és una bombolla que esclatarà? Per què?</strong></p>
+    <p><strong>I tu, quina marca vols deixar com a professional? Quins pilars et definiran?</strong></p>
+  </div>
+
+  <p>Penseu-hi i argumenteu la vostra posició. Podeu posar exemples reals o inventats. També podeu respondre a les aportacions dels companys, sempre amb respecte i argumentant.</p>
+
+  <!-- CONNEXIÓ AMB VERIFICA.TE -->
+  <div class="text-destacat">
+    <strong>💡 Consell: aplica el mètode VERIFICA.TE</strong>
+    <p>Abans de donar per bona una dada sobre el sector (una oferta de feina, una notícia, una estadística...), aplica el mètode <strong>VERIFICA.TE</strong> que hem vist a classe:</p>
+    <ul>
+      <li><strong>V</strong>erifica la font: qui ho diu? És fiable?</li>
+      <li><strong>E</strong>xamina les evidències: hi ha dades o només opinions?</li>
+      <li><strong>R</strong>astreja la data: és actual?</li>
+      <li><strong>I</strong>dentifica biaixos: què pot estar amagat?</li>
+      <li><strong>F</strong>onts alternatives: contrasta amb altres fonts.</li>
+      <li><strong>I</strong>nterpreta amb context: una dada sense context pot enganyar.</li>
+      <li><strong>C</strong>ontrasta amb experts: consulta algú que en sàpiga.</li>
+      <li><strong>A</strong>plica el criteri propi: forma la teva pròpia opinió.</li>
+    </ul>
+  </div>
+
+  <!-- PREGUNTES PER ORIENTAR -->
+  <h2>Idees per orientar el debat</h2>
+
+  <ul>
+    <li><strong>Oportunitats reals:</strong> Quines oportunitats veus al sector (renovables, domòtica, manteniment industrial)?</li>
+    <li><strong>Amenaces:</strong> Quines amenaces (competència, precarietat, falta de formació)?</li>
+    <li><strong>Marca personal:</strong> Com influeix la teva identitat digital (LinkedIn, CV) en la teva oportunitat de trobar feina?</li>
+    <li><strong>Competències toves:</strong> Creus que les habilitats toves (comunicació, treball en equip) són tan importants com les tècniques? Per què?</li>
+    <li><strong>El paper de la IA:</strong> Com creus que la intel·ligència artificial afectarà el sector? I la teva feina?</li>
+    <li><strong>El futur del sector:</strong> Quins perfils professionals creus que seran més demandats en els propers 5 anys?</li>
+  </ul>
+
+  <!-- DINÀMICA -->
+  <h2>Dinàmica</h2>
+
+  <ol>
+    <li><strong>Primera intervenció</strong>: exposeu la vostra opinió argumentada (mínim 1 paràgraf).</li>
+    <li><strong>Segona intervenció</strong>: responeu com a mínim a un company o companya, aportant arguments, acord o desacord, o ampliant la seva reflexió.</li>
+  </ol>
+
+  <div class="atencio">
+    <strong>Important:</strong> Totes les intervencions s'han de fer <strong>en aquest mateix fil</strong> (al fòrum de debat de l'aula). No obriu fils nous per respondre.
+  </div>
+
+  <!-- TERMINI -->
+  <h2>Termini</h2>
+
+  <p>Teniu fins a la <strong>data de tancament de l'EAC 1 indicada al Pla de treball (Setmana 4)</strong> per participar-hi. Després, publicaré una conclusió amb les idees més rellevants.</p>
+
+  <!-- RECORDA -->
+  <h2>Recorda</h2>
+
+  <div class="recorda">
+    <ul>
+      <li>Argumenteu les vostres opinions, no només les exposeu.</li>
+      <li>Respecteu les opinions dels altres.</li>
+      <li>Podeu recolzar-vos en el material de les unitats 1, 4 i 5, en exemples reals o en la vostra experiència.</li>
+      <li>No cal escriure gaires línies, però sí que es noti que hi heu pensat de manera crítica.</li>
+      <li>Si feu servir dades o notícies, apliqueu el mètode VERIFICA.TE abans de compartir-les.</li>
+    </ul>
+  </div>
+
+  <p>Us animo a participar-hi! És una bona manera de tancar l'EAC 1 i de preparar la resta del mòdul.</p>
+
+  <p>Salut,<br>
+  <strong>Diego Izquierdo</strong><br>
+  Professor de FOL<br>
+  Institut Obert de Catalunya (IOC)</p>
+
+  <!-- PEU -->
+  <div style="margin-top: 40px; padding-top: 16px; border-top: 1px solid #C1C8D8; font-size: 13px; color: #777; text-align: center;">
+    Institut Obert de Catalunya · IPO I · CFGM Instal·lacions Elèctriques i Automàtiques · Curs 2026-2027
+  </div>
+
+</div>
+
+</body>
+</html>

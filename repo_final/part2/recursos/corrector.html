@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corrector Unificat IPO I · EAC 1, EAC 2 i EAC 3 · IOC</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Lato", Arial, sans-serif; font-size: 15px; line-height: 1.5; color: #202735; background: #f4f6fa; padding: 0 0 40px 0; }
+.topbar {
+  background: #1c2536; color: #fff; padding: 10px 16px; font-size: 13.5px;
+  border-bottom: 3px solid #266FDC; position: sticky; top: 0; z-index: 999;
+}
+.topbar-inner { max-width: 1560px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.topbar a { color: #d8e6ff; text-decoration: none; font-weight: 600; }
+.topbar a:hover { color: #fff; text-decoration: underline; }
+.container { max-width: 1560px; margin: 20px auto 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px -8px rgba(0,20,40,0.15); overflow: hidden; }
+.capcalera-ioc { background: #266fdc; color: #fff; padding: 22px 30px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; position: relative; }
+.capcalera-ioc-logo { width: 105px; flex-shrink: 0; }
+.ioc-logo-text { font-size: 26px; font-weight: 900; letter-spacing: 2px; }
+.ioc-logo-subtext { font-size: 10px; opacity: 0.9; margin-top: 2px; line-height: 1.2; }
+.capcalera-ioc-text { flex: 1; min-width: 260px; }
+.capcalera-ioc-text h1 { font-size: 23px; font-weight: 700; margin-bottom: 4px; }
+.capcalera-ioc-text h2 { font-size: 15.5px; font-weight: 600; opacity: 0.95; margin-bottom: 4px; }
+.capcalera-ioc-text .subtitol { font-size: 13.5px; opacity: 0.9; }
+.indicador-guardat { background: rgba(255,255,255,0.2); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.indicador-guardat.desat { background: rgba(28,196,96,0.9); }
+.indicador-guardat.pendent { background: rgba(248,137,35,0.95); }
+
+/* Selector de pestañas (EAC1 / EAC2 / EAC3 / Resum AC) */
+.tabs-bar { display: flex; background: #1c2536; padding: 0 24px; gap: 4px; flex-wrap: wrap; }
+.tab-btn {
+  background: transparent; color: #cbd5e1; border: none; padding: 13px 20px;
+  font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+  border-bottom: 3px solid transparent; transition: all 0.15s;
+}
+.tab-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.tab-btn.activa { color: #fff; background: #266fdc; border-bottom-color: #FFC72C; }
+
+.zona-importacio { padding: 22px 28px; background: #fafcff; border-bottom: 1px solid #e1eaf1; }
+.grid-importacio { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 16px; margin-bottom: 14px; }
+.bloc-importacio { background: #fff; border: 2px dashed #266fdc; border-radius: 10px; padding: 16px 18px; }
+.bloc-importacio.moodle { border-color: #1cc460; }
+.bloc-importacio.consolidat { border-color: #8E44AD; }
+.bloc-importacio h3 { font-size: 14.5px; font-weight: 700; color: #3D4D74; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.badge-obligatori { background: #F85449; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 20px; }
+.badge-opcional { background: #1cc460; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 20px; }
+.badge-moodle { background: #0d9488; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 20px; }
+.ajuda { font-size: 12.5px; color: #555; margin-bottom: 8px; }
+.file-input { display: block; margin: 8px 0; padding: 7px; border: 1px solid #c1c8d8; border-radius: 6px; width: 100%; background: #fff; font-family: inherit; font-size: 13px; }
+.btn { display: inline-block; padding: 9px 16px; border-radius: 6px; border: none; cursor: pointer; font-family: inherit; font-size: 13.5px; font-weight: 700; margin-right: 6px; margin-top: 6px; }
+.btn-primary { background: #266fdc; color: #fff; }
+.btn-primary:hover { background: #076DF0; }
+.btn-secondary { background: #64748b; color: #fff; }
+.btn-secondary:hover { background: #475569; }
+.btn-danger { background: #dc2626; color: #fff; }
+.btn-danger:hover { background: #b91c1c; }
+.btn-success { background: #16a34a; color: #fff; }
+.btn-success:hover { background: #15803d; }
+.btn-warning { background: #ea580c; color: #fff; }
+.btn-warning:hover { background: #c2410c; }
+.btn-purple { background: #7e22ce; color: #fff; }
+.btn-purple:hover { background: #6b21a8; }
+.estat { margin-top: 12px; padding: 10px 14px; background: #ECF2FF; border-left: 4px solid #266fdc; border-radius: 4px; font-size: 13.5px; }
+
+/* Caja de resolución de conflictos de nombres Moodle */
+.panel-matching { display: none; margin-top: 14px; background: #FEF6ED; border: 2px solid #F88923; border-radius: 8px; padding: 16px; }
+.panel-matching h4 { color: #9a3412; margin-bottom: 8px; font-size: 15px; }
+.match-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 0; border-bottom: 1px solid #fed7aa; font-size: 13.5px; }
+.match-row select { padding: 5px 8px; border: 1px solid #c1c8d8; border-radius: 4px; font-family: inherit; min-width: 240px; }
+
+.zona-taula { padding: 22px 28px; }
+.taula-controls { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
+.cercador { flex: 1; min-width: 220px; max-width: 380px; padding: 8px 12px; border: 1px solid #c1c8d8; border-radius: 6px; font-family: inherit; font-size: 14px; }
+.comptador { font-size: 13.5px; color: #3D4D74; font-weight: 700; }
+.taula-container { overflow-x: auto; border: 1px solid #c1c8d8; border-radius: 8px; }
+table.taula-principal { border-collapse: collapse; width: 100%; font-size: 13px; background: #fff; min-width: 1220px; }
+table.taula-principal thead th { background: #ECF2FF; color: #202735; font-weight: 700; padding: 10px 8px; border: 1px solid #c1c8d8; text-align: center; white-space: nowrap; cursor: pointer; }
+table.taula-principal thead th:hover { background: #dbe7ff; }
+table.taula-principal tbody td { padding: 6px 8px; border: 1px solid #e1eaf1; text-align: center; vertical-align: middle; }
+table.taula-principal tbody td.alumne { text-align: left; font-weight: 700; }
+table.taula-principal tbody tr:hover { background: #f8fafc; }
+table.taula-principal tbody tr.no-presentat { background: #f1f5f9; color: #64748b; }
+table.taula-principal tfoot td { padding: 10px 8px; border: 1px solid #c1c8d8; background: #ECF2FF; font-weight: 700; text-align: center; }
+
+.input-nota { width: 60px; padding: 4px 5px; border: 1px solid #c1c8d8; border-radius: 4px; font-family: inherit; font-size: 13px; text-align: center; }
+.input-nota.editable { background: #FFF8E1; }
+.input-nota.auto { background: #F0F4FA; color: #475569; }
+.input-nota.ortografia { background: #FEF6ED; width: 54px; }
+select.select-estat { padding: 4px 6px; border: 1px solid #c1c8d8; border-radius: 4px; font-size: 12px; font-weight: 700; }
+select.select-estat.presentat { background: #dcfce7; color: #166534; }
+select.select-estat.no-presentat { background: #fee2e2; color: #991b1b; }
+.qualificacio { font-weight: 700; font-size: 12px; padding: 3px 8px; border-radius: 12px; display: inline-block; }
+.qual-excel { background: #dcfce7; color: #166534; }
+.qual-notable { background: #dbeafe; color: #1e40af; }
+.qual-be { background: #fef3c7; color: #92400e; }
+.qual-suficient { background: #ffedd5; color: #9a3412; }
+.qual-insuficient { background: #fee2e2; color: #991b1b; }
+.qual-no-presentat { background: #e2e8f0; color: #475569; }
+.btn-fitxa { background: #266fdc; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 700; cursor: pointer; margin-right: 4px; }
+.btn-esborrar { background: #dc2626; color: #fff; border: none; padding: 5px 8px; border-radius: 5px; font-size: 12px; cursor: pointer; }
+.btn-bloqueig { background: none; border: none; cursor: pointer; font-size: 13px; padding: 0 3px; }
+
+/* Modal fitxa alumne */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.75); z-index: 1000; justify-content: center; align-items: flex-start; padding: 20px; overflow-y: auto; }
+.modal.actiu { display: flex; }
+.modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 940px; margin: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.35); }
+.modal-header { background: #266fdc; color: #fff; padding: 16px 24px; border-radius: 12px 12px 0 0; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
+.close-modal { background: none; border: none; color: #fff; font-size: 26px; cursor: pointer; }
+.modal-body { padding: 20px 24px; max-height: calc(100vh - 160px); overflow-y: auto; }
+.modal-footer { padding: 14px 24px; background: #f8fafc; border-top: 1px solid #e2e8f0; border-radius: 0 0 12px 12px; display: flex; flex-wrap: wrap; gap: 8px; position: sticky; bottom: 0; }
+.seccio-modal { margin-bottom: 18px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+.seccio-modal-header { background: #ECF2FF; padding: 10px 16px; font-weight: 700; color: #3D4D74; font-size: 14px; display: flex; justify-content: space-between; cursor: pointer; }
+.seccio-modal-body { padding: 14px 16px; background: #fff; }
+.seccio-modal-body.ocult { display: none; }
+.camp-grup { margin-bottom: 12px; }
+.camp-grup label { display: block; font-size: 13px; font-weight: 700; color: #3D4D74; margin-bottom: 4px; }
+.camp-grup textarea { width: 100%; padding: 9px 12px; border: 1px solid #c1c8d8; border-radius: 5px; font-family: inherit; font-size: 14px; line-height: 1.5; resize: vertical; min-height: 90px; }
+.resposta-alumne { background: #F8FAFD; border-left: 3px solid #266fdc; padding: 10px 14px; margin: 6px 0; border-radius: 4px; font-size: 13.5px; white-space: pre-wrap; }
+.resposta-capcalera { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 700; color: #3D4D74; gap: 8px; }
+.nota-interna { background: #ECF2FF; color: #266fdc; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+.calculs { background: #ECF2FF; border-radius: 8px; padding: 14px 18px; font-size: 14px; line-height: 1.7; }
+.calculs .resultat-final { font-size: 16px; color: #266fdc; font-weight: 700; margin-top: 6px; padding-top: 6px; border-top: 1px dashed #c1c8d8; }
+.info-ponderacio { background: #F5F9FF; border-left: 4px solid #266fdc; padding: 10px 14px; border-radius: 4px; font-size: 13px; margin-bottom: 14px; color: #3D4D74; }
+</style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Navegació principal">
+  <div class="topbar-inner">
+    <a href="../../index.html" style="color:#fff; font-weight:700;">🏛️ Projecte IPO I · IOC</a>
+    <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+      <a href="../../part1/index.html">📘 Part I · Marc Pedagògic</a>
+      <a href="../index.html">🛠️ Part II · Desenvolupament Curricular</a>
+      <a href="../verificate.html" style="background:#D1222B; color:#fff; padding:3px 9px; border-radius:4px; font-weight:700;">🔍 VERIFICA.TE</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <header class="capcalera-ioc">
+    <div class="capcalera-ioc-logo">
+      <p class="ioc-logo-text">IOC</p>
+      <p class="ioc-logo-subtext">Institut Obert<br>de Catalunya</p>
+    </div>
+    <div class="capcalera-ioc-text">
+      <h1>Corrector Unificat IPO I · EAC 1, EAC 2 i EAC 3</h1>
+      <h2 id="subtitol-eac">EAC 1 · El sector, l'oferta i la meva identitat (RA1, RA4, RA5 · 9 h)</h2>
+      <p class="subtitol">Mòdul 1709 · CFGM Instal·lacions Elèctriques i Automàtiques · Curs 2026-2027</p>
+    </div>
+    <div class="indicador-guardat" id="indicador-guardat">💾 Guardat automàtic</div>
+  </header>
+
+  <div class="tabs-bar" role="tablist">
+    <button type="button" class="tab-btn activa" data-eac="eac1">📘 EAC 1 · Identitat i Sector</button>
+    <button type="button" class="tab-btn" data-eac="eac2">🦺 EAC 2 · Riscos i Accidents</button>
+    <button type="button" class="tab-btn" data-eac="eac3">⚖️ EAC 3 · Condicions Laborals</button>
+    <button type="button" class="tab-btn" data-eac="resum">📊 Resum Global AC (40% QF)</button>
+  </div>
+
+  <!-- VISTA CORRECCIÓ EAC INDIVIDUAL -->
+  <div id="vista-eac">
+    <section class="zona-importacio">
+      <div class="grid-importacio">
+        <div class="bloc-importacio">
+          <h3>📄 1. Lliuraments JSON de l'alumnat <span class="badge-obligatori">PAS 1</span></h3>
+          <p class="ajuda">Selecciona de cop tots els fitxers <code>EAC_nom.json</code> descarregats de Moodle. Processa les preguntes P1–P10 i crea la llista del grup.</p>
+          <input type="file" id="input-alumnes" class="file-input" multiple accept=".json">
+          <button type="button" class="btn btn-primary" id="btn-processar">⚙️ Processar JSONs dels alumnes</button>
+        </div>
+
+        <div class="bloc-importacio moodle">
+          <h3>🎓 2. Notes de Moodle (Qüestionari i Debat) <span class="badge-moodle">PAS 2 · OPCIONAL</span></h3>
+          <p class="ajuda">Importa l'Excel/CSV de qualificacions de Moodle. Si els noms no coincideixen exactament amb el JSON, s'obre l'emparellador assistit.</p>
+          <input type="file" id="input-moodle" class="file-input" accept=".xlsx,.xls,.csv">
+          <button type="button" class="btn btn-success" id="btn-processar-moodle">🔗 Creuar notes de Moodle</button>
+        </div>
+
+        <div class="bloc-importacio consolidat">
+          <h3>📂 3. Reprendre o fusionar JSON consolidat <span class="badge-opcional">PAS 3 · OPCIONAL</span></h3>
+          <p class="ajuda">Carrega un fitxer <code>_consolidat.json</code> exportat prèviament per continuar corregint sense perdre els comentaris manuals.</p>
+          <input type="file" id="input-consolidat" class="file-input" accept=".json">
+        </div>
+      </div>
+
+      <div>
+        <button type="button" class="btn btn-success" id="btn-excel">📊 Exportar Excel EAC</button>
+        <button type="button" class="btn btn-purple" id="btn-json">💾 Generar JSON Consolidat</button>
+        <button type="button" class="btn btn-danger" id="btn-esborrar">🗑️ Netejar aquesta EAC</button>
+      </div>
+
+      <div class="estat" id="estat">📋 Selecciona els fitxers JSON de l'alumnat per iniciar la correcció.</div>
+
+      <!-- PANEL D'EMPARELLAMENT DE NOMS MOODLE <-> JSON -->
+      <div class="panel-matching" id="panel-matching">
+        <h4>⚠️ Revisió d'emparellament de noms (Moodle ↔ Fitxers JSON)</h4>
+        <p style="font-size:13px; margin-bottom:10px;">S'han detectat registres de Moodle que no coincideixen al 100% amb el nom introduït al JSON. Revisa les propostes i prem <strong>Aplicar assignacions</strong>:</p>
+        <div id="llista-matching"></div>
+        <button type="button" class="btn btn-primary" id="btn-aplicar-matching" style="margin-top:10px;">✅ Aplicar assignacions</button>
+        <button type="button" class="btn btn-secondary" id="btn-tancar-matching" style="margin-top:10px;">Tancar avís</button>
+      </div>
+    </section>
+
+    <section class="zona-taula" id="zona-taula" style="display:none;">
+      <div class="taula-controls">
+        <input type="text" id="cercador" class="cercador" placeholder="🔍 Cercar alumne o grup...">
+        <div class="comptador" id="comptador">Mostrant 0 alumnes</div>
+      </div>
+      <div class="taula-container">
+        <table class="taula-principal" id="taula-principal">
+          <thead>
+            <tr>
+              <th data-ordre="nom">Alumne (JSON)</th>
+              <th data-ordre="grup">Grup</th>
+              <th data-ordre="estat">Estat</th>
+              <th data-ordre="p1p9">Contingut (P1–P9)</th>
+              <th data-ordre="p10">Auditoria IA (P10)</th>
+              <th data-ordre="ortografia">Ortografia</th>
+              <th data-ordre="debat">Debat (+0,5)</th>
+              <th data-ordre="questionari">Test (30)</th>
+              <th data-ordre="nota_eac">Nota EAC</th>
+              <th data-ordre="qualificacio">Qualificació</th>
+              <th>Accions</th>
+            </tr>
+          </thead>
+          <tbody id="cos-taula"></tbody>
+          <tfoot id="peu-taula"></tfoot>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- VISTA RESUM GLOBAL AC -->
+  <div id="vista-resum" style="display:none; padding:24px 28px;">
+    <div class="info-ponderacio">
+      <strong>📐 Càlcul de l'Avaluació Contínua (AC) — Mòdul IPO I (CCCFPLOE v.8 · 3 EAC equitatives):</strong><br>
+      <code>Nota AC = (EAC 1 + EAC 2 + EAC 3) / 3  [33,3 % cadascuna]</code> &nbsp;|&nbsp;
+      Recorda: <strong>QF = 40% AC + 60% PAF</strong> (amb PAF ≥ 5,00).<br>
+      Pots treballar amb les dades desades al navegador de cada pestanya o carregar aquí els 3 fitxers <code>_consolidat.json</code>.
+    </div>
+    <div style="margin-bottom:16px;">
+      <button type="button" class="btn btn-primary" id="btn-recalcular-resum">🔄 Consolidar des de les pestanyes actives</button>
+      <button type="button" class="btn btn-success" id="btn-excel-resum">📊 Exportar Acta Excel AC</button>
+    </div>
+    <div class="taula-container">
+      <table class="taula-principal" style="min-width:900px;">
+        <thead>
+          <tr>
+            <th>Alumne</th>
+            <th>Grup</th>
+            <th>EAC 1 (33,3%)</th>
+            <th>EAC 2 (33,3%)</th>
+            <th>EAC 3 (33,3%)</th>
+            <th>Nota Mitjana AC</th>
+            <th>Qualificació AC</th>
+            <th>Aportació 40% QF</th>
+          </tr>
+        </thead>
+        <tbody id="cos-resum"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL FITXA INDIVIDUAL -->
+<div class="modal" id="modal-fitxa">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="modal-titol">Fitxa d'avaluació</h2>
+      <button type="button" class="close-modal" id="btn-tancar-modal">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" id="btn-moodle">📋 Copiar feedback Moodle</button>
+      <button type="button" class="btn btn-success" id="btn-pdf">📄 Imprimir / Desar PDF</button>
+      <button type="button" class="btn btn-secondary" id="btn-prompt">🤖 Copiar prompt IA</button>
+      <button type="button" class="btn btn-purple" id="btn-tancar-fitxa">✅ Guardar i tancar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+var CONFIG_EACS = {
+  eac1: {
+    codi: 'EAC1',
+    titol: "EAC 1 · El sector, l'oferta i la meva identitat (RA1, RA4, RA5 · 9 h)",
+    pes: 1/3,
+    keywords: {
+      p1: ['ocupacio','instal·lador','mantenidor','fotovoltaica','baixa tensio','domotica','demanda'],
+      p2: ['competencia','tecnica','personal','treball en equip','autonomia','seguretat','interpretacio','esquemes'],
+      p3: ['tendencia','digitalitzacio','eficiencia energetica','vehicle electric','autoconsum','renovables'],
+      p4: ['dafo','debilitats','amenaces','fortaleses','oportunitats','perfil'],
+      p5: ['smart','especific','mesurable','assolible','rellevant','temporal','objectiu'],
+      p6: ['pla d accio','termini','recurs','formacio','accio'],
+      p7: ['identitat digital','google','imatge','privacitat','xarxes'],
+      p8: ['epa','ple','entorn personal','fonts','eines','xarxa'],
+      p9: ['marca personal','linkedin','cv','pilar','proposta de valor'],
+      p10: ['ia','verifica','font','evidencia','data','aportacio']
+    },
+    enunciats: {
+      p1: 'P1. Tres ocupacions més demandades al sector elèctric',
+      p2: 'P2. Competències tècniques i personals valorades',
+      p3: 'P3. Tendències de futur del sector elèctric',
+      p4: 'P4. Diagnòstic DAFO personal',
+      p5: 'P5. 3 Objectius professionals SMART',
+      p6: "P6. Pla d'acció, terminis i recursos",
+      p7: 'P7. Anàlisi de la identitat digital actual',
+      p8: "P8. Entorn Personal d'Aprenentatge (EPA / PLE)",
+      p9: 'P9. Marca personal, LinkedIn i CV digital',
+      p10: 'P10. Ús ètic de la IA i verificació (VERIFICA.TE)'
+    }
+  },
+  eac2: {
+    codi: 'EAC2',
+    titol: "EAC 2 · Investigació d'accidents + Avaluació de riscos (RA2 · 8 h)",
+    pes: 1/3,
+    keywords: {
+      p1: ['accident','electric','baixa tensio','consequencies','tasca','contacte'],
+      p2: ['arbre de causes','causa immediata','causa arrel','fets','encadenament'],
+      p3: ['mesura preventiva','col·lectiva','epi','proteccio','resguard','diferencial','cinc regles'],
+      p4: ['risc','electric','mecanic','ergonomic','caiguda','quadre','manteniment'],
+      p5: ['probabilitat','severitat','trivial','tolerable','moderat','important','intolerable','insst'],
+      p6: ['mesures','col·lectives','epis','guants','dielectric','senyalitzacio'],
+      p7: ['pla de prevencio','responsable','termini','accio','control'],
+      p8: ['lprl','drets','obligacions','formacio','article 19','article 29','vigilancia'],
+      p9: ['cultura preventiva','seguretat','productivitat','mesura'],
+      p10: ['ia','verifica','insst','normativa','aportacio']
+    },
+    enunciats: {
+      p1: "P1. Descripció de l'accident laboral al sector elèctric",
+      p2: 'P2. Arbre de causes (causes immediates i causes arrel)',
+      p3: 'P3. Mesures preventives (col·lectives i individuals/EPIs)',
+      p4: 'P4. Identificació de 4 riscos en una tasca elèctrica',
+      p5: 'P5. Avaluació del risc (probabilitat, severitat i nivell)',
+      p6: 'P6. Mesures preventives concretes per a cada risc',
+      p7: 'P7. Pla de prevenció bàsic (accions, responsable, terminis)',
+      p8: 'P8. Drets i obligacions segons la LPRL i formació',
+      p9: 'P9. Cultura preventiva vs. productivitat al sector',
+      p10: 'P10. Ús ètic de la IA i verificació (VERIFICA.TE)'
+    }
+  },
+  eac3: {
+    codi: 'EAC3',
+    titol: "EAC 3 · De l'oferta al conveni · Anàlisi de les condicions laborals (RA3 · 8 h)",
+    pes: 1/3,
+    keywords: {
+      p1: ['oferta','contracte','indefinit','temporal','jornada','funcions'],
+      p2: ['estatut dels treballadors','elements','parts','salari','jornada','categoria'],
+      p3: ['indefinit','temporal','diferencies','estabilitat','indemnitzacio','consequencies'],
+      p4: ['nomina','capcalera','devengaments','deduccions','bases de cotitzacio'],
+      p5: ['salari brut','salari net','irpf','seguretat social','contingencies'],
+      p6: ['smi','salari minim','catalunya','poder adquisitiu','argument'],
+      p7: ['conveni col·lectiu','metall','electric','taules salarials','condicions'],
+      p8: ['vacances','30 dies','festius','14','retribucio','gaudir'],
+      p9: ['precarietat','sector electric','hores extres','mesura','condicions'],
+      p10: ['estatut','article','refutacio','clausula','verifica','ia']
+    },
+    enunciats: {
+      p1: "P1. Anàlisi de l'oferta de feina (contracte, jornada, funcions)",
+      p2: 'P2. Elements obligatoris del contracte (Estatut dels Treballadors)',
+      p3: 'P3. Diferències entre contracte indefinit i temporal',
+      p4: "P4. Parts principals d'una nòmina",
+      p5: 'P5. Salari brut, salari net i deduccions',
+      p6: "P6. Anàlisi crítica de l'SMI a Catalunya",
+      p7: 'P7. Conveni col·lectiu del sector elèctric',
+      p8: 'P8. Dret a vacances anuals i festius',
+      p9: 'P9. Precarietat laboral i mesures de millora al sector',
+      p10: 'P10. Auditoria i refutació jurídica de la IA (VERIFICA.TE)'
+    }
+  }
+};
+
+var eacActual = 'eac1';
+var dadesPerEac = { eac1: [], eac2: [], eac3: [] };
+var ordreActual = { camp: 'nom', direccio: 'asc' };
+var filtreText = '';
+var alumneModalActual = null;
+var pendentsMatching = [];
+var temporitzador = null;
+
+function normalitzar(t) {
+  if (!t) return '';
+  return t.toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+function netejarId(t) {
+  return normalitzar(t).replace(/\s+/g, '_');
+}
+function arrodonir(n) {
+  if (n === null || n === undefined || isNaN(n)) return null;
+  return Math.round(n * 2) / 2;
+}
+function escapeHtml(t) {
+  if (!t) return '';
+  return t.toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function obtenirQualificacio(n, estat) {
+  if (estat === 'No presentat') return 'No presentat';
+  if (n === null || n === undefined || isNaN(n)) return '—';
+  if (n >= 9) return 'Excel·lent';
+  if (n >= 7) return 'Notable';
+  if (n >= 6) return 'Bé';
+  if (n >= 5) return 'Suficient';
+  return 'Insuficient';
+}
+function classeQual(q) {
+  if (q === 'Excel·lent') return 'qual-excel';
+  if (q === 'Notable') return 'qual-notable';
+  if (q === 'Bé') return 'qual-be';
+  if (q === 'Suficient') return 'qual-suficient';
+  if (q === 'Insuficient') return 'qual-insuficient';
+  return 'qual-no-presentat';
+}
+
+/* ===== PERSISTÈNCIA EN LOCALSTORAGE ===== */
+function guardarTot() {
+  try {
+    localStorage.setItem('corrector_IPO1_v2', JSON.stringify(dadesPerEac));
+    var ind = document.getElementById('indicador-guardat');
+    ind.className = 'indicador-guardat desat';
+    ind.textContent = '💾 Guardat automàtic';
+  } catch (e) {}
+}
+function marcarGuardat() {
+  var ind = document.getElementById('indicador-guardat');
+  ind.className = 'indicador-guardat pendent';
+  ind.textContent = '⏳ Guardant...';
+  clearTimeout(temporitzador);
+  temporitzador = setTimeout(guardarTot, 600);
+}
+function carregarTot() {
+  try {
+    var raw = localStorage.getItem('corrector_IPO1_v2');
+    if (raw) {
+      var parsed = JSON.parse(raw);
+      if (parsed.eac1) dadesPerEac.eac1 = parsed.eac1;
+      if (parsed.eac2) dadesPerEac.eac2 = parsed.eac2;
+      if (parsed.eac3) dadesPerEac.eac3 = parsed.eac3;
+    }
+  } catch (e) {}
+}
+
+/* ===== PUNTUACIÓ HEURÍSTICA PER PREGUNTA (P1-P10) ===== */
+function avaluarResposta(text, kws) {
+  var t = normalitzar(text);
+  if (!t || t.length < 15) return 0;
+  var punts = 3.5;
+  if (t.length >= 180) punts += 1.5;
+  if (t.length >= 400) punts += 1.5;
+  var hits = 0;
+  (kws || []).forEach(function(k) { if (t.indexOf(normalitzar(k)) >= 0) hits++; });
+  punts += Math.min(2.5, hits * 0.6);
+  if (t.indexOf('exemple') >= 0 || t.indexOf('perque') >= 0 || t.indexOf('article') >= 0 || t.indexOf('conveni') >= 0) punts += 1.0;
+  return arrodonir(Math.min(10, punts));
+}
+
+function importarJsonIndividual(data, clauEac) {
+  if (!data || typeof data !== 'object') return null;
+  var nomComplet = (data.nom || '').trim();
+  if (!nomComplet && (data.primer_cognom || data.cognom1)) {
+    nomComplet = ((data.primer_cognom || data.cognom1) + ' ' + (data.segon_cognom || data.cognom2 || '') + ', ' + (data.nom || '')).trim();
+  }
+  if (!nomComplet) return null;
+  var cfg = CONFIG_EACS[clauEac];
+  var respostes = {};
+  var notesInt = {};
+  for (var i = 1; i <= 10; i++) {
+    var k = 'p' + i;
+    respostes[k] = data[k] || '';
+    notesInt[k] = avaluarResposta(respostes[k], cfg.keywords[k]);
+  }
+  var al = {
+    id: netejarId(nomComplet),
+    nom: nomComplet,
+    grup: (data.grup || 'Sense grup').trim(),
+    linkedin: data.linkedin || '',
+    cv: data.cv || '',
+    estat: 'Presentat',
+    respostes: respostes,
+    notes_internes: notesInt,
+    notes: {
+      p1p9: null,
+      p10: notesInt.p10,
+      ortografia: 0,
+      debat: 0,
+      questionari: null,
+      nota_eac: null
+    },
+    bloqueig: { p1p9: false, p10: false, nota_eac: false },
+    comentaris: { p1p9: '', p10: '', debat: '', global: '' },
+    qualificacio: '—'
+  };
+  recalcularAlumne(al);
+  al.comentaris.p1p9 = generarComentariContingut(al, clauEac);
+  al.comentaris.p10 = generarComentariIA(al);
+  al.comentaris.global = generarFeedbackGlobal(al, clauEac);
+  return al;
+}
+
+function recalcularAlumne(al) {
+  if (!al.bloqueig.p1p9) {
+    var suma = 0;
+    for (var i = 1; i <= 9; i++) suma += (al.notes_internes['p' + i] || 0);
+    al.notes.p1p9 = arrodonir(suma / 9);
+  }
+  if (!al.bloqueig.p10) {
+    al.notes.p10 = al.notes_internes.p10 !== null ? al.notes_internes.p10 : 0;
+  }
+  if (!al.bloqueig.nota_eac) {
+    // 90% contingut P1-P9 + 10% auditoria IA P10 - ortografia + bonus debat (fins a +0,5)
+    var base = 0.90 * (al.notes.p1p9 || 0) + 0.10 * (al.notes.p10 || 0) - (al.notes.ortografia || 0);
+    var bonus = Math.min(0.5, Math.max(0, al.notes.debat || 0));
+    var total = Math.max(0, Math.min(10, base + bonus));
+    al.notes.nota_eac = arrodonir(total);
+  }
+  al.qualificacio = obtenirQualificacio(al.notes.nota_eac, al.estat);
+}
+
+function generarComentariContingut(al, clauEac) {
+  var cfg = CONFIG_EACS[clauEac];
+  var linies = [];
+  for (var i = 1; i <= 9; i++) {
+    var k = 'p' + i;
+    var n = al.notes_internes[k] || 0;
+    var nivell = n >= 9 ? 'Excel·lent' : n >= 7 ? 'Notable' : n >= 5 ? 'Assolit' : 'Cal ampliar';
+    linies.push('· ' + cfg.enunciats[k] + ': ' + n.toFixed(1) + '/10 (' + nivell + ')');
+  }
+  return 'Desglossament de criteris (P1–P9):\n' + linies.join('\n');
+}
+
+function generarComentariIA(al) {
+  var n = al.notes.p10 || 0;
+  if (n >= 8) return "Has documentat amb rigor i transparència l'ús de la IA aplicant el protocol VERIFICA.TE i aportant criteri propi.";
+  if (n >= 5) return "Has indicat l'ús de la IA, però convé detallar millor com has contrastat les fonts oficials seguint els passos de VERIFICA.TE.";
+  return "Cal completar l'apartat P10 explicant si has fet servir eines d'IA i com n'has verificat la validesa.";
+}
+
+function generarFeedbackGlobal(al, clauEac) {
+  if (al.estat === 'No presentat') return 'Activitat no lliurada dins del termini establert.';
+  var cfg = CONFIG_EACS[clauEac];
+  var txt = 'AVALUACIÓ ' + cfg.codi + ' — ' + cfg.titol + '\n';
+  txt += '====================================================\n';
+  txt += '• Contingut i anàlisi tècnica (P1–P9 · 90%): ' + (al.notes.p1p9 || 0).toFixed(2) + ' / 10\n';
+  txt += '• Alfabetització crítica i IA (P10 VERIFICA.TE · 10%): ' + (al.notes.p10 || 0).toFixed(2) + ' / 10\n';
+  if (al.notes.ortografia > 0) txt += '• Correcció formal / ortografia: −' + al.notes.ortografia.toFixed(2) + ' punts\n';
+  if (al.notes.debat > 0) txt += "• Bonificació participació al Debat d'aula: +" + al.notes.debat.toFixed(2) + ' punts\n';
+  if (al.notes.questionari !== null) txt += "• Qüestionari d'autoavaluació (formativa): " + al.notes.questionari.toFixed(2) + ' / 10\n';
+  txt += '• NOTA FINAL ' + cfg.codi + ': ' + (al.notes.nota_eac || 0).toFixed(2) + ' / 10 (' + al.qualificacio + ')\n\n';
+  txt += al.comentaris.p1p9 + '\n\n';
+  txt += 'Ús crític de la IA (VERIFICA.TE):\n' + al.comentaris.p10 + '\n';
+  if (al.comentaris.debat) txt += '\nValoració del debat:\n' + al.comentaris.debat + '\n';
+  txt += "\nEndavant amb el seguiment del mòdul! Qualsevol dubte, ens trobem al fòrum de l'aula.";
+  return txt;
+}
+
+/* ===== EMPARELLAMENT DIFÚS DE NOMS (MOODLE <-> JSON) ===== */
+function similitudTokens(nomA, nomB) {
+  var tA = normalitzar(nomA).split(' ').filter(function(w){ return w.length > 2; });
+  var tB = normalitzar(nomB).split(' ').filter(function(w){ return w.length > 2; });
+  if (tA.length === 0 || tB.length === 0) return 0;
+  var comuns = 0;
+  tA.forEach(function(w) { if (tB.indexOf(w) >= 0) comuns++; });
+  return comuns / Math.max(Math.min(tA.length, tB.length), 1);
+}
+
+function processarFilesMoodle(rows) {
+  var llista = dadesPerEac[eacActual];
+  if (llista.length === 0) {
+    alert('Primer has de carregar els JSONs dels alumnes (Pas 1).');
+    return;
+  }
+  pendentsMatching = [];
+  var assignatsDirectes = 0;
+
+  rows.forEach(function(row) {
+    // Detectar columna de nom i notes en Moodle CSV/XLSX
+    var keys = Object.keys(row);
+    var nomMoodle = '';
+    var colNom = keys.find(function(k){ var nk = normalitzar(k); return nk.indexOf('nom') >= 0 || nk.indexOf('alumne') >= 0 || nk.indexOf('student') >= 0 || nk.indexOf('name') >= 0; });
+    var colCognom = keys.find(function(k){ var nk = normalitzar(k); return nk.indexOf('cognom') >= 0 || nk.indexOf('surname') >= 0 || nk.indexOf('last') >= 0; });
+    if (colNom && colCognom && colNom !== colCognom) {
+      nomMoodle = (row[colNom] + ' ' + row[colCognom]).trim();
+    } else if (colNom) {
+      nomMoodle = (row[colNom] || '').toString().trim();
+    }
+    if (!nomMoodle) return;
+
+    var colQuest = keys.find(function(k){ var nk = normalitzar(k); return nk.indexOf('questionari') >= 0 || nk.indexOf('test') >= 0 || nk.indexOf('quiz') >= 0; });
+    var colDebat = keys.find(function(k){ var nk = normalitzar(k); return nk.indexOf('debat') >= 0 || nk.indexOf('forum') >= 0; });
+    var notaQ = colQuest && row[colQuest] !== '' && !isNaN(parseFloat(row[colQuest])) ? parseFloat(row[colQuest]) : null;
+    var notaD = colDebat && row[colDebat] !== '' && !isNaN(parseFloat(row[colDebat])) ? parseFloat(row[colDebat]) : null;
+
+    // Buscar millor coincidència
+    var millor = null;
+    var millorScore = 0;
+    llista.forEach(function(al) {
+      var sc = similitudTokens(nomMoodle, al.nom);
+      if (sc > millorScore) { millorScore = sc; millor = al; }
+    });
+
+    if (millor && millorScore >= 0.85) {
+      if (notaQ !== null) millor.notes.questionari = arrodonir(notaQ);
+      if (notaD !== null) {
+        // Si a Moodle ve sobre 10, ho convertim proporcionalment a bonus màxim +0,5
+        millor.notes.debat = notaD > 0.5 ? arrodonir((notaD / 10) * 0.5) : arrodonir(notaD);
+      }
+      recalcularAlumne(millor);
+      millor.comentaris.global = generarFeedbackGlobal(millor, eacActual);
+      assignatsDirectes++;
+    } else {
+      pendentsMatching.push({ nomMoodle: nomMoodle, notaQ: notaQ, notaD: notaD, suggeritId: millor ? millor.id : '' });
+    }
+  });
+
+  marcarGuardat();
+  renderTaulaActual();
+
+  if (pendentsMatching.length > 0) {
+    mostrarPanelMatching();
+  } else {
+    document.getElementById('estat').innerHTML = '✅ Notes de Moodle creuades automàticament per a <strong>' + assignatsDirectes + '</strong> alumnes.';
+  }
+}
+
+function mostrarPanelMatching() {
+  var panel = document.getElementById('panel-matching');
+  var cont = document.getElementById('llista-matching');
+  var llista = dadesPerEac[eacActual];
+  cont.innerHTML = '';
+  pendentsMatching.forEach(function(item, idx) {
+    var opts = '<option value="">-- Ignorar / No lliurat JSON --</option>';
+    llista.forEach(function(al) {
+      opts += '<option value="' + al.id + '"' + (al.id === item.suggeritId ? ' selected' : '') + '>' + escapeHtml(al.nom) + ' (' + escapeHtml(al.grup) + ')</option>';
+    });
+    var div = document.createElement('div');
+    div.className = 'match-row';
+    div.innerHTML = '<strong>Moodle:</strong> "' + escapeHtml(item.nomMoodle) + '" (Test: ' + (item.notaQ !== null ? item.notaQ : '—') + ', Debat: ' + (item.notaD !== null ? item.notaD : '—') + ') → <select data-match-idx="' + idx + '">' + opts + '</select>';
+    cont.appendChild(div);
+  });
+  panel.style.display = 'block';
+}
+
+/* ===== RENDER TAULA PRINCIPAL ===== */
+function renderTaulaActual() {
+  var llista = dadesPerEac[eacActual].slice();
+  var zona = document.getElementById('zona-taula');
+  if (llista.length === 0) {
+    zona.style.display = 'none';
+    return;
+  }
+  zona.style.display = 'block';
+
+  if (filtreText) {
+    var f = normalitzar(filtreText);
+    llista = llista.filter(function(a) { return normalitzar(a.nom + ' ' + a.grup).indexOf(f) >= 0; });
+  }
+
+  llista.sort(function(a, b) {
+    var va = ordreActual.camp === 'nom' ? normalitzar(a.nom) : ordreActual.camp === 'grup' ? normalitzar(a.grup) : (a.notes[ordreActual.camp] || -1);
+    var vb = ordreActual.camp === 'nom' ? normalitzar(b.nom) : ordreActual.camp === 'grup' ? normalitzar(b.grup) : (b.notes[ordreActual.camp] || -1);
+    if (va < vb) return ordreActual.direccio === 'asc' ? -1 : 1;
+    if (va > vb) return ordreActual.direccio === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  var cos = document.getElementById('cos-taula');
+  cos.innerHTML = '';
+  llista.forEach(function(al) {
+    var tr = document.createElement('tr');
+    if (al.estat === 'No presentat') tr.className = 'no-presentat';
+    tr.innerHTML =
+      '<td class="alumne">' + escapeHtml(al.nom) + '</td>' +
+      '<td>' + escapeHtml(al.grup) + '</td>' +
+      '<td><select class="select-estat ' + (al.estat === 'No presentat' ? 'no-presentat' : 'presentat') + '" data-id="' + al.id + '">' +
+        '<option value="Presentat"' + (al.estat !== 'No presentat' ? ' selected' : '') + '>Presentat</option>' +
+        '<option value="No presentat"' + (al.estat === 'No presentat' ? ' selected' : '') + '>No presentat</option>' +
+      '</select></td>' +
+      '<td><input type="number" class="input-nota ' + (al.bloqueig.p1p9 ? 'editable' : 'auto') + '" step="0.5" min="0" max="10" value="' + (al.notes.p1p9 !== null ? al.notes.p1p9 : '') + '" data-camp="p1p9" data-id="' + al.id + '" ' + (al.bloqueig.p1p9 ? '' : 'readonly') + '><button type="button" class="btn-bloqueig" data-bloq="p1p9" data-id="' + al.id + '">' + (al.bloqueig.p1p9 ? '🔒' : '🔓') + '</button></td>' +
+      '<td><input type="number" class="input-nota ' + (al.bloqueig.p10 ? 'editable' : 'auto') + '" step="0.5" min="0" max="10" value="' + (al.notes.p10 !== null ? al.notes.p10 : '') + '" data-camp="p10" data-id="' + al.id + '" ' + (al.bloqueig.p10 ? '' : 'readonly') + '><button type="button" class="btn-bloqueig" data-bloq="p10" data-id="' + al.id + '">' + (al.bloqueig.p10 ? '🔒' : '🔓') + '</button></td>' +
+      '<td><input type="number" class="input-nota ortografia" step="0.1" min="0" max="2" value="' + (al.notes.ortografia || 0) + '" data-camp="ortografia" data-id="' + al.id + '"></td>' +
+      '<td><input type="number" class="input-nota editable" step="0.1" min="0" max="0.5" value="' + (al.notes.debat || 0) + '" data-camp="debat" data-id="' + al.id + '"></td>' +
+      '<td><input type="number" class="input-nota editable" step="0.5" min="0" max="10" value="' + (al.notes.questionari !== null ? al.notes.questionari : '') + '" data-camp="questionari" data-id="' + al.id + '" placeholder="—"></td>' +
+      '<td><strong>' + (al.notes.nota_eac !== null ? al.notes.nota_eac.toFixed(2) : '—') + '</strong></td>' +
+      '<td><span class="qualificacio ' + classeQual(al.qualificacio) + '">' + al.qualificacio + '</span></td>' +
+      '<td><button type="button" class="btn-fitxa" data-id="' + al.id + '">Fitxa</button><button type="button" class="btn-esborrar" data-id="' + al.id + '">🗑️</button></td>';
+    cos.appendChild(tr);
+  });
+
+  var pres = dadesPerEac[eacActual].filter(function(a){ return a.estat !== 'No presentat'; });
+  var mitjana = pres.length > 0 ? (pres.reduce(function(s,a){ return s + (a.notes.nota_eac || 0); }, 0) / pres.length).toFixed(2) : '—';
+  document.getElementById('comptador').textContent = 'Mostrant ' + llista.length + ' de ' + dadesPerEac[eacActual].length + ' alumnes · Mitjana ' + CONFIG_EACS[eacActual].codi + ': ' + mitjana;
+
+  // Events inline de la taula
+  cos.querySelectorAll('select.select-estat').forEach(function(sel) {
+    sel.addEventListener('change', function() {
+      var al = dadesPerEac[eacActual].find(function(a){ return a.id === sel.dataset.id; });
+      if (!al) return;
+      al.estat = sel.value;
+      recalcularAlumne(al);
+      al.comentaris.global = generarFeedbackGlobal(al, eacActual);
+      marcarGuardat(); renderTaulaActual();
+    });
+  });
+
+  cos.querySelectorAll('input.input-nota').forEach(function(inp) {
+    inp.addEventListener('change', function() {
+      var al = dadesPerEac[eacActual].find(function(a){ return a.id === inp.dataset.id; });
+      if (!al) return;
+      var v = parseFloat(inp.value);
+      if (isNaN(v)) v = inp.dataset.camp === 'questionari' ? null : 0;
+      al.notes[inp.dataset.camp] = v;
+      recalcularAlumne(al);
+      al.comentaris.global = generarFeedbackGlobal(al, eacActual);
+      marcarGuardat(); renderTaulaActual();
+    });
+  });
+
+  cos.querySelectorAll('.btn-bloqueig').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var al = dadesPerEac[eacActual].find(function(a){ return a.id === btn.dataset.id; });
+      if (!al) return;
+      var c = btn.dataset.bloq;
+      al.bloqueig[c] = !al.bloqueig[c];
+      recalcularAlumne(al);
+      marcarGuardat(); renderTaulaActual();
+    });
+  });
+
+  cos.querySelectorAll('.btn-fitxa').forEach(function(btn) {
+    btn.addEventListener('click', function() { obrirFitxa(btn.dataset.id); });
+  });
+
+  cos.querySelectorAll('.btn-esborrar').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (!confirm('Segur que vols eliminar aquest registre?')) return;
+      dadesPerEac[eacActual] = dadesPerEac[eacActual].filter(function(a){ return a.id !== btn.dataset.id; });
+      marcarGuardat(); renderTaulaActual();
+    });
+  });
+}
+
+/* ===== MODAL FITXA INDIVIDUAL EDITABLE ===== */
+function obrirFitxa(id) {
+  var al = dadesPerEac[eacActual].find(function(a){ return a.id === id; });
+  if (!al) return;
+  alumneModalActual = al;
+  var cfg = CONFIG_EACS[eacActual];
+  document.getElementById('modal-titol').textContent = cfg.codi + ' · ' + al.nom + ' (' + al.grup + ')';
+
+  var preguntesHtml = '';
+  for (var i = 1; i <= 10; i++) {
+    var k = 'p' + i;
+    preguntesHtml += '<div style="margin-bottom:12px; border:1px solid #e2e8f0; border-radius:6px; padding:10px;">' +
+      '<div class="resposta-capcalera"><span>' + escapeHtml(cfg.enunciats[k]) + '</span>' +
+      '<span class="nota-interna">Nota: <input type="number" step="0.5" min="0" max="10" value="' + (al.notes_internes[k] !== null ? al.notes_internes[k] : 0) + '" data-p="' + k + '" style="width:58px; text-align:center; border:1px solid #94a3b8; border-radius:4px;"></span></div>' +
+      '<div class="resposta-alumne">' + escapeHtml(al.respostes[k] || '(sense resposta)') + '</div>' +
+    '</div>';
+  }
+
+  var extraLinks = '';
+  if (eacActual === 'eac1' && (al.linkedin || al.cv)) {
+    extraLinks = '<div class="info-ponderacio"><strong>🔗 Enllaços portafolis EAC 1:</strong> LinkedIn: ' + escapeHtml(al.linkedin || '—') + ' | CV Digital: ' + escapeHtml(al.cv || '—') + '</div>';
+  }
+
+  document.getElementById('modal-body').innerHTML =
+    extraLinks +
+    '<div class="calculs" style="margin-bottom:16px;">' +
+      '<div><strong>Contingut (P1–P9 · 90%):</strong> ' + (al.notes.p1p9 || 0).toFixed(2) + ' &nbsp;|&nbsp; <strong>Auditoria IA (P10 · 10%):</strong> ' + (al.notes.p10 || 0).toFixed(2) + ' &nbsp;|&nbsp; <strong>Debat:</strong> +' + (al.notes.debat || 0).toFixed(2) + ' &nbsp;|&nbsp; <strong>Ortografia:</strong> −' + (al.notes.ortografia || 0).toFixed(2) + '</div>' +
+      '<div class="resultat-final">NOTA FINAL ' + cfg.codi + ': <span id="modal-nota-final">' + (al.notes.nota_eac || 0).toFixed(2) + '</span> / 10 (<span id="modal-qual">' + al.qualificacio + '</span>)</div>' +
+    '</div>' +
+    '<div class="seccio-modal"><div class="seccio-modal-header" data-tog="respostes">📄 Respostes de l\'alumne (P1–P10) i puntuació per criteri <span>▼</span></div>' +
+    '<div class="seccio-modal-body" id="sec-respostes">' + preguntesHtml + '</div></div>' +
+    '<div class="seccio-modal"><div class="seccio-modal-header">✍️ Informe i retroacció editable (Moodle i PDF)</div>' +
+    '<div class="seccio-modal-body">' +
+      '<div class="camp-grup"><label>Comentari específic del debat (opcional)</label><textarea id="mod-com-debat" style="min-height:60px;">' + escapeHtml(al.comentaris.debat || '') + '</textarea></div>' +
+      '<div class="camp-grup"><label>Feedback global complet per a l\'estudiant <button type="button" class="btn btn-secondary" id="btn-regen-feedback" style="padding:3px 10px; font-size:12px; margin-left:8px;">🔄 Regenerar text des de les notes</button></label>' +
+      '<textarea id="mod-com-global" style="min-height:260px;">' + escapeHtml(al.comentaris.global || '') + '</textarea></div>' +
+    '</div></div>';
+
+  var body = document.getElementById('modal-body');
+  body.querySelectorAll('input[data-p]').forEach(function(inp) {
+    inp.addEventListener('change', function() {
+      var v = parseFloat(inp.value);
+      if (isNaN(v)) v = 0;
+      al.notes_internes[inp.dataset.p] = arrodonir(Math.max(0, Math.min(10, v)));
+      recalcularAlumne(al);
+      al.comentaris.p1p9 = generarComentariContingut(al, eacActual);
+      al.comentaris.p10 = generarComentariIA(al);
+      al.comentaris.global = generarFeedbackGlobal(al, eacActual);
+      document.getElementById('mod-com-global').value = al.comentaris.global;
+      document.getElementById('modal-nota-final').textContent = al.notes.nota_eac.toFixed(2);
+      document.getElementById('modal-qual').textContent = al.qualificacio;
+      marcarGuardat(); renderTaulaActual();
+    });
+  });
+
+  document.getElementById('mod-com-debat').addEventListener('input', function(e) {
+    al.comentaris.debat = e.target.value;
+    marcarGuardat();
+  });
+  document.getElementById('mod-com-global').addEventListener('input', function(e) {
+    al.comentaris.global = e.target.value;
+    marcarGuardat();
+  });
+  document.getElementById('btn-regen-feedback').addEventListener('click', function() {
+    al.comentaris.p1p9 = generarComentariContingut(al, eacActual);
+    al.comentaris.p10 = generarComentariIA(al);
+    al.comentaris.global = generarFeedbackGlobal(al, eacActual);
+    document.getElementById('mod-com-global').value = al.comentaris.global;
+    marcarGuardat();
+  });
+
+  document.getElementById('modal-fitxa').classList.add('actiu');
+}
+
+/* ===== RESUM GLOBAL AC (33,3% + 33,3% + 33,3%) ===== */
+function renderResumAC() {
+  var mapa = {};
+  ['eac1', 'eac2', 'eac3'].forEach(function(k) {
+    dadesPerEac[k].forEach(function(al) {
+      if (!mapa[al.id]) mapa[al.id] = { nom: al.nom, grup: al.grup, eac1: null, eac2: null, eac3: null };
+      if (al.estat !== 'No presentat' && al.notes.nota_eac !== null) {
+        mapa[al.id][k] = al.notes.nota_eac;
+      }
+    });
+  });
+  var cos = document.getElementById('cos-resum');
+  cos.innerHTML = '';
+  Object.keys(mapa).sort().forEach(function(id) {
+    var r = mapa[id];
+    var n1 = r.eac1 !== null ? r.eac1 : 0;
+    var n2 = r.eac2 !== null ? r.eac2 : 0;
+    var n3 = r.eac3 !== null ? r.eac3 : 0;
+    var ac = arrodonir((n1 + n2 + n3) / 3);
+    var q = obtenirQualificacio(ac, 'Presentat');
+    var aport40 = (ac * 0.40).toFixed(2);
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="alumne">' + escapeHtml(r.nom) + '</td>' +
+      '<td>' + escapeHtml(r.grup) + '</td>' +
+      '<td>' + (r.eac1 !== null ? r.eac1.toFixed(2) : '—') + '</td>' +
+      '<td>' + (r.eac2 !== null ? r.eac2.toFixed(2) : '—') + '</td>' +
+      '<td>' + (r.eac3 !== null ? r.eac3.toFixed(2) : '—') + '</td>' +
+      '<td><strong>' + ac.toFixed(2) + '</strong></td>' +
+      '<td><span class="qualificacio ' + classeQual(q) + '">' + q + '</span></td>' +
+      '<td><strong>' + aport40 + ' / 4,00</strong></td>';
+    cos.appendChild(tr);
+  });
+}
+
+/* ===== INICIALITZACIÓ I EVENTS ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  carregarTot();
+  renderTaulaActual();
+
+  // Canvi de pestanya
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('activa'); });
+      btn.classList.add('activa');
+      var sel = btn.dataset.eac;
+      if (sel === 'resum') {
+        document.getElementById('vista-eac').style.display = 'none';
+        document.getElementById('vista-resum').style.display = 'block';
+        renderResumAC();
+      } else {
+        eacActual = sel;
+        document.getElementById('vista-resum').style.display = 'none';
+        document.getElementById('vista-eac').style.display = 'block';
+        document.getElementById('subtitol-eac').textContent = CONFIG_EACS[eacActual].titol;
+        document.getElementById('panel-matching').style.display = 'none';
+        renderTaulaActual();
+      }
+    });
+  });
+
+  // Pas 1: Processar JSONs individuals
+  document.getElementById('btn-processar').addEventListener('click', function() {
+    var files = document.getElementById('input-alumnes').files;
+    if (!files || files.length === 0) { alert('Selecciona com a mínim un fitxer JSON.'); return; }
+    var pendents = files.length;
+    var nous = [];
+    Array.from(files).forEach(function(file) {
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        try {
+          var parsed = JSON.parse(ev.target.result);
+          var arr = Array.isArray(parsed) ? parsed : [parsed];
+          arr.forEach(function(item) {
+            var al = importarJsonIndividual(item, eacActual);
+            if (al) nous.push(al);
+          });
+        } catch (err) { console.error('Error llegint ' + file.name, err); }
+        pendents--;
+        if (pendents === 0) {
+          // Fusionar amb existents per no perdre notes manuals si es reimporten
+          var mapaExist = {};
+          dadesPerEac[eacActual].forEach(function(a){ mapaExist[a.id] = a; });
+          nous.forEach(function(n) {
+            if (mapaExist[n.id]) {
+              n.notes.debat = mapaExist[n.id].notes.debat;
+              n.notes.questionari = mapaExist[n.id].notes.questionari;
+              n.notes.ortografia = mapaExist[n.id].notes.ortografia;
+              recalcularAlumne(n);
+            }
+          });
+          dadesPerEac[eacActual] = nous;
+          marcarGuardat();
+          renderTaulaActual();
+          document.getElementById('estat').innerHTML = '✅ Processats <strong>' + nous.length + '</strong> fitxers JSON per a <strong>' + CONFIG_EACS[eacActual].codi + '</strong>.';
+        }
+      };
+      reader.readAsText(file);
+    });
+  });
+
+  // Pas 2: Creuar Moodle CSV / XLSX
+  document.getElementById('btn-processar-moodle').addEventListener('click', function() {
+    var file = document.getElementById('input-moodle').files[0];
+    if (!file) { alert('Selecciona el fitxer CSV o Excel descarregat de Moodle.'); return; }
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      var wb = XLSX.read(ev.target.result, { type: 'binary' });
+      var ws = wb.Sheets[wb.SheetNames[0]];
+      var rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
+      processarFilesMoodle(rows);
+    };
+    reader.readAsBinaryString(file);
+  });
+
+  document.getElementById('btn-aplicar-matching').addEventListener('click', function() {
+    var selects = document.querySelectorAll('#llista-matching select');
+    var llista = dadesPerEac[eacActual];
+    selects.forEach(function(sel) {
+      var idx = parseInt(sel.dataset.matchIdx, 10);
+      var item = pendentsMatching[idx];
+      var targetId = sel.value;
+      if (!targetId || !item) return;
+      var al = llista.find(function(a){ return a.id === targetId; });
+      if (!al) return;
+      if (item.notaQ !== null) al.notes.questionari = arrodonir(item.notaQ);
+      if (item.notaD !== null) al.notes.debat = item.notaD > 0.5 ? arrodonir((item.notaD / 10) * 0.5) : arrodonir(item.notaD);
+      recalcularAlumne(al);
+      al.comentaris.global = generarFeedbackGlobal(al, eacActual);
+    });
+    document.getElementById('panel-matching').style.display = 'none';
+    marcarGuardat();
+    renderTaulaActual();
+    document.getElementById('estat').innerHTML = '✅ Assignacions de Moodle aplicades correctament.';
+  });
+  document.getElementById('btn-tancar-matching').addEventListener('click', function() {
+    document.getElementById('panel-matching').style.display = 'none';
+  });
+
+  // Pas 3: Carregar JSON consolidat
+  document.getElementById('input-consolidat').addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      try {
+        var data = JSON.parse(ev.target.result);
+        if (data.eac && dadesPerEac[data.eac.toLowerCase()]) {
+          eacActual = data.eac.toLowerCase();
+          document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.toggle('activa', b.dataset.eac === eacActual); });
+          document.getElementById('subtitol-eac').textContent = CONFIG_EACS[eacActual].titol;
+        }
+        if (Array.isArray(data.alumnes)) {
+          dadesPerEac[eacActual] = data.alumnes;
+          marcarGuardat();
+          renderTaulaActual();
+          document.getElementById('estat').innerHTML = '📂 JSON consolidat carregat: <strong>' + data.alumnes.length + '</strong> registres.';
+        }
+      } catch (err) { alert('Error en el JSON consolidat: ' + err.message); }
+    };
+    reader.readAsText(file);
+  });
+
+  // Exportar JSON Consolidat
+  document.getElementById('btn-json').addEventListener('click', function() {
+    var llista = dadesPerEac[eacActual];
+    if (llista.length === 0) { alert('No hi ha dades per exportar.'); return; }
+    var payload = {
+      eac: CONFIG_EACS[eacActual].codi,
+      modul: 'IPO1_1709',
+      curs: '2026-2027',
+      data_exportacio: new Date().toISOString(),
+      alumnes: llista
+    };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = CONFIG_EACS[eacActual].codi + '_consolidat_' + new Date().toISOString().slice(0,10) + '.json';
+    a.click();
+  });
+
+  // Exportar Excel EAC
+  document.getElementById('btn-excel').addEventListener('click', function() {
+    var llista = dadesPerEac[eacActual];
+    if (llista.length === 0) { alert('No hi ha dades per exportar.'); return; }
+    var rows = [['Alumne', 'Grup', 'Estat', 'Contingut P1-P9 (90%)', 'IA P10 (10%)', 'Ortografia', 'Bonus Debat', 'Test (30)', 'Nota Final EAC', 'Qualificació', 'Feedback']];
+    llista.forEach(function(a) {
+      rows.push([a.nom, a.grup, a.estat, a.notes.p1p9, a.notes.p10, a.notes.ortografia, a.notes.debat, a.notes.questionari, a.notes.nota_eac, a.qualificacio, a.comentaris.global]);
+    });
+    var wb = XLSX.utils.book_new();
+    var ws = XLSX.utils.aoa_to_sheet(rows);
+    XLSX.utils.book_append_sheet(wb, ws, CONFIG_EACS[eacActual].codi);
+    XLSX.writeFile(wb, CONFIG_EACS[eacActual].codi + '_qualificacions_2026_2027.xlsx');
+  });
+
+  // Netejar EAC
+  document.getElementById('btn-esborrar').addEventListener('click', function() {
+    if (!confirm('Vols buidar totes les dades de ' + CONFIG_EACS[eacActual].codi + '?')) return;
+    dadesPerEac[eacActual] = [];
+    marcarGuardat();
+    renderTaulaActual();
+    document.getElementById('estat').textContent = '🗑️ Dades esborrades.';
+  });
+
+  // Cercador i ordenació
+  document.getElementById('cercador').addEventListener('input', function(e) { filtreText = e.target.value; renderTaulaActual(); });
+  document.querySelectorAll('#taula-principal thead th[data-ordre]').forEach(function(th) {
+    th.addEventListener('click', function() {
+      var c = th.dataset.ordre;
+      if (ordreActual.camp === c) ordreActual.direccio = ordreActual.direccio === 'asc' ? 'desc' : 'asc';
+      else { ordreActual.camp = c; ordreActual.direccio = 'asc'; }
+      renderTaulaActual();
+    });
+  });
+
+  // Botons modal
+  document.getElementById('btn-tancar-modal').addEventListener('click', function() { document.getElementById('modal-fitxa').classList.remove('actiu'); });
+  document.getElementById('btn-tancar-fitxa').addEventListener('click', function() {
+    marcarGuardat(); renderTaulaActual();
+    document.getElementById('modal-fitxa').classList.remove('actiu');
+  });
+  document.getElementById('btn-moodle').addEventListener('click', function() {
+    if (!alumneModalActual) return;
+    var txt = document.getElementById('mod-com-global').value;
+    navigator.clipboard.writeText(txt).then(function(){ alert('✅ Feedback copiat al porta-retalls per enganxar a Moodle.'); });
+  });
+  document.getElementById('btn-prompt').addEventListener('click', function() {
+    if (!alumneModalActual) return;
+    var cfg = CONFIG_EACS[eacActual];
+    var p = "Ets docent de FOL (especialitat 505) a l'IOC al CFGM d'Instal·lacions Elèctriques. Revisa l'activitat " + cfg.titol + " de l'estudiant " + alumneModalActual.nom + ' i proposa un feedback formatiu constructiu (punts forts, àrees de millora i transferència professional):\n\n';
+    for (var i = 1; i <= 10; i++) p += cfg.enunciats['p'+i] + ':\n' + (alumneModalActual.respostes['p'+i] || '(buit)') + '\n\n';
+    navigator.clipboard.writeText(p).then(function(){ alert('🤖 Prompt de revisió copiat al porta-retalls.'); });
+  });
+  document.getElementById('btn-pdf').addEventListener('click', function() {
+    if (!alumneModalActual) return;
+    var cfg = CONFIG_EACS[eacActual];
+    var txt = escapeHtml(document.getElementById('mod-com-global').value).replace(/\n/g, '<br>');
+    var w = window.open('', '_blank');
+    w.document.write('<!DOCTYPE html><html lang="ca"><head><meta charset="UTF-8"><title>Informe ' + cfg.codi + ' - ' + escapeHtml(alumneModalActual.nom) + '</title><style>body{font-family:Arial,sans-serif;padding:30px;line-height:1.6;color:#202735;} .cap{background:#266fdc;color:#fff;padding:18px;border-radius:8px;margin-bottom:20px;} .box{background:#f8fafd;border:1px solid #cbd5e1;padding:16px;border-radius:8px;}</style></head><body>');
+    w.document.write('<div class="cap"><h1>INFORME D\'AVALUACIÓ · ' + cfg.codi + '</h1><p>' + cfg.titol + ' · Curs 2026-2027</p></div>');
+    w.document.write('<p><strong>Estudiant:</strong> ' + escapeHtml(alumneModalActual.nom) + ' &nbsp;|&nbsp; <strong>Grup:</strong> ' + escapeHtml(alumneModalActual.grup) + ' &nbsp;|&nbsp; <strong>Data:</strong> ' + new Date().toLocaleDateString('ca-ES') + '</p>');
+    w.document.write('<div class="box">' + txt + '</div>');
+    w.document.write('<script>window.onload=function(){window.print();};<\/script></body></html>');
+    w.document.close();
+  });
+
+  // Resum AC buttons
+  document.getElementById('btn-recalcular-resum').addEventListener('click', renderResumAC);
+  document.getElementById('btn-excel-resum').addEventListener('click', function() {
+    var rows = [['Alumne', 'Grup', 'EAC 1 (33,3%)', 'EAC 2 (33,3%)', 'EAC 3 (33,3%)', 'Nota Mitjana AC', 'Qualificació AC', 'Aportació 40% QF']];
+    document.querySelectorAll('#cos-resum tr').forEach(function(tr) {
+      var cols = Array.from(tr.querySelectorAll('td')).map(function(td){ return td.textContent; });
+      rows.push(cols);
+    });
+    if (rows.length <= 1) { alert('No hi ha dades consolidades per exportar.'); return; }
+    var wb = XLSX.utils.book_new();
+    var ws = XLSX.utils.aoa_to_sheet(rows);
+    XLSX.utils.book_append_sheet(wb, ws, 'Resum_AC_IPO1');
+    XLSX.writeFile(wb, 'Acta_Avaluacio_Continua_IPO1_2026_2027.xlsx');
+  });
+});
+</script>
+</body>
+</html>

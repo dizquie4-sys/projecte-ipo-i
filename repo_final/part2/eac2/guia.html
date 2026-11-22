@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia EAC 2 · Investigació d'accidents i avaluació de riscos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       SISTEMA DE DISSENY IOC — CSS COMPLET
+       ============================================================ */
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 24px;
+      color: #202735;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px 48px 16px;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Lato', Arial, sans-serif;
+      color: #3D4D74;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    h1 { font-size: 36px; }
+    h2 { font-size: 30px; }
+    h3 { font-size: 24px; }
+    h4 { font-size: 19px; }
+    h5 { font-size: 17px; }
+
+    p { margin: 8px 0; }
+
+    a {
+      color: #266FDC;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+    a:hover { color: #076DF0; }
+
+    ul, ol { margin: 8px 0; padding-left: 22px; }
+    li { margin: 4px 0; }
+
+    .ioc-spacer {
+      display: block;
+      height: 1.5em;
+      margin: 0;
+    }
+
+    /* ---------- Components semàntics ---------- */
+
+    .text-destacat {
+      background: #ECF2FF;
+      border-left: 4px solid #266FDC;
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 4px;
+      color: #202735;
+    }
+
+    .recorda {
+      background: #EAF9FF;
+      border-left: 4px solid #32A6D1;
+      padding: 16px 20px 16px 56px;
+      margin: 16px 0;
+      border-radius: 4px;
+      position: relative;
+    }
+    .recorda::before {
+      content: "📌";
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      font-size: 20px;
+    }
+
+    .atencio {
+      background: #FEF6ED;
+      border-left: 4px solid #F88923;
+      padding: 16px 20px 16px 56px;
+      margin: 16px 0;
+      border-radius: 4px;
+      position: relative;
+    }
+    .atencio::before {
+      content: "⚠";
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      font-size: 22px;
+      color: #F88923;
+      font-weight: bold;
+    }
+
+    .context-procedimental {
+      background: #EAEFFA;
+      border-left: 4px solid #3D4D74;
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+
+    .retol-inline {
+      display: inline-block;
+      background: #266FDC;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin: 0 4px;
+    }
+
+    /* ---------- Taules ---------- */
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 14.5px;
+      background-color: #ffffff;
+      margin: 12px 0;
+    }
+    table thead th {
+      background-color: #ECF2FF;
+      color: #202735;
+      font-weight: 600;
+      padding: 8px 10px;
+      border: 1px solid #C1C8D8;
+      text-align: left;
+    }
+    table tbody td,
+    table tbody th {
+      padding: 8px 10px;
+      border: 1px solid #C1C8D8;
+      vertical-align: top;
+    }
+    table tbody th {
+      background-color: #F8F9FB;
+      font-weight: 600;
+    }
+
+    /* ---------- Botons ---------- */
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      margin-right: 8px;
+      margin-top: 8px;
+      transition: background-color 0.2s, transform 0.1s;
+      text-decoration: none;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background-color: #266FDC;
+      color: #ffffff;
+    }
+    .btn-primary:hover { background-color: #076DF0; color: #ffffff; }
+    .btn-secondary {
+      background-color: #777777;
+      color: #ffffff;
+    }
+    .btn-secondary:hover { background-color: #555555; color: #ffffff; }
+    .btn-success {
+      background-color: #1CC460;
+      color: #ffffff;
+    }
+    .btn-success:hover { background-color: #16a34a; color: #ffffff; }
+
+    /* ---------- Capçalera IOC ---------- */
+
+    .capcalera-ioc {
+      background-color: #266FDC;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 28px 24px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .capcalera-ioc-logo {
+      width: 120px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      line-height: 1.1;
+    }
+    .ioc-logo-text {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+    .ioc-logo-subtext {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.9;
+      margin: 4px 0 0 0;
+      line-height: 1.2;
+    }
+    .capcalera-ioc-text {
+      flex: 1;
+      min-width: 250px;
+    }
+    .capcalera-ioc-text h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 6px 0;
+      line-height: 1.25;
+    }
+    .capcalera-ioc-text h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      opacity: 0.95;
+      margin: 0 0 4px 0;
+      line-height: 1.3;
+      border: none;
+      padding: 0;
+    }
+    .capcalera-ioc-text .subtitol {
+      font-size: 15px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.9;
+      margin: 0 0 10px 0;
+      line-height: 1.3;
+    }
+    .capcalera-ioc-codi {
+      font-size: 14px;
+      font-weight: 400;
+      color: #ffffff;
+      opacity: 0.85;
+      margin: 0;
+      font-style: italic;
+    }
+
+    /* ---------- Responsive ---------- */
+
+    @media (max-width: 600px) {
+      .page { padding: 16px 12px 32px 12px; }
+      h2 { font-size: 24px; }
+      h3 { font-size: 20px; }
+      .capcalera-ioc {
+        padding: 20px 16px;
+        gap: 16px;
+        flex-direction: column;
+        text-align: center;
+      }
+      .capcalera-ioc-logo { width: auto; align-items: center; }
+      .ioc-logo-text { font-size: 24px; }
+      .ioc-logo-subtext { font-size: 10px; }
+      .capcalera-ioc-text h1 { font-size: 20px; }
+      .capcalera-ioc-text h2 { font-size: 15px; }
+      .capcalera-ioc-text .subtitol { font-size: 13px; }
+      .capcalera-ioc-codi { font-size: 12px; }
+    }
+
+    /* ---------- Impressió / PDF ---------- */
+    @page { margin: 15mm; }
+    @media print {
+      body > .page { display: block !important; }
+      .btn { display: none !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<nav style="background:#1c2536; color:#fff; padding:10px 16px; font-family:'Lato',Arial,sans-serif; font-size:13.5px; border-bottom:3px solid #266FDC; position:sticky; top:0; z-index:999;">
+  <div style="max-width:720px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+    <a href="../../index.html" style="color:#fff; text-decoration:none; font-weight:700;">🏛️ Inici</a>
+    <div style="display:flex; gap:11px; flex-wrap:wrap; align-items:center;">
+      <a href="../../part1/index.html" style="color:#d8e6ff; text-decoration:none;">📘 Part I</a>
+      <a href="../index.html" style="color:#d8e6ff; text-decoration:none;">🛠️ Part II</a>
+      <a href="guia.html" style="color:#d8e6ff; text-decoration:none;">📖 Guia</a>
+      <a href="activitat.html" style="color:#d8e6ff; text-decoration:none;">📄 Activitat</a>
+      <a href="debat.html" style="color:#d8e6ff; text-decoration:none;">💬 Debat</a>
+      <a href="questionari.html" style="color:#d8e6ff; text-decoration:none;">📝 Test</a>
+      <a href="../verificate.html" style="background:#D1222B; color:#fff; padding:3px 9px; border-radius:4px; text-decoration:none; font-weight:700;">🔍 VERIFICA.TE</a>
+    </div>
+  </div>
+</nav>
+
+
+<div class="page">
+
+  <!-- CAPÇALERA IOC -->
+  <header class="capcalera-ioc">
+    <div class="capcalera-ioc-logo">
+      <p class="ioc-logo-text">IOC</p>
+      <p class="ioc-logo-subtext">Institut Obert de Catalunya</p>
+    </div>
+    <div class="capcalera-ioc-text">
+      <h1>Guia de l'EAC 2</h1>
+      <h2>Investigació d'accidents + Avaluació de riscos</h2>
+      <p class="subtitol">RA2 · IPO I · CFGM Instal·lacions Elèctriques</p>
+      <p class="capcalera-ioc-codi">Activitat d'avaluació contínua · Curs 2026-2027</p>
+    </div>
+  </header>
+
+  <!-- PRESENTACIÓ -->
+  <h2>📖 Presentació de l'activitat</h2>
+  <p>Aquesta segona activitat d'avaluació contínua (EAC 2) correspon al bloc de prevenció de riscos laborals del mòdul d'IPO I. L'objectiu és que assoleixis les competències bàsiques en matèria de PRL (RA2), aprenent a identificar riscos, analitzar accidents i proposar mesures preventives en el sector elèctric.</p>
+  <p>L'activitat és un <strong>fil conductor en tres fases</strong>: primer investigues un accident, després avaluïs els riscos d'una tasca i, finalment, proposes un pla de prevenció i participes en un debat sobre la cultura preventiva.</p>
+
+  <!-- OBJECTIUS -->
+  <h2>🎯 Objectius d'aprenentatge</h2>
+  <p>En acabar aquesta activitat, hauràs de ser capaç de:</p>
+  <ol>
+    <li>Identificar els factors de risc més habituals en les instal·lacions elèctriques (contacte elèctric, arcs elèctrics, caigudes, etc.).</li>
+    <li>Analitzar les causes d'un accident laboral aplicant el mètode de l'arbre de causes.</li>
+    <li>Avaluar el nivell de risc d'una tasca (probabilitat x severitat) i proposar mesures preventives (col·lectives i individuals).</li>
+    <li>Conèixer els drets i obligacions en matèria de PRL (LPRL) i la importància de la formació i la informació.</li>
+    <li>Aplicar el mètode VERIFICA.TE per contrastar la informació sobre prevenció.</li>
+  </ol>
+
+  <!-- RESULTATS D'APRENENTATGE -->
+  <h2>📊 Resultats d'aprenentatge i criteris d'avaluació</h2>
+  <p>Aquesta activitat avalua els següents RAs i criteris d'avaluació:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>RA</th>
+        <th>Descripció</th>
+        <th>Criteris d'avaluació treballats</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>RA2</strong></td>
+        <td>Assoleix les competències per a l'obtenció del títol de Tècnic Bàsic en PRL.</td>
+        <td>2.1, 2.2, 2.3, 2.4, 2.5</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- METODOLOGIA I FASES -->
+  <h2>🧭 Metodologia i fases</h2>
+  <p>Aquesta activitat es desenvolupa en <strong>tres fases</strong> que es lliuren de forma asíncrona a través de l'aula virtual (Moodle). Cada fase té una sèrie de tasques i un producte associat.</p>
+
+  <!-- Fase 1 -->
+  <div class="context-procedimental">
+    <h3>Fase 1 · Investigació d'un accident (3 h)</h3>
+    <p><strong>Què has de fer?</strong></p>
+    <ol>
+      <li>Tria un accident laboral real (pots buscar notícies o casos publicats) o inventa'n un de versemblant en el sector elèctric.</li>
+      <li>Aplica el <strong>mètode de l'arbre de causes</strong>: què va passar? per què? quines causes immediates i quines causes arrel (falta de formació, falta d'EPIs, etc.)?</li>
+      <li>Respon les preguntes P1, P2 i P3 de l'Activitat Principal.</li>
+    </ol>
+    <p><strong>Producte:</strong> Respostes P1, P2, P3.</p>
+  </div>
+
+  <!-- Fase 2 -->
+  <div class="context-procedimental">
+    <h3>Fase 2 · Avaluació de riscos (3 h)</h3>
+    <p><strong>Què has de fer?</strong></p>
+    <ol>
+      <li>Tria una tasca habitual del sector (ex: instal·lar un quadre elèctric, fer manteniment d'una línia, etc.).</li>
+      <li>Identifica els riscos associats (elèctrics, mecànics, ergonòmics, etc.).</li>
+      <li>Avalua el risc (probabilitat x severitat) i classifica'l (trivial, tolerable, moderat, important, intolerable).</li>
+      <li>Proposa mesures preventives (col·lectives i EPIs).</li>
+      <li>Respon les preguntes P4, P5 i P6 de l'Activitat Principal.</li>
+    </ol>
+    <p><strong>Producte:</strong> Respostes P4, P5, P6.</p>
+  </div>
+
+  <!-- Fase 3 -->
+  <div class="context-procedimental">
+    <h3>Fase 3 · Pla de prevenció i debat (2 h)</h3>
+    <p><strong>Què has de fer?</strong></p>
+    <ol>
+      <li>Elabora un <strong>pla de prevenció</strong> bàsic per a la tasca triada (accions, responsables, terminis).</li>
+      <li>Participa al debat voluntari sobre la cultura preventiva al sector.</li>
+      <li>Respon les preguntes P7, P8, P9 i P10 de l'Activitat Principal.</li>
+    </ol>
+    <p><strong>Producte:</strong> Respostes P7, P8, P9, P10 + participació al debat.</p>
+  </div>
+
+  <!-- PRODUCTES I EVIDÈNCIES -->
+  <h2>📦 Productes i evidències d'aprenentatge</h2>
+  <p>Per superar aquesta activitat, has de lliurar:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Producte</th>
+        <th>Format</th>
+        <th>On es lliura?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Fitxer JSON</strong> amb les respostes a les 10 preguntes.</td>
+        <td>JSON</td>
+        <td>Moodle (tasca "EAC 2 · Activitat Principal")</td>
+      </tr>
+      <tr>
+        <td><strong>Participació al debat</strong> (opcional, però es valora).</td>
+        <td>Text al fòrum</td>
+        <td>Fòrum de debat de l'aula</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- RÚBRICA -->
+  <h2>📋 Rúbrica d'avaluació</h2>
+  <p>La teva activitat es valorarà amb la següent rúbrica (sobre 10 punts):</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Criteri</th>
+        <th>Pes</th>
+        <th>Excel·lent (4)</th>
+        <th>Assolit (3)</th>
+        <th>En procés (2)</th>
+        <th>No assolit (1)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Anàlisi de l'accident (RA2)</strong></td>
+        <td>40%</td>
+        <td>Identifica causes immediates i arrel amb profunditat. Aplica correctament l'arbre de causes.</td>
+        <td>Identifica causes immediates i arrel bàsicament. Aplica l'arbre de causes.</td>
+        <td>Identifica poques causes o de forma superficial.</td>
+        <td>No identifica causes o no aplica el mètode.</td>
+      </tr>
+      <tr>
+        <td><strong>Avaluació de riscos (RA2)</strong></td>
+        <td>40%</td>
+        <td>Identifica tots els riscos, avalua correctament (probabilitat x severitat) i proposa mesures preventives detallades.</td>
+        <td>Identifica els riscos principals, avalua i proposa mesures bàsiques.</td>
+        <td>Identifica pocs riscos o no avalua correctament.</td>
+        <td>No identifica riscos ni proposa mesures.</td>
+      </tr>
+      <tr>
+        <td><strong>Pla de prevenció i qualitat formal</strong></td>
+        <td>20%</td>
+        <td>Pla complet (accions, responsables, terminis). Document professional i ben estructurat.</td>
+        <td>Pla bàsic. Document clar i organitzat.</td>
+        <td>Pla incomplet. Document confús.</td>
+        <td>No elabora el pla o el document és inintel·ligible.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><strong>Nota:</strong> La participació al debat (voluntària) es valorarà com a <strong>fins a +0,5 punts</strong> sobre la nota final de l'EAC 2, sempre que les aportacions siguin de qualitat i argumentades.</p>
+
+  <!-- EINES I RECURSOS -->
+  <h2>🔗 Eines i recursos de l'activitat</h2>
+  <p>Des d'aquí pots accedir directament a les eines interactives de l'EAC 2:</p>
+
+  <div class="text-destacat">
+    <p><strong>📝 Qüestionari d'Autoavaluació</strong></p>
+    <p>30 preguntes tipus test per comprovar si has assolit els conceptes clau del RA2. <strong>No és obligatori</strong>, però et recomano fer-lo abans de lliurar l'activitat principal.</p>
+    <p><a href="questionari.html" class="btn btn-primary">Accedir al Qüestionari</a></p>
+  </div>
+
+  <div class="text-destacat">
+    <p><strong>📄 Activitat Principal (HTML interactiu)</strong></p>
+    <p>Aquí has de respondre les 10 preguntes. En acabar, genera el fitxer JSON i puja'l a Moodle.</p>
+    <p><a href="activitat.html" class="btn btn-success">Accedir a l'Activitat Principal</a></p>
+  </div>
+
+  <div class="text-destacat">
+    <p><strong>💬 Debat (HTML interactiu)</strong></p>
+    <p>Debat voluntari sobre la cultura preventiva. La participació es té en compte per a l'avaluació global.</p>
+    <p><a href="debat.html" class="btn btn-primary">Accedir al Debat</a></p>
+  </div>
+
+  <!-- ALTRES RECURSOS -->
+  <h3>Altres recursos d'interès</h3>
+  <ul>
+    <li>📖 <strong>Materials didàctics IOC:</strong> Unitat 2 de l'IPO I (Prevenció de riscos laborals).</li>
+    <li>🛠️ <strong>Normativa:</strong> Llei 31/1995 (LPRL), RD 614/2001 (risc elèctric), REBT.</li>
+    <li>🔍 <strong>VERIFICA.TE:</strong> Campanya de pensament crític digital — <a href="../verificate.html">Obre la presentació interactiva VERIFICA.TE →</a></li>
+  </ul>
+
+  <!-- ADVERTIMENT IA -->
+  <div class="atencio">
+    <strong>Advertiment sobre l'ús de la IA</strong>
+    <p>Pots utilitzar IA generativa (ChatGPT, Copilot, Claude...) com a <strong>suport</strong> per aclarir conceptes, estructurar idees o revisar el teu text. Ara bé:</p>
+    <ul>
+      <li>El contingut final ha de ser <strong>personal i elaborat per tu</strong>.</li>
+      <li>El <strong>copiar i enganxar</strong> directament respostes generades per IA, sense revisió ni aportació pròpia, pot ser considerat <strong>plagi</strong> o mal ús i pot comportar penalització en l'avaluació.</li>
+      <li>Si utilitzes IA, <strong>indica-ho</strong> a la pregunta P10 de l'Activitat Principal (quina eina, per a què i com has verificat la informació).</li>
+    </ul>
+  </div>
+
+  <!-- FORMA I DATA DE LLIURAMENT -->
+  <h2>📅 Forma i data de lliurament</h2>
+
+  <h3>Forma de lliurament</h3>
+  <ol>
+    <li>Obre l'<strong>Activitat Principal (HTML)</strong> i completa les 10 preguntes.</li>
+    <li>Prem el botó <strong>"Exportar JSON"</strong> per generar el fitxer amb les teves respostes.</li>
+    <li>Comprova que el nom del fitxer segueix el format: <code>EAC2_cognom_nom.json</code>.</li>
+    <li>Puja aquest fitxer JSON a la tasca <strong>"EAC 2 · Activitat Principal"</strong> del Moodle.</li>
+    <li>(Opcional) Participa al <strong>Debat</strong> abans de la data límit.</li>
+  </ol>
+
+  <h3>Dates clau</h3>
+  <ul>
+    <li><strong>Inici de l'activitat:</strong> [data]</li>
+    <li><strong>Lliurament de l'activitat principal (JSON):</strong> [data límit]</li>
+    <li><strong>Tancament del debat:</strong> [data límit]</li>
+    <li><strong>Publicació de qualificacions:</strong> [data]</li>
+    <li><strong>Revisió i reclamacions:</strong> [data]</li>
+  </ul>
+  <p>Consulta el calendari del Moodle i els avisos del professorat per a qualsevol canvi o actualització.</p>
+
+  <!-- RECORDA -->
+  <div class="recorda">
+    <strong>Recorda</strong>
+    <ul>
+      <li><strong>No s'accepten lliuraments fora de termini.</strong></li>
+      <li>El <strong>fitxer JSON</strong> és l'única evidència que conté TOTES les teves respostes. Sense aquest fitxer, el professor no podrà avaluar correctament la teva activitat.</li>
+      <li><strong>Guarda una còpia</strong> de tots els documents al teu portafolis digital professional.</li>
+      <li><strong>L'ús de la IA ha de ser transparent i ètic.</strong></li>
+      <li><strong>Consulta els avisos del Moodle</strong> per a qualsevol canvi o actualització.</li>
+    </ul>
+  </div>
+
+  <!-- PEU -->
+  <div style="margin-top: 40px; padding-top: 16px; border-top: 1px solid #C1C8D8; font-size: 13px; color: #777; text-align: center;">
+    Institut Obert de Catalunya · IPO I · CFGM Instal·lacions Elèctriques i Automàtiques · Curs 2026-2027
+  </div>
+
+</div>
+
+</body>
+</html>

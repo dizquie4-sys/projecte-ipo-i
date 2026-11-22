@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Part I · Marc Pedagògic i Institucional · Projecte IPO I (IOC)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Lato', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: #202735;
+      background: #F4F6FA;
+      margin: 0;
+      padding: 0;
+    }
+    .topbar {
+      background: #1c2536;
+      color: #fff;
+      padding: 10px 16px;
+      font-size: 13.5px;
+      border-bottom: 3px solid #266FDC;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .topbar-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topbar a {
+      color: #d8e6ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .topbar a:hover { color: #ffffff; text-decoration: underline; }
+    .badge-verificate {
+      background: #D1222B;
+      color: #fff !important;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 700 !important;
+    }
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px 56px 16px;
+    }
+    .capcalera-ioc {
+      background-color: #266FDC;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 28px 26px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .capcalera-ioc-logo {
+      width: 110px;
+      flex-shrink: 0;
+    }
+    .ioc-logo-text { font-size: 28px; font-weight: 900; letter-spacing: 2px; margin: 0; }
+    .ioc-logo-subtext { font-size: 11px; opacity: 0.9; margin: 4px 0 0 0; line-height: 1.2; }
+    .capcalera-ioc-text h1 { font-size: 26px; font-weight: 700; margin: 0 0 6px 0; color: #fff; }
+    .capcalera-ioc-text p { margin: 0; opacity: 0.92; font-size: 15px; }
+
+    /* Índice rápido de saltos */
+    .toc-bar {
+      background: #ffffff;
+      border: 1px solid #D6DCE8;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .toc-bar strong { font-size: 13.5px; color: #3D4D74; margin-right: 6px; }
+    .toc-bar a {
+      background: #ECF2FF;
+      color: #266FDC;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+    .toc-bar a:hover { background: #266FDC; color: #ffffff; }
+
+    .section-card {
+      background: #ffffff;
+      border: 1px solid #D6DCE8;
+      border-radius: 8px;
+      padding: 26px 28px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      scroll-margin-top: 64px;
+    }
+    .section-card h2 {
+      color: #3D4D74;
+      font-size: 22px;
+      margin: 0 0 14px 0;
+      border-bottom: 2px solid #ECF2FF;
+      padding-bottom: 8px;
+    }
+    .section-card h3 {
+      color: #266FDC;
+      font-size: 17.5px;
+      margin: 18px 0 6px 0;
+    }
+    .destacat {
+      background: #ECF2FF;
+      border-left: 4px solid #266FDC;
+      padding: 14px 18px;
+      border-radius: 4px;
+      margin: 14px 0;
+    }
+    .formula-box {
+      background: #1c2536;
+      color: #ffffff;
+      padding: 16px 20px;
+      border-radius: 6px;
+      font-size: 17px;
+      font-weight: 700;
+      text-align: center;
+      margin: 14px 0;
+      letter-spacing: 0.02em;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 14.5px;
+      margin: 14px 0;
+    }
+    table thead th {
+      background: #ECF2FF;
+      color: #202735;
+      font-weight: 700;
+      padding: 9px 10px;
+      border: 1px solid #C1C8D8;
+      text-align: left;
+    }
+    table tbody td {
+      padding: 8px 10px;
+      border: 1px solid #C1C8D8;
+      vertical-align: top;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin: 14px 0;
+    }
+    .mini-box {
+      background: #F8FAFE;
+      border: 1px solid #D6E2FA;
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+    .mini-box strong { color: #3D4D74; display: block; margin-bottom: 4px; }
+    .btn-link {
+      display: inline-block;
+      background: #266FDC;
+      color: #ffffff !important;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 9px 16px;
+      border-radius: 4px;
+      margin-top: 8px;
+    }
+    .btn-link:hover { background: #076DF0; }
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: #667085;
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid #D6DCE8;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Navegació principal">
+  <div class="topbar-inner">
+    <a href="../index.html" style="color:#fff; font-weight:700;">🏛️ Projecte IPO I · IOC</a>
+    <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+      <a href="index.html" style="color:#fff; text-decoration:underline;">📘 Part I · Marc Pedagògic</a>
+      <a href="../part2/index.html">🛠️ Part II · Desenvolupament Curricular</a>
+      <a href="../part2/verificate.html" class="badge-verificate">🔍 VERIFICA.TE</a>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+
+  <header class="capcalera-ioc">
+    <div class="capcalera-ioc-logo">
+      <p class="ioc-logo-text">IOC</p>
+      <p class="ioc-logo-subtext">Institut Obert de Catalunya</p>
+    </div>
+    <div class="capcalera-ioc-text">
+      <h1>Part I · Marc Pedagògic i Institucional</h1>
+      <p>Fonamentació normativa, psicopedagògica, inclusiva i organitzativa del projecte d'IPO I</p>
+    </div>
+  </header>
+
+  <nav class="toc-bar" aria-label="Índex d'apartats de la Part I">
+    <strong>Salta a:</strong>
+    <a href="#ap1">1. Contextualització</a>
+    <a href="#ap2">2. Model IOC</a>
+    <a href="#ap3">3. Fonaments</a>
+    <a href="#ap4">4. Avaluació</a>
+    <a href="#ap5">5. Inclusió i DUA</a>
+    <a href="#ap6">6. IA i VERIFICA.TE</a>
+    <a href="#ap7">7. Coordinació</a>
+    <a href="#ap8">8. Seguiment ADA</a>
+    <a href="#ap9">9. Aula Moodle</a>
+  </nav>
+
+  <!-- 1. INTRODUCCIÓ I CONTEXTUALITZACIÓ -->
+  <section class="section-card" id="ap1">
+    <h2>1. Introducció i contextualització</h2>
+    <h3>1.1. Justificació del projecte</h3>
+    <p>Aquest projecte presenta una proposta didàctica integral per al mòdul d'<strong>Itinerari Personal per a l'Ocupabilitat I (IPO I)</strong> del CFGM d'Instal·lacions Elèctriques i Automàtiques a l'Institut Obert de Catalunya (IOC). Neix de l'experiència docent en l'especialitat de Formació i Orientació Laboral (505) i de la tasca exercida prèviament al mateix IOC, superant la simple digitalització de PDFs per construir un ecosistema d'aprenentatge interactiu.</p>
+
+    <h3>1.2. Encaix amb el PEC i la PGA 2026-2027</h3>
+    <p>El Projecte Educatiu de Centre (PEC) defineix l'IOC com un centre públic «integrador, innovador i de qualitat, arrelat a Catalunya». La proposta desplega directament dos eixos de la Programació General Anual (PGA) 2026-2027:</p>
+    <ul>
+      <li><strong>Objectiu Estratègic 1 (Innovació tecnopedagògica i IA):</strong> Integració ètica, crítica i transparent de la IA generativa mitjançant la campanya institucional pròpia <em>VERIFICA.TE</em>.</li>
+      <li><strong>Objectiu Estratègic 3 (Convivència digital positiva, inclusió i equitat):</strong> Compliment de les pautes WCAG 2.1 AA, Disseny Universal per a l'Aprenentatge (DUA), programari lliure i coordinació a través de l'aplicació NESE.</li>
+    </ul>
+
+    <h3>1.3. Singularitats de l'FP a distància</h3>
+    <p>L'alumnat adult de l'IOC presenta una elevada heterogeneïtat de perfils i compagina els estudis amb responsabilitats laborals i familiars. Per evitar l'abandonament inicial, el disseny estableix fites periòdiques clares i garanteix una retroacció qualitativa ràpida.</p>
+  </section>
+
+  <!-- 2. MODEL D'EDUCACIÓ A DISTÀNCIA DE L'IOC -->
+  <section class="section-card" id="ap2">
+    <h2>2. El model d'educació a distància de l'IOC</h2>
+    <p>Regulat com a centre singular pel <strong>Decret 57/2020, de 19 de maig</strong>, el model pedagògic de l'IOC (PEC i NOFC apartat 3.5) se sosté sobre tres pilars que aquest projecte tradueix en decisions operatives al Campus Moodle:</p>
+    <div class="grid-3">
+      <div class="mini-box">
+        <strong>1. Flexibilitat temporal i espacial</strong>
+        Treball asíncron des de qualsevol dispositiu. Els formularis de les EAC incorporen autoguardat local (<code>localStorage</code>) per avançar a estones curtes sense perdre informació.
+      </div>
+      <div class="mini-box">
+        <strong>2. Acompanyament tutorial continuat</strong>
+        Doble xarxa de suport: tutor/a de cicle (orientació global i gestió NESE) i docent d'aula (resposta en menys de 24-48 h i retroacció individualitzada).
+      </div>
+      <div class="mini-box">
+        <strong>3. Aprenentatge actiu i competencial</strong>
+        Escenaris reals del sector elèctric (ofertes reals, investigació d'accidents amb arbre de causes, nòmines i convenis col·lectius).
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. FONAMENTS PEDAGÒGICS -->
+  <section class="section-card" id="ap3">
+    <h2>3. Fonaments pedagògics</h2>
+    <ul>
+      <li><strong>Concepció constructivista (Coll et al., 1993):</strong> Activació de l'experiència laboral prèvia de l'alumnat que ja treballa com a oficial o ajudant elèctric, contextualització en baixa tensió/fotovoltaica/domòtica i creació d'un portafolis professional transferible.</li>
+      <li><strong>Zona de Desenvolupament Proximal — ZDP (Vygotsky, 1979):</strong> Cada EAC desplega <strong>quatre nivells progressius de bastida</strong>: (1) Guia HTML detallada; (2) Qüestionari autocorrectiu de 30 preguntes amb feedback immediat; (3) Activitat Principal guiada amb exportació JSON; i (4) Retroacció docent en tres blocs (punts forts, millora i transferència).</li>
+      <li><strong>Aproximació sistèmica (Watzlawick et al.; De Rosnay):</strong> Coherència global entre les tres EAC (<em>Totalitat</em>), múltiples vies expressives DUA (<em>Equifinalitat</em>) i dispositius metacognitius d'autoregulació com <em>VERIFICA.TE</em> (<em>Autoregulació</em>).</li>
+    </ul>
+  </section>
+
+  <!-- 4. AVALUACIÓ DELS APRENENTATGES -->
+  <section class="section-card" id="ap4">
+    <h2>4. L'avaluació dels aprenentatges a l'IOC</h2>
+    <p>D'acord amb les <strong>CCCFPLOE (v.8)</strong>, les <strong>NOFC (v.22)</strong>, la LO 3/2022 i el RD 659/2023, el mòdul d'IPO I (99 hores, 5 Resultats d'Aprenentatge) s'avalua mitjançant Avaluació Contínua (AC) i una Prova d'Avaluació Final presencial obligatòria (PAF), sense EAF ni jornades tècniques:</p>
+    <div class="formula-box">
+      QF = 40% AC + 60% PAF &nbsp;|&nbsp; Requisit: PAF ≥ 5,00 per ponderar
+    </div>
+    <p>En aquest projecte es despleguen <strong>25 hores lectives</strong> (25,25 % del mòdul) distribuïdes en tres activitats: <strong>EAC 1 (9 h)</strong>, <strong>EAC 2 (8 h)</strong> i <strong>EAC 3 (8 h)</strong>. <a href="../part2/index.html">Veure el detall a la Part II →</a></p>
+  </section>
+
+  <!-- 5. ATENCIÓ EDUCATIVA I INCLUSIÓ DIGITAL -->
+  <section class="section-card" id="ap5">
+    <h2>5. L'atenció educativa i la inclusió digital</h2>
+    <p>Coordinació confidencial a través de l'aplicació corporativa <strong>NESE (nese.ioc.cat)</strong> entre tutor/a de cicle, docent d'aula i equip d'orientació (adaptacions PAF: ampliació del 25 % de temps, tipografia ampliada, lectura assistida). Aplicació nativa del <strong>DUA (CAST, 2018)</strong> i kit d'eines gratuïtes (NVDA, Read Aloud, OpenDyslexic, Google Drive OCR):</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Barrera detectada</th>
+          <th>Principi DUA</th>
+          <th>Adaptació concreta</th>
+          <th>Eina / Recurs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PDF sense text seleccionable</td>
+          <td>Representació múltiple</td>
+          <td>Processament OCR i versió HTML accessible</td>
+          <td>Google Drive OCR / HTML</td>
+        </tr>
+        <tr>
+          <td>Contrast insuficient</td>
+          <td>Representació múltiple</td>
+          <td>Paleta corporativa d'alt contrast (WCAG AA)</td>
+          <td>CSS IOC / Canva accessible</td>
+        </tr>
+        <tr>
+          <td>Dificultats lectores / dislèxia</td>
+          <td>Representació múltiple</td>
+          <td>Resums estructurats i lectura en veu alta</td>
+          <td>Read Aloud / OpenDyslexic</td>
+        </tr>
+        <tr>
+          <td>Navegació no accessible</td>
+          <td>Acció i expressió múltiple</td>
+          <td>Etiquetatge semàntic HTML5, ARIA i teclat</td>
+          <td>NVDA (lector de pantalla)</td>
+        </tr>
+        <tr>
+          <td>Instruccions complexes</td>
+          <td>Acció i expressió múltiple</td>
+          <td>Guies pas a pas, autoguardat local i JSON</td>
+          <td>HTML interactiu + localStorage</td>
+        </tr>
+        <tr>
+          <td>Bretxa digital / mobilitat</td>
+          <td>Compromís múltiple</td>
+          <td>Disseny responsive mòbil i descarregable</td>
+          <td>HTML responsive / PDF</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 6. ÚS DE LES TECNOLOGIES DIGITALS I LA IA -->
+  <section class="section-card" id="ap6">
+    <h2>6. L'ús de les tecnologies digitals i la intel·ligència artificial</h2>
+    <p>En desplegament de l'OE1 de la PGA 2026-2027 i de les orientacions de la UNESCO (2025) i del Departament d'Educació (2025), el projecte integra la IA com a objecte d'alfabetització crítica mitjançant la campanya pròpia <strong>«VERIFICA.TE»</strong>:</p>
+    <div class="destacat">
+      <strong>Protocol de verificació crítica en 8 passos (VERIFICA.TE):</strong>
+      <ol style="margin-bottom:0;">
+        <li><strong>Ves a la font original</strong> (BOE, DOGC, Estatut dels Treballadors, INSST).</li>
+        <li><strong>Examina les evidències</strong> i les dades concretes.</li>
+        <li><strong>Rastreja la data</strong> de vigència normativa.</li>
+        <li><strong>Investiga la intenció</strong> o el biaix del missatge.</li>
+        <li><strong>Fes cross-check</strong> contrastant dues fonts oficials.</li>
+        <li><strong>Identifica els teus propis biaixos</strong> de confirmació.</li>
+        <li><strong>Contrasta el resultat</strong> amb el teu criteri tècnic.</li>
+        <li><strong>Actua amb responsabilitat</strong> i cita les eines emprades (pregunta P10 de cada EAC).</li>
+      </ol>
+      <a href="../part2/verificate.html" class="btn-link">🔍 Obrir presentació interactiva VERIFICA.TE</a>
+    </div>
+    <p>Aquest protocol culmina a l'<strong>EAC 3 (P10)</strong>, on l'estudiant provoca deliberadament una resposta errònia o esbiaixada d'un model d'IA sobre condicions laborals i la refuta jurídicament amb l'Estatut dels Treballadors.</p>
+  </section>
+
+  <!-- 7. COORDINACIÓ DOCENT -->
+  <section class="section-card" id="ap7">
+    <h2>7. Coordinació docent i treball col·laboratiu</h2>
+    <ul>
+      <li><strong>Coordinació de professorat col·laborador (art. 23 Decret 57/2020):</strong> Quatre fites semestrals (acollida inicial, calibració prèvia a cada EAC, seguiment continuat i reunió de tancament) recolzades en rúbriques analítiques compartides i el visor web de fitxers JSON.</li>
+      <li><strong>Coordinació amb tutories i estada a l'empresa (FCT):</strong> Connexió directa dels aprenentatges preventius (RA2) i d'identitat professional (RA1/RA4) amb la preparació per a l'empresa i el seguiment de l'alumnat NESE.</li>
+      <li><strong>Gestió d'incidències:</strong> Suport immediat a l'aula per part del professorat coordinador davant qualsevol substitució o incidència tècnica per preservar els terminis de qualificació de les NOFC.</li>
+    </ul>
+  </section>
+
+  <!-- 8. SEGUIMENT BASAT EN EVIDÈNCIES -->
+  <section class="section-card" id="ap8">
+    <h2>8. Seguiment de l'alumnat basat en evidències</h2>
+    <div class="grid-3">
+      <div class="mini-box" style="border-top: 4px solid #1CC460;">
+        <strong>🟢 Alerta verda (Dia 10)</strong>
+        Sense connexió inicial a Moodle: missatge personalitzat de benvinguda i recordatori de les primeres fites.
+      </div>
+      <div class="mini-box" style="border-top: 4px solid #F88923;">
+        <strong>🟠 Alerta ambre (No-lliurament EAC 1)</strong>
+        Contacte directe per detectar dificultats tècniques o laborals i coordinació amb el tutor/a del cicle.
+      </div>
+      <div class="mini-box" style="border-top: 4px solid #F85449;">
+        <strong>🔴 Alerta vermella (2 no-lliuraments)</strong>
+        Orientació individualitzada per reajustar l'itinerari o preparar de forma realista la convocatòria PAF.
+      </div>
+    </div>
+    <p><strong>Learning analytics (Projecte ADA):</strong> L'anàlisi agregada dels qüestionaris d'autoavaluació i dels criteris de les rúbriques JSON permet detectar punts crítics d'aprenentatge (com les bases de cotització o l'arbre de causes) per reforçar les bastides didàctiques en el semestre següent.</p>
+  </section>
+
+  <!-- 9. ORGANITZACIÓ DE L'AULA VIRTUAL -->
+  <section class="section-card" id="ap9">
+    <h2>9. Organització de l'aula virtual IOC</h2>
+    <p>L'aula Moodle s'estructura en un <strong>Bloc Zero</strong> d'informació general (Pla de treball, calendari visual, avisos, dubtes, guia NESE/accessibilitat i <em>VERIFICA.TE</em>) seguit dels tres blocs didàctics de les EAC amb barra de progrés activa, integrant en cadascun les 4 eines interactives allotjades a la <a href="../part2/index.html">Part II d'aquest ecosistema web →</a>.</p>
+  </section>
+
+  <footer class="footer">
+    Institut Obert de Catalunya (IOC) · Projecte IPO I · CFGM Instal·lacions Elèctriques i Automàtiques · Curs 2026-2027
+  </footer>
+
+</main>
+</body>
+</html>
